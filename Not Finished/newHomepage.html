@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefon Tamiri</title>
+    <link rel="stylesheet" href="newHomepage.css">
+    <meta name="description"
+        content="Yerinde ve garantili cep telefonu tamiri hizmeti! Uygun fiyatlarla ekran, batarya değişimi ve teknik servis çözümleri. Hızlı ve güvenilir tamir için hemen ulaşın.">
+    <link rel="canonical" href="https://telefon-tamiri-seng209-211.com.tr/">
+    <meta property="og:title" content="Uygun Fiyatlarla Akıllı Cihaz Tamir Hizmeti Sizlerle">
+    <meta property="og:description" content=" Hızlı ve güvenilir tamir için hemen ulaşın.">
+    <meta property="og:url" content="https://telefon-tamiri-seng209-211.com.tr/">
+    <!-- URL LİNKİNİ DAHA GÜZEL BİR ŞEY YAP PLS-->
+
+</head>
+
+<body class="main page-loading animation">
+    <!-- Header -->
+    <header>
+        <!-- Logo -->
+        <div class="logo">
+            <a href="https://telefon-tamiri-seng209-211.com.tr/">
+                <img src="https://img.pikbest.com/origin/09/23/99/24DpIkbEsTkVb.png!sw800" alt="Telefon Tamiri"
+                    width="150">
+            </a>
+        </div>
+
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="https://telefon-tamiri-seng209-211.com.tr/talep-olustur">Talep Oluştur</a></li>
+                <li><a href="https://telefon-tamiri-seng209-211.com.tr/talep-sorgula">Talep Sorgula</a></li>
+                <li><a href="https://telefon-tamiri-seng209-211.com.tr/aksesuar-ve-ek-ürünler">Aksesuar ve Ek
+                        Ürünler</a></li>
+                <li class="dropdown">
+                    <a href="">Hakkımızda</a>
+                    <div class="dropdown-content">
+                        <a href="https://telefon-tamiri-seng209-211.com.tr/sikca-sorulan-sorular">SSS</a>
+                        <a href="https://telefon-tamiri-seng209-211.com.tr/medya-forograf">Medya ve Fotoğraflar</a>
+                        <!-- URL ADRESİ YAZDIĞIN YERLEİ SONRADAN DEĞİŞTİRMEN GEREKECEK -->
+                        <a href="https://telefon-tamiri-seng209-211.com.tr/yorumlar">Yorumlar</a>
+                        <a href="https://telefon-tamiri-seng209-211.com.tr/iletisim">İletişim</a>
+                    </div>
+
+
+            </ul>
+        </nav>
+
+        <!-- Login Button -->
+        <div class="auth-buttons">
+            <a href="https://telefon-tamiri-seng209-211.com.tr/giris-yap" class="giris-btn">Giriş Yap</a>
+        </div>
+    </header>
+
+    <!--Kampanyalar -->
+    <!--SORUNLAR: 1)Resimlerin yerleştirilmesinde sorun var 2)Header kısmı kampanyaların üst kısmını biraz kapatıyor 3)Ok tuşları sanki ilk fotonun üstüne yapıştırılmış gibi ve işlevsiz Script sorunu-->
+    <main>
+        <section class="carousel-item">
+            <div class="carousel">
+                <img src="https://www.bellona.com.tr/class/INNOVAEditor/assets/sayfalar/Kampanyalar/Aralik/kapak-desktop-.jpg"
+                    alt="Resim 1">
+                <img src="https://st3.depositphotos.com/6050492/12652/v/450/depositphotos_126529018-stock-illustration-sale-sign-banner-poster.jpg"
+                    alt="Resim 2">
+                <img src="https://www.shutterstock.com/image-vector/vibrant-illustration-redandwhite-megaphone-sound-260nw-2523166485.jpg"
+                    alt="Resim 3">
+                <img src="https://www.peple.com.tr/wp-content/uploads/2021/12/cekilis-kampanyasi-993_520.png"
+                    alt="Resim 4">
+            </div>
+            <div class="nav-buttons">
+                <button id="prev">‹</button>
+                <button id="next">›</button>
+            </div>
+        </section>
+        <div class="view-all">
+            <a href="https://telefon-tamiri-seng209-211.com.tr/kampanyalar">Tümünü Gör</a>
+        </div>
+    </main>
+
+
+    <script>
+        const carousel = document.querySelector('.carousel');
+        const images = document.querySelectorAll('.carousel img');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            const carouselWidth = document.querySelector('.carousel-container').offsetWidth;
+            carousel.style.transform = `translateX(-${currentIndex * carouselWidth}px)`;
+        }
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateCarousel();
+        });
+
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateCarousel();
+        });
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateCarousel();
+        }, 7000);
+
+        window.addEventListener('resize', updateCarousel);
+    </script>
+
+    <!--Telefonunuz mu Bozuldu?-->
+
+    <section id="telefonunuz">
+        <div class="content">
+            <h1>Telefonunuz mu Bozuldu?</h1>
+            <h2><b>Biz Hallederiz!</b></h2>
+            <h2><b>Cihazınızı Kapınızdan Alıyor,</b></h2>
+            <h2><b>Onarıyor ve </b></h2>
+            <h2><b>Geri Teslim Ediyoruz.</b></h2>
+            <button id="talep-olustur">Talep Oluştur</button>
+        </div>
+        <div class="image-container">
+            <img src="https://d1zbm1w1topvui.cloudfront.net/media/iPhone_16_Pro_Desert_Titanium_Pure_Back_iPhone_16_Pro_Desert_Titanium_Pure_Front_2-up_Screen__USEN.png"
+                alt="Telefon Görseli">
+        </div>
+    </section>
+
+    <section id="neden">
+        <h2 class="neden-baslik">HİZMETLERİMİZ</h2>
+        <p class="neden-aciklama">
+            Tüm hizmetlerimizin müşterilerimiz için kanıtlanabilir fayda sağladığından emin olmaktan gurur
+            duyuyoruz.<br>
+            Bu nedenle aşağıdaki değerler bizim için önemlidir.
+        </p>
+        <div class="neden-kartlar">
+            <!-- Kart 1 -->
+            <div class="kart">
+                <h3>AYNI GÜN TAMİR FIRSATI</h3>
+                <p>Cihazınız bozulduğunda keyfiniz kaçmasın, bulunduğunuz yerde aynı gün içerisinde tamir fırsatını
+                    yakalayın.</p>
+            </div>
+            <!-- Kart 2 -->
+            <div class="kart">
+                <h3>EN UYGUN FİYAT GARANTİSİ</h3>
+                <p>Arıza tespit edilip en uygun fiyat sizin onayınıza sunulur.</p>
+            </div>
+            <!-- Kart 3 -->
+            <div class="kart">
+                <h3>ANLIK BİLGİLENDİRME</h3>
+                <p>Kullanıcı dostu uygulamamızla tüm süreçlerde anında bilgi paylaşımı.</p>
+            </div>
+            <!-- Kart 4 -->
+            <div class="kart">
+                <h3>PROFESYONEL EKİP</h3>
+                <p>Mesleki yeterlilik belgeli ve alanında uzman kadro.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tamir Hizmetleri -->
+    <!--1)HER KUTUNUN KENDİNE ÖZEL RESMİ OLMALI 2)1 TUR TÜM ETİKETLER DÖNDÜKTEN SONRA BİR DAHA TEKRAR DÖNMÜYORLAR SCRİPT SORUNU DÜZELT -->
+    <section class="tamir-hizmetleri">
+        <h2>TAMİR HİZMETLERİMİZ</h2>
+        <div class="carousel">
+            <div class="carousel-track">
+                <!-- 22 Hizmet İçin Template -->
+                <div class="service-item">Ekran Değişimi</div>
+                <div class="service-item">Batarya Değişimi</div>
+                <div class="service-item">Şarj Soketi Değişimi</div>
+                <div class="service-item">Hafıza Yükseltme</div>
+                <div class="service-item">Arka Cam Değişimi</div>
+                <div class="service-item">Ön Kamera Değişimi</div>
+                <div class="service-item">Arka Kamera Değişimi</div>
+                <div class="service-item">Hoparlör Değişimi</div>
+                <div class="service-item">Mikrofon Tamiri</div>
+                <div class="service-item">Wi-Fi Tamiri</div>
+                <div class="service-item">Bluetooth Tamiri</div>
+                <div class="service-item">Home Tuşu Değişimi</div>
+                <div class="service-item">Yan Tuş Değişimi</div>
+                <div class="service-item">Su Hasarı Tamiri</div>
+                <div class="service-item">Ana Kart Tamiri</div>
+                <div class="service-item">Sim Kart Yuvası Tamiri</div>
+                <div class="service-item">Arka Kapak Değişimi</div>
+                <div class="service-item">USB Girişi Tamiri</div>
+                <div class="service-item">Şarj Portu Tamiri</div>
+                <div class="service-item">Kulaklık Girişi Tamiri</div>
+                <div class="service-item">Titreşim Motoru Değişimi</div>
+                <div class="service-item">Sensör Tamiri</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Otomatik kayan carousel
+        const track = document.querySelector('.carousel-track');
+        const services = document.querySelectorAll('.service-item');
+        let currentIndex1 = 0;
+
+        function moveCarousel() {
+            track.style.transform = `translateX(-${currentIndex1 * 100}%)`;
+            currentIndex1 = (currentIndex1 + 1) % services.length;
+        }
+
+        setInterval(moveCarousel, 6000); // Her 3 saniyede bir kaydır
+    </script>
+
+    <!-- Hizmet Verdiğimiz Markalar --> <!--SORUN: Logolar tam ortalanmıyor hepsi aynı hizzada olmalı.-->
+    <section class="hizmet-marka">
+        <h2>HİZMET VERDİĞİMİZ MARKALAR</h2>
+        <div class="markalar">
+            <div class="marka">
+                <img src="https://cdn-icons-png.flaticon.com/256/0/747.png" alt="Apple">
+            </div>
+            <div class="marka">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/1000px-Samsung_Logo.svg.png"
+                    alt="Samsung">
+            </div>
+            <div class="marka">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Xiaomi_logo_%282021-%29.svg/800px-Xiaomi_logo_%282021-%29.svg.png"
+                    alt="Xiaomi">
+            </div>
+            <div class="marka">
+                <img src="https://logos-world.net/wp-content/uploads/2020/05/Huawei-Logo-2006.png" alt="Huawei">
+            </div>
+            <div class="marka">
+                <img src="https://i.pinimg.com/originals/9f/c2/60/9fc2604b5e46b15575f807ffacf7c95c.png" alt="Oppo">
+            </div>
+        </div>
+    </section>
+
+    <!-- Ana İçerik -->
+    <div class="main-container">
+        <h1 class="main-title">3 ADIMDA TELEFON TAMİRİ</h1>
+        <p class="main-description">Cep Kurye sayesinde sadece 3 adımda telefonunuzun tamir süreci biter.</p>
+        <div class="steps">
+            <div class="step step-1">
+                <span class="step-number">1</span>
+                <p class="step-text">Talep oluşturun, kuryemiz telefonunuzu teslim alsın!</p>
+            </div>
+            <div class="step step-2">
+                <span class="step-number">2</span>
+                <p class="step-text">Uzman ekibimiz incelesin. Tamir işlemini yapsın</p>
+            </div>
+            <div class="step step-3">
+                <span class="step-number">3</span>
+                <p class="step-text">Mükemmelleşen telefonunuz size teslim edilsin!</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Sol Sütun -->
+            <div class="footer-column">
+                <h3>Telefon Tamiri</h3>
+                <ul>
+                    <li><a href="https://telefon-tamiri-seng209-211.com.tr/talep-olustur">Tamir Talebi Oluştur</a></li>
+                    <li><a href="https://telefon-tamiri-seng209-211.com.tr/talep-sorgula">Tamir Talebi Sorgula</a></li>
+                    <li><a href="https://telefon-tamiri-seng209-211.com.tr/aksesuar-ve-ek-ürünler">Aksesuarlar ve Ek
+                            Ürünler</a></li>
+                    <li>Hakkımızda</li>
+                    <ul>
+                        <li><a href="https://telefon-tamiri-seng209-211.com.tr/sikca-sorulan-sorular">SSS</a></li>
+                        <li><a href="https://telefon-tamiri-seng209-211.com.tr/medya-ve-fotograf">Medya ve
+                                Fotoğraflar</a></li>
+                        <li><a href="https://telefon-tamiri-seng209-211.com.tr/yorumlar">Yorumlar</a></li>
+                        <li><a href="https://telefon-tamiri-seng209-211.com.tr/iletisim">İletişim</a></li>
+                    </ul>
+                </ul>
+            </div>
+            <!-- Orta Sütun -->
+            <div class="footer-column">
+                <h3>İletişim</h3>
+                <p>Adres:Çankaya/Ankara</p>
+                <p>Email: <a href="mailto:destek@gmail.com">destek@gmail.com</a></p>
+                <p>Telefon: <a href="tel:+905XXXXXXXXX">0 (XXX) XXX XX XX</a></p>
+                <p>Çalışma Saatleri: 09:00 - 19:30</p>
+            </div>
+            <!-- Sağ Sütun -->
+            <div class="footer-column">
+                <h3>Sosyal Medya</h3>
+                <a href="https://www.instagram.com/"><img src="https://cdn-icons-png.flaticon.com/256/717/717392.png"
+                        alt="Instagram"></a>
+                <a href="https://x.com/home"><img
+                        src="https://logoeps.com/wp-content/uploads/2014/01/23931-twitter-logo-icon-vector-icon-vector-eps.png"
+                        alt="Twitter"></a>
+                <a href="https://www.whatsapp.com/"><img
+                        src="https://logoeps.com/wp-content/uploads/2014/03/33447-whatsapp-logo-icon-vector-icon-vector-eps.png"
+                        alt="WhatsApp"></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 - Tüm Hakları Saklıdır. Telefon Tamiri</p>
+        </div>
+    </footer>
+
+    <!-- Mesajlaşma Ikonu -->
+    <div class="message-icon">
+        <a href="https://tawk.to" target="_blank">
+            <img src="https://cdn.pixabay.com/photo/2016/06/13/17/30/mail-1454733_640.png"
+                alt="Mesajlaşma İkonu">
+        </a>
+    </div>
+
+
+</body>
