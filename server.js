@@ -1,13 +1,35 @@
-const express = require('express'); // Express.js modülünü dahil ediyoruz
-const app = express(); // Express uygulamasını başlatıyoruz
-const port = process.env.PORT || 3000; // Sunucu portunu belirliyoruz
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const path = require('path');
+const app = express();
 
-// Temel bir GET rotası
-app.get('/', (req, res) => {
-    res.send('Merhaba! Bu benim web sitemin backend\'i.'); // Ana sayfada basit bir mesaj döndürüyoruz
+// MongoDB Bağlantısı
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('MongoDB bağlantısı başarılı'))
+    .catch(err => console.error('MongoDB bağlantı hatası:', err));
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Rotalar
+app.use('/requests', require('./routes/request'));
+
+// Hataları Yönlendirme ve Hata İşleme Orta Katmanı
+app.use((req, res, next) => {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
-// Sunucuyu belirtilen portta dinlemeye başlıyoruz
-app.listen(port, () => {
-    console.log(`Sunucu http://localhost:${port} adresinde çalışıyor.`);
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.json({
+        message: err.message,
+        error: process.env.NODE_ENV === 'development' ? err : {}
+    });
 });
+
+module.exports = app;
