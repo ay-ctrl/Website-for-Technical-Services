@@ -1,18 +1,3 @@
-const mongoose = require('mongoose');
-
-const phoneModelSchema = new mongoose.Schema({
-    brand: { type: String, required: true }, // Telefon markası
-    model: { type: String, required: true }, // Telefon modeli
-}, {
-    versionKey: false,
-    timestamps: {
-        createdAt: "created_at",
-        updatedAt: "updated_at"
-    }
-});
-
-module.exports = mongoose.model('PhoneModel', phoneModelSchema);
-
 // to load default values
 /*const mongoose = require('mongoose');
 const PhoneModel = require('./phoneModelSchema');
@@ -50,4 +35,3 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     })
     .catch(err => console.error('Veritabanına bağlanılamadı:', err));
 */
-

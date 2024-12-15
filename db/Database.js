@@ -16,6 +16,7 @@ class Database{
         let db= await mongoose.connect(options.CONNECTION_STRING);
 
         this.mongoConnection=db;
+        console.log('Veritabanına başarıyla bağlanıldı');
     }
 
 }

@@ -1,17 +1,3 @@
-const mongoose = require('mongoose');
-
-const issueSchema = new mongoose.Schema({
-    name: { type: String, required: true }
-}, {
-    versionKey: false,
-    timestamps: {
-        createdAt: "created_at",
-        updatedAt: "updated_at"
-    }
-});
-
-module.exports = mongoose.model('Issue', issueSchema);
-
 // when uploading default values
 
 /*const Issue = require('./issuesModel');
