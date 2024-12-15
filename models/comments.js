@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
     text: { type: String, required: true }, // Yorumun kendisi
-    name: { type: String, required: true }, // Yorum yapan kişinin adı
+    name: { type: String, required: true , default: "no-name"}, // Yorum yapan kişinin adı
     timestamp: { type: Date, default: Date.now } // Yorumun zamanı (varsayılan olarak şu anki zaman)
 }, {
     versionKey: false,
@@ -12,7 +12,8 @@ const commentSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Comment', commentSchema);
+const Comment= mongoose.model('Comment', commentSchema);
+module.exports=Comment;
 
 // yayınlanmadan önce yorumun içeriği değerlendirilmeli
 
