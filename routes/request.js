@@ -1,14 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const requestController = require('../controllers/requestController.js');
 
-// Yeni talep oluşturma
-router.post('/create', requestController.createRequest);
-
-// Tüm talepleri alma
-router.get('/', requestController.getAllRequests);
-
-// ID ile talep alma
-router.get('/:id', requestController.getRequestById);
+// /requests adresine gelen POST isteği
+router.post('/', (req, res) => {
+    console.log('POST isteği alındı:', req.body);
+    res.status(200).json({ message: 'İstek başarıyla alındı!' });
+});
 
 module.exports = router;

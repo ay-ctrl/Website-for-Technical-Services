@@ -2,7 +2,17 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const cors = require('cors');
 const app = express();
+
+// CORS ayarları
+const corsOptions = {
+    origin: 'http://127.0.0.1:5500', // Frontend adresi
+    methods: ['GET', 'POST'], // İzin verilen HTTP metodları
+    allowedHeaders: ['Content-Type'], // İzin verilen başlıklar
+};
+
+app.use(cors(corsOptions)); // CORS'u etkinleştir
 
 // MongoDB Bağlantısı
 mongoose.connect(process.env.MONGO_URI)
