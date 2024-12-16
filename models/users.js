@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
 });
 
 // Şifreyi kaydetmeden önce hashleme
+/*
 userSchema.pre('save', async function(next) {
     if (this.isModified('password') || this.isNew) {
         try {
@@ -25,6 +26,7 @@ userSchema.pre('save', async function(next) {
 userSchema.methods.comparePassword = async function(candidatePassword) {
     return bcrypt.compare(candidatePassword, this.password);
 };
+*/
 
 module.exports = mongoose.model('User', userSchema);
 
