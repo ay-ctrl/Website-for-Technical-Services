@@ -8,7 +8,7 @@ const repairRequestSchema = new mongoose.Schema({
     sorunlar: { type: [String], required: true }, // Çoklu seçim için bir dizi
     imei: { type: String },
     kilit: { type: String },
-    yedekCihaz: { type: String }, // "evet" veya "hayır"
+    yedekCihaz: { type: String , default: "hayır"}, // "evet" veya "hayır"
     queryNum: { type: Number},
     state: {type: String, default: "Talep Alındı"},
     price: {type:String},
