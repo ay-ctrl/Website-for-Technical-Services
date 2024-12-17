@@ -30,6 +30,9 @@ app.post('/api/repairRequests', async (req, res) => {
     }
 });
 
+
+// this is for comment sending requests but wont be used at first version
+/* 
 app.post("/api/comment", async (req, res) => {
     const userIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
@@ -48,6 +51,7 @@ app.post("/api/comment", async (req, res) => {
         res.status(400).send({ message: 'Yorum gönderilemedi: ' + error.message });
     }
 });
+*/
 
 
 

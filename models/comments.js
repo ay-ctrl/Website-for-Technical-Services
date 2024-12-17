@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+
+// bu şema ilk sürümde kullanılmayacak
 const commentSchema = new mongoose.Schema({
     comment: { type: String, required: true }, // Yorumun kendisi
     name: { type: String, required: true , default: "isimsiz"}, // Yorum yapan kişinin adı
