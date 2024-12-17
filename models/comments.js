@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
-    text: { type: String, required: true }, // Yorumun kendisi
-    name: { type: String, required: true , default: "no-name"}, // Yorum yapan kişinin adı
+    comment: { type: String, required: true }, // Yorumun kendisi
+    name: { type: String, required: true , default: "isimsiz"}, // Yorum yapan kişinin adı
+    ip: { type: String, required: true },
     timestamp: { type: Date, default: Date.now } // Yorumun zamanı (varsayılan olarak şu anki zaman)
 }, {
     versionKey: false,
