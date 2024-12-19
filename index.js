@@ -191,6 +191,46 @@ app.post('/upload-campaign', upload.single('dosya'), async (req, res) => {
       res.status(500).json({ success: false, message: 'Bir hata oluştu!' });
     }
   });
+
+  app.post('/upload-media', upload.single('dosya'), async (req, res) => {
+    try {
+      // Google Drive'a dosya yükleme
+      const fileMetadata = {
+        name: req.file.filename,
+        parents: ['1O_Mm7uLWa1ThVlGNzibP7P0hjiSG0JrG']  // Dosyanın yükleneceği klasörün ID'si
+      };
+  
+      const media = {
+        mimeType: req.file.mimetype,
+        body: fs.createReadStream(req.file.path)
+      };
+  
+      const driveResponse = await drive.files.create({
+        resource: fileMetadata,
+        media: media,
+        fields: 'id, webViewLink'
+      });
+  
+      // Dosya başarıyla yüklendiyse
+      const fileUrl = driveResponse.data.webViewLink;
+  
+      // MongoDB'ye kaydetme
+      const newCampaign = new Campaign({
+        description: req.body.aciklama,
+        imageURL: fileUrl
+      });
+  
+      await newCampaign.save();
+  
+      // Geçici dosyayı sil
+      fs.unlinkSync(req.file.path);
+  
+      res.json({ success: true, message: 'Medya başarıyla eklendi!' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: 'Bir hata oluştu!' });
+    }
+  });
   
 
 
