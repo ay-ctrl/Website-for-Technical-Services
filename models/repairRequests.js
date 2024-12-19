@@ -12,8 +12,13 @@ const repairRequestSchema = new mongoose.Schema({
     queryNum: { type: Number},
     state: {type: String, default: "Talep Alındı"},
     price: {type:String},
+    phoneTakenDate: {type: Date, default: undefined},
+    processMade: {type: String},
+    repairDescription: {type:String},
     createdAt: { type: Date, default: Date.now }
 });
+
+
 
 repairRequestSchema.pre("save", function (next) {
     // Eğer queryNum zaten ayarlanmışsa yeniden oluşturma
@@ -21,6 +26,9 @@ repairRequestSchema.pre("save", function (next) {
         // 10000 ile 99999 arasında rastgele bir sayı oluştur
         this.queryNum = Math.floor(10000 + Math.random() * 90000);
     }
+    this.phoneTakenDate=null;
+    this.processMade="belirtilmemiş";
+    this.repairDescription="belirtilmemiş";
     next();
 });
 
