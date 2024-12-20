@@ -277,7 +277,7 @@ app.post('/upload-product', upload.single('file'), async (req, res) => {
                     type: 'anyone',
                 },
             });
-            fileUrl = `https://drive.google.com/uc?id=${fileId}`;
+            fileUrl = `https://drive.google.com/thumbnail?id=${fileId}`;
             fs.unlinkSync(filePath); // Geçici dosyayı sil
         }
 
@@ -298,7 +298,26 @@ app.post('/upload-product', upload.single('file'), async (req, res) => {
     }
 });
 
+app.get('/products', async (req, res) => {
+    try {
+        const products = await Product.find();  // Product modelinizin adını buraya yazın
+        res.json(products);  // Ürünleri JSON formatında frontend'e gönder
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
+app.delete('/products/:id', async (req, res) => {
+    try {
+        const productId = req.params.id;
+        await Product.findByIdAndDelete(productId);  // Ürünü sil
+        res.status(200).send("Ürün başarıyla silindi.");
+    } catch (error) {
+        console.error("Error deleting product:", error);
+        res.status(500).send("Ürün silme hatası.");
+    }
+});
 
 
 app.get('/get-requests', async (req, res) => {
@@ -329,6 +348,11 @@ app.get('/get-requests', async (req, res) => {
         res.status(500).json({ error: 'Bir hata oluştu.' });
     }
 });
+
+
+
+
+
 
 // API endpoint for updating repair request
 app.put('/api/update-request/:id', async (req, res) => {
