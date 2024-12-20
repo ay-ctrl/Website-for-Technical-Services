@@ -81,32 +81,24 @@ app.post("/api/comment", async (req, res) => {
 });
 */
 
-
-
-app.post("/api/login", async (req, res) => {
-    const { username, password } = req.body; // Kullanıcı adı ve şifreyi al
+// Login route
+app.post('/api/login', async (req, res) => {
+    const { username, password } = req.body;
 
     try {
-        // Veritabanında kullanıcıyı arıyoruz
-        const user = await User.findOne({ username });
-
-        // Kullanıcı bulunamazsa hata döner
+        const user = await User.authenticate(username, password);
         if (!user) {
-            return res.status(404).json({ message: "Kullanıcı bulunamadı" });
+            return res.status(401).json({ message: 'Kullanıcı adı veya şifre hatalı!' });
         }
 
-        // Veritabanındaki şifreyle gelen şifreyi karşılaştırıyoruz
-        if (user.password === password) {
-            return res.status(200).json({ message: "Giriş başarılı!" }); // Şifre doğruysa başarılı giriş
-        } else {
-            return res.status(401).json({ message: "Yanlış şifre" }); // Şifre yanlışsa hata
-        }
-
+        // Doğrulama başarılı
+        res.json({ message: 'Giriş başarılı!', user });
     } catch (error) {
-        console.error("Hata oluştu:", error);
-        res.status(500).json({ message: "Bir hata oluştu." });
+        console.error('Error during login:', error);
+        res.status(500).json({ message: 'Sunucu hatası' });
     }
 });
+
 
 // Talep sorgulama API
 app.post("/api/repairRequests/search", async (req, res) => {
@@ -474,6 +466,7 @@ app.get('/authorize', (req, res) => {
   
 
 const drive = google.drive({ version: 'v3', auth: oAuth2Client });
+
 
 
 

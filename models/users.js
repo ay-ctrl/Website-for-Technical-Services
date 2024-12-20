@@ -6,27 +6,17 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
 });
 
-// Şifreyi kaydetmeden önce hashleme
-/*
-userSchema.pre('save', async function(next) {
-    if (this.isModified('password') || this.isNew) {
-        try {
-            const salt = await bcrypt.genSalt(10);
-            this.password = await bcrypt.hash(this.password, salt);
-            next();
-        } catch (err) {
-            next(err);
-        }
-    } else {
-        next();
-    }
-});
+// Giriş doğrulama fonksiyonu
+userSchema.statics.authenticate = async function (username, password) {
+    const user = await this.findOne({ username });
+    if (!user) return null; // Kullanıcı bulunamadı
 
-// Şifre doğrulama methodu
-userSchema.methods.comparePassword = async function(candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) return null; // Şifre yanlış
+
+    return user; // Kullanıcı doğrulandı
 };
-*/
 
 module.exports = mongoose.model('User', userSchema);
+
 
