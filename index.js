@@ -9,11 +9,14 @@ const path = require('path');
 const fs = require('fs');
 const readline = require('readline');
 require('dotenv').config();
+app.use(express.urlencoded({ extended: true }));
 
 // Schemas
 const Request = require('./models/repairRequests'); 
 const User=require('./models/users');
 const Campaign=require('./models/campaigns');
+const Product=require('./models/products');
+const Media=require('./models/media');
 
 
 
@@ -215,12 +218,12 @@ app.post('/upload-campaign', upload.single('dosya'), async (req, res) => {
       const fileUrl = driveResponse.data.webViewLink;
   
       // MongoDB'ye kaydetme
-      const newCampaign = new Campaign({
+      const newMedia = new Media({
         description: req.body.aciklama,
         imageURL: fileUrl
       });
   
-      await newCampaign.save();
+      await newMedia.save();
   
       // Geçici dosyayı sil
       fs.unlinkSync(req.file.path);
@@ -232,6 +235,67 @@ app.post('/upload-campaign', upload.single('dosya'), async (req, res) => {
     }
   });
   
+  // Form verilerini ve dosyaları işleme
+app.post('/upload-product', upload.single('file'), async (req, res) => {
+    try {
+        const { name, price, description } = req.body;
+
+        if (!name || !price || !description) {
+            return res.status(400).json({ error: 'Tüm alanlar doldurulmalıdır!' });
+        }
+
+        const numericPrice = parseFloat(price);
+        if (isNaN(numericPrice)) {
+            return res.status(400).json({ error: 'Geçersiz fiyat değeri!' });
+        }
+
+        // Dosyayı Google Drive’a yükleme
+        let fileUrl = '';
+        if (req.file) {
+            const filePath = path.join(__dirname, req.file.path);
+            const fileMetadata = {
+                name: req.file.originalname,
+                parents: ["19n1vDszqWJOZHOFUoH1QJBP6SWi2_KTs"] // Google Drive klasör ID
+            };
+            const media = {
+                mimeType: req.file.mimetype,
+                body: fs.createReadStream(filePath),
+            };
+            const response = await drive.files.create({
+                resource: fileMetadata,
+                media: media,
+                fields: 'id',
+            });
+
+            // Yüklenen dosya URL'sini oluşturma
+            const fileId = response.data.id;
+            await drive.permissions.create({
+                fileId,
+                requestBody: {
+                    role: 'reader',
+                    type: 'anyone',
+                },
+            });
+            fileUrl = `https://drive.google.com/uc?id=${fileId}`;
+            fs.unlinkSync(filePath); // Geçici dosyayı sil
+        }
+
+        // MongoDB'ye kaydetme
+        const product = new Product({
+            id: new mongoose.Types.ObjectId().toString(),
+            name,
+            price,
+            description,
+            photos: [fileUrl],
+        });
+        await product.save();
+
+        res.status(200).json({ message: 'Ürün başarıyla yüklendi!', product });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Bir hata oluştu.' });
+    }
+});
 
 
 // Google OAuth2 Client Setup

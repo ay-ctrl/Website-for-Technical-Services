@@ -1,17 +1,10 @@
 const mongoose = require('mongoose');
 
 const mediaSchema = new mongoose.Schema({
-    filename: { type: String, required: true }, // Dosya adı
-    contentType: { type: String, required: true }, // Dosya türü (image/jpeg, image/png, vb.)
-    uploadDate: { type: Date, default: Date.now }, // Yükleme tarihi
-    description: { type: String, required: false }, // Dosya açıklaması (isteğe bağlı)
-    fileId: { type: mongoose.Schema.Types.ObjectId, required: true } // GridFS'teki dosya ID'si
-}, {
-    versionKey: false,
-    timestamps: {
-        createdAt: "created_at",
-        updatedAt: "updated_at"
-    }
+    description: {type:String},
+    imageURL: {type: String },
+    createdAt: { type: Date, default: Date.now }// GridFS'teki dosya ID'si
+    
 });
 
 module.exports = mongoose.model('Media', mediaSchema);
