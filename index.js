@@ -298,13 +298,42 @@ app.post('/upload-product', upload.single('file'), async (req, res) => {
 });
 
 
+
+app.get('/get-requests', async (req, res) => {
+    try {
+        const requests = await Request.find(); // `RequestModel` MongoDB şemasına bağlıdır.
+        res.json(requests);
+    } catch (err) {
+        res.status(500).send('Veriler alınamadı!');
+    }
+});
+
+app.delete('/delete-request/:id', async (req, res) => {
+    try {
+        await Request.findByIdAndDelete(req.params.id);
+        res.status(200).send('Talep silindi.');
+    } catch (err) {
+        res.status(500).send('Silme işlemi başarısız!');
+    }
+});
+
+
+app.put('/update-request/:id', async (req, res) => {
+    try {
+        await Request.findByIdAndUpdate(req.params.id, req.body);
+        res.status(200).send('Talep güncellendi.');
+    } catch (err) {
+        res.status(500).send('Güncelleme başarısız!');
+    }
+});
+
+
+
+
 // Google OAuth2 Client Setup
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
 const redirect_uris = process.env.REDIRECT_URIS;
-const oauth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
-
-
 
 const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
