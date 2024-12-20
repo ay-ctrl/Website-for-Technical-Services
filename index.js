@@ -298,16 +298,29 @@ app.post('/upload-product', upload.single('file'), async (req, res) => {
     }
 });
 
+
 app.get('/products', async (req, res) => {
+    const page = parseInt(req.query.page) || 1;  // Varsayılan olarak 1. sayfa
+    const limit = 10;  // Sayfa başına gösterilecek ürün sayısı
+    const skip = (page - 1) * limit;
+
     try {
-        const products = await Product.find();  // Product modelinizin adını buraya yazın
-        res.json(products);  // Ürünleri JSON formatında frontend'e gönder
+        const products = await Product.find().skip(skip).limit(limit);  // Verileri sayfalar halinde al
+        const totalProducts = await Product.countDocuments();  // Toplam ürün sayısı
+
+        res.json({
+            products,
+            totalPages: Math.ceil(totalProducts / limit),
+            currentPage: page,
+        });
     } catch (error) {
-        console.error("Error fetching products:", error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({ message: 'Error fetching products' });
     }
 });
 
+
+
+    
 app.delete('/products/:id', async (req, res) => {
     try {
         const productId = req.params.id;
@@ -348,9 +361,6 @@ app.get('/get-requests', async (req, res) => {
         res.status(500).json({ error: 'Bir hata oluştu.' });
     }
 });
-
-
-
 
 
 
