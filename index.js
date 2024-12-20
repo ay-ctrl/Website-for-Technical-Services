@@ -10,6 +10,7 @@ const fs = require('fs');
 const readline = require('readline');
 require('dotenv').config();
 app.use(express.urlencoded({ extended: true }));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 // Schemas
 const Request = require('./models/repairRequests'); 
@@ -24,7 +25,7 @@ const Media=require('./models/media');
 //Sunucuya gelen isteklere izin vermek için
 const corsOptions = {
     origin: 'http://127.0.0.1:5500', // Frontend adresi
-    methods: ['GET', 'POST'], // İzin verilen HTTP metodları
+    methods: ['GET', 'POST','DELETE'], // İzin verilen HTTP metodları
     allowedHeaders: ['Content-Type'], // İzin verilen başlıklar
 };
 
@@ -299,14 +300,52 @@ app.post('/upload-product', upload.single('file'), async (req, res) => {
 
 
 
+
 app.get('/get-requests', async (req, res) => {
     try {
-        const requests = await Request.find(); // `RequestModel` MongoDB şemasına bağlıdır.
-        res.json(requests);
+        const page = parseInt(req.query.page) || 1;  // Sayfa numarası (varsayılan 1)
+        const pageSize = 30;  // Sayfa başına gösterilecek veri sayısı
+        const skip = (page - 1) * pageSize;  // Hangi veriden başlayacağı
+
+        // Verileri çekme
+        const requests = await Request.find()
+            .skip(skip)  // Başlangıç noktasını atla
+            .limit(pageSize);  // Sayfa başına veriyi sınırlama
+
+        // Toplam veri sayısını almak
+        const totalRequests = await Request.countDocuments();
+
+        // Toplam sayfa sayısını hesaplamak
+        const totalPages = Math.ceil(totalRequests / pageSize);
+
+        res.json({
+            requests,
+            totalPages,
+            currentPage: page,
+            totalRequests,
+        });
     } catch (err) {
-        res.status(500).send('Veriler alınamadı!');
+        console.error(err);
+        res.status(500).json({ error: 'Bir hata oluştu.' });
     }
 });
+
+// API endpoint for updating repair request
+app.put('/api/talepDüzenle/:id', async (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    try {
+        const updatedRequest = await Request.findByIdAndUpdate(id, updateData, { new: true });
+        if (!updatedRequest) {
+            return res.status(404).json({ message: 'Talep bulunamadı' });
+        }
+        res.json(updatedRequest);
+    } catch (error) {
+        res.status(500).json({ message: 'Bir hata oluştu', error });
+    }
+});
+
 
 app.delete('/delete-request/:id', async (req, res) => {
     try {
