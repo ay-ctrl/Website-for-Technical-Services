@@ -25,7 +25,7 @@ const Media=require('./models/media');
 //Sunucuya gelen isteklere izin vermek için
 const corsOptions = {
     origin: 'http://127.0.0.1:5500', // Frontend adresi
-    methods: ['GET', 'POST','DELETE'], // İzin verilen HTTP metodları
+    methods: ['GET', 'POST','DELETE','PUT'], // İzin verilen HTTP metodları
     allowedHeaders: ['Content-Type'], // İzin verilen başlıklar
 };
 
@@ -331,7 +331,7 @@ app.get('/get-requests', async (req, res) => {
 });
 
 // API endpoint for updating repair request
-app.put('/api/talepDüzenle/:id', async (req, res) => {
+app.put('/api/update-request/:id', async (req, res) => {
     const { id } = req.params;
     const updateData = req.body;
 
@@ -342,9 +342,12 @@ app.put('/api/talepDüzenle/:id', async (req, res) => {
         }
         res.json(updatedRequest);
     } catch (error) {
+        console.error('Sunucu Hatası:', error);  // Hata detaylarını konsola yazdır
         res.status(500).json({ message: 'Bir hata oluştu', error });
     }
 });
+
+
 
 
 app.delete('/delete-request/:id', async (req, res) => {
@@ -357,14 +360,23 @@ app.delete('/delete-request/:id', async (req, res) => {
 });
 
 
-app.put('/update-request/:id', async (req, res) => {
+// Talebi GET ile alma
+app.get('/get-request/:id', async (req, res) => {
+    const requestId = req.params.id;
+
     try {
-        await Request.findByIdAndUpdate(req.params.id, req.body);
-        res.status(200).send('Talep güncellendi.');
-    } catch (err) {
-        res.status(500).send('Güncelleme başarısız!');
+        // Veritabanında talebi ID'ye göre arayın
+        const request = await Request.findById(requestId); // MongoDB'de `findById` metodu
+        if (!request) {
+            return res.status(404).json({ error: 'Request not found' });
+        }
+        res.json(request); // JSON formatında yanıt gönder
+    } catch (error) {
+        console.error('Hata:', error); // Hata detaylarını logla
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 });
+
 
 
 
