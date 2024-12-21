@@ -8,6 +8,7 @@ const { google } = require('googleapis');
 const path = require('path');
 const fs = require('fs');
 const readline = require('readline');
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 app.use(express.urlencoded({ extended: true }));
 //app.use(express.static(path.join(__dirname, 'public')));
@@ -98,6 +99,36 @@ app.post('/api/login', async (req, res) => {
         res.status(500).json({ message: 'Sunucu hatası' });
     }
 });
+
+app.post('/change-password', async (req, res) => {
+    const { username, oldPassword, newPassword } = req.body;
+
+    try {
+        // Kullanıcıyı veritabanında bul
+        const user = await User.findOne({ username });
+
+        if (!user) {
+            return res.status(404).json({ message: 'Kullanıcı bulunamadı' });
+        }
+
+        // Eski şifre doğrulama
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Eski şifre yanlış' });
+        }
+
+        // Yeni şifreyi hashle ve güncelle
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+        await user.save();
+
+        res.status(200).json({ message: 'Şifre başarıyla değiştirildi' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Bir hata oluştu' });
+    }
+});
+
 
 
 // Talep sorgulama API
