@@ -180,6 +180,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
+//to load campaign
 app.post('/upload-campaign', upload.single('dosya'), async (req, res) => {
     try {
         const { aciklama } = req.body;
@@ -250,49 +251,17 @@ app.post('/upload-campaign', upload.single('dosya'), async (req, res) => {
     }
 });
 
-
-
-app.post('/upload-media', upload.single('dosya'), async (req, res) => {
+// to get campaigns
+app.get('/api/campaigns', async (req, res) => {
     try {
-      // Google Drive'a dosya yükleme
-      const fileMetadata = {
-        name: req.file.filename,
-        parents: ['1O_Mm7uLWa1ThVlGNzibP7P0hjiSG0JrG']  // Dosyanın yükleneceği klasörün ID'si
-      };
-  
-      const media = {
-        mimeType: req.file.mimetype,
-        body: fs.createReadStream(req.file.path)
-      };
-  
-      const driveResponse = await drive.files.create({
-        resource: fileMetadata,
-        media: media,
-        fields: 'id, webViewLink'
-      });
-  
-      // Dosya başarıyla yüklendiyse
-      const fileUrl = driveResponse.data.webViewLink;
-  
-      // MongoDB'ye kaydetme
-      const newMedia = new Media({
-        description: req.body.aciklama,
-        imageURL: fileUrl
-      });
-  
-      await newMedia.save();
-  
-      // Geçici dosyayı sil
-      fs.unlinkSync(req.file.path);
-  
-      res.json({ success: true, message: 'Medya başarıyla eklendi!' });
+        const campaigns = await Campaign.find().sort({ createdAt: -1 }); // En son eklenen en üstte
+        res.status(200).json(campaigns);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ success: false, message: 'Bir hata oluştu!' });
+        res.status(500).json({ message: 'Bir hata oluştu', error });
     }
 });
   
-  // Form verilerini ve dosyaları işleme
+ // to upload product
 app.post('/upload-product', upload.single('file'), async (req, res) => {
     try {
         const { name, price, description } = req.body;
@@ -354,7 +323,7 @@ app.post('/upload-product', upload.single('file'), async (req, res) => {
     }
 });
 
-
+// to get products
 app.get('/products', async (req, res) => {
     const page = parseInt(req.query.page) || 1;  // Varsayılan olarak 1. sayfa
     const limit = 10;  // Sayfa başına gösterilecek ürün sayısı
@@ -373,9 +342,6 @@ app.get('/products', async (req, res) => {
         res.status(500).json({ message: 'Error fetching products' });
     }
 });
-
-
-
     
 app.delete('/products/:id', async (req, res) => {
     try {
@@ -419,7 +385,6 @@ app.get('/get-requests', async (req, res) => {
 });
 
 
-
 // API endpoint for updating repair request
 app.put('/api/update-request/:id', async (req, res) => {
     const { id } = req.params;
@@ -437,9 +402,6 @@ app.put('/api/update-request/:id', async (req, res) => {
     }
 });
 
-
-
-
 app.delete('/delete-request/:id', async (req, res) => {
     try {
         await Request.findByIdAndDelete(req.params.id);
@@ -450,7 +412,7 @@ app.delete('/delete-request/:id', async (req, res) => {
 });
 
 
-// Talebi GET ile alma
+// Talebi idsine göre GET ile alma
 app.get('/get-request/:id', async (req, res) => {
     const requestId = req.params.id;
 
@@ -467,15 +429,86 @@ app.get('/get-request/:id', async (req, res) => {
     }
 });
 
-app.get('/api/campaigns', async (req, res) => {
+// to load media
+app.post('/upload-media', upload.single('dosya'), async (req, res) => {
     try {
-        const campaigns = await Campaign.find().sort({ createdAt: -1 }); // En son eklenen en üstte
-        res.status(200).json(campaigns);
+        const { aciklama } = req.body;
+
+        if (!aciklama) {
+            return res.status(400).json({ error: 'Açıklama alanı doldurulmalıdır!' });
+        }
+
+        let fileUrl = '';
+        if (req.file) {
+            try {
+                const filePath = path.join(__dirname, req.file.path);
+                const fileMetadata = {
+                    name: req.file.originalname,
+                    parents: ["1O_Mm7uLWa1ThVlGNzibP7P0hjiSG0JrG"], // Google Drive klasör ID
+                };
+                const media = {
+                    mimeType: req.file.mimetype,
+                    body: fs.createReadStream(filePath),
+                };
+
+                // Dosyayı Google Drive'a yükleme
+                const response = await drive.files.create({
+                    resource: fileMetadata,
+                    media: media,
+                    fields: 'id',  // Yalnızca dosya id'sini alıyoruz
+                });
+
+                // Yüklenen dosyanın ID'sini alıyoruz
+                const fileId = response.data.id;
+
+                // Thumbnail URL'yi oluşturuyoruz
+                fileUrl = `https://drive.google.com/thumbnail?id=${fileId}`;
+
+                // Google Drive'a erişim izni veriyoruz
+                await drive.permissions.create({
+                    fileId,
+                    requestBody: {
+                        role: 'reader',
+                        type: 'anyone',
+                    },
+                });
+
+            } catch (googleError) {
+                console.error("Google Drive yükleme hatası:", googleError);
+                return res.status(500).json({ error: 'Google Drive yükleme hatası oluştu!' });
+            }
+
+            // Geçici dosyayı sil
+            try {
+                fs.unlinkSync(req.file.path);
+            } catch (unlinkError) {
+                console.error("Geçici dosya silme hatası:", unlinkError);
+            }
+        }
+
+        // MongoDB'ye kaydetme
+        const newMedia = new Media({
+            description: aciklama,
+            imageURL: fileUrl,  // Thumbnail URL'sini kaydediyoruz
+        });
+        await newMedia.save();
+
+        res.status(200).json({ success: true, message: 'Kampanya başarıyla yüklendi!', campaign: newMedia });
+    } catch (error) {
+        console.error("Genel hata:", error);
+        res.status(500).json({ error: 'Bir hata oluştu.' });
+    }
+});
+
+// to get medias
+app.get('/api/medias', async (req, res) => {
+    try {
+        const medias = await Media.find().sort({ createdAt: -1 }); // En son eklenen en üstte
+        res.status(200).json(medias);
     } catch (error) {
         res.status(500).json({ message: 'Bir hata oluştu', error });
     }
 });
-
 
 
 
