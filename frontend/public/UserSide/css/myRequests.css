@@ -1,0 +1,381 @@
+/* Genel Stiller */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #3f353c;
+    color: #fff;
+    overflow-x: hidden;
+  }
+  
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Header Container */
+  .header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Logo */
+  header .logo img {
+    max-width: 120px;
+  }
+  
+  /* Header ve Menü */
+  header nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 30px;
+    align-items: center;
+  
+  }
+  
+  header nav ul li {
+    position: relative;
+  }
+  
+  /* Menü bağlantıları */
+  header nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 25px 30px;
+  }
+  
+  header nav ul li:hover a {
+    background-color: transparent;
+    color: rgb(172, 98, 169);
+    text-decoration: none;
+  }
+  
+  /* Dropdown Menü */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-button {
+    background-color: transparent;
+    color: white;
+    padding: 25px 30px;
+    /* Menü ile aynı padding'i kullanıyoruz */
+    font-size: 2rem;
+    /* Menü ile aynı yazı boyutunu kullandım */
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Dropdown Menü İçeriği */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: black;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    min-width: 200px;
+    z-index: 1000;
+  }
+  
+  /* Dropdown Menü Öğeleri */
+  .dropdown-content a {
+    color: white;
+    padding: 15px 30px;
+    /* Menü öğelerindeki padding ile uyumlu */
+    text-decoration: none;
+    display: block;
+    font-size: 2rem;
+    /* Menü ile uyumlu yazı boyutu */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  header nav ul li .dropdown-content a {
+    color: white !important;
+    /* !important ile bu kuralın geçerli olmasını sağlıyoruz */
+  }
+  
+  header nav ul li .dropdown-content a:hover {
+    color: black !important;
+    background-color: rgb(172, 98, 169) !important;
+  }
+  
+  
+  /* Dropdown menü açıldığında */
+  .dropdown:hover .dropdown-content {
+    display: block;
+    /* Menü öğelerini görünür yapar */
+  }
+  
+  
+  
+  
+  
+  /* Ana İçerik Alanı */
+  .hakkimizda-container {
+    width: 100%;
+    height: 150px;
+    margin: 20px auto;
+    background-color: #000;
+    color: #fff;
+    padding: 30px;
+    border-radius: 0;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 160px;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 4rem;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    font-weight: bold;
+  
+  }
+  
+  
+  .menu {
+    background-color: black;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  
+  /* Genel Container Ayarları */
+  #container {
+    max-width: 90%;
+    margin: 120px auto;
+    background-color: #111;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  /* Tablo Genel Ayarları */
+  .table-container {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  
+  }
+  
+  table thead tr {
+    background-color: black;
+    color: white;
+  }
+  
+  table th,
+  table td {
+    color:black;
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 1.5rem;
+  }
+
+thead th{
+    color:white;
+}
+  
+  table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  table tbody tr:nth-child(odd) {
+    background-color: #fff;
+  }
+  
+  /* Başlık Ayarları */
+  h1 {
+    text-align: center;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+  
+  /* Bağlantı Butonları (Düzenle ve Sil) */
+  table tbody tr td a {
+    color: #00aaff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  table tbody tr td a:hover {
+    text-decoration: underline;
+  }
+  
+  
+  
+  
+  
+  /* Sayfalama */
+  #pagination {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    margin-top: 100px;
+  }
+  
+  #pagination a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  #pagination a:hover {
+    background-color: #f9e5f3;
+    color: black;
+    border-color:black;
+  }
+  
+  
+  
+  
+  
+  
+  /* Footer */
+  footer {
+    background-color: #222;
+    color: #fff;
+    padding: 20px 0;
+    font-size: 1.5rem;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+  
+  .footer-column {
+    width: 30%;
+    text-align: center;
+  }
+  
+  /* Logo */
+  .footer-logo {
+    max-width: 150px !important;
+    /* Logo boyutunu belirgin şekilde büyüt */
+    height: auto !important;
+    /* Oranını koruyarak yükseklik ayarla */
+    display: block;
+    margin: 0 auto 10px;
+    /* Ortala ve altına boşluk ekle */
+  }
+  
+  /* Footer Bağlantıları */
+  .footer-link {
+    font-size: 1.2rem;
+    color: rgb(172, 85, 169);
+    text-decoration: none;
+  }
+  
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-column ul li {
+    margin: 5px 0;
+  }
+  
+  .footer-column ul ul li {
+    margin-left: 15px;
+  }
+  
+  .footer-column a {
+    color: rgb(172, 85, 169);
+    text-decoration: none;
+  }
+  
+  .footer-column a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Sosyal Medya İkonları */
+  .footer-column img {
+    width: 24px;
+    /* İkon boyutunu küçült */
+    height: 24px;
+    margin: 0 5px;
+    /* Aralarına boşluk ekle */
+    filter: invert(1);
+    /* Beyaz renge dönüştür */
+  }
+  
+  .footer-column img:hover {
+    opacity: 0.8;
+    /* Hover durumunda biraz şeffaflık ekleyin */
+  }
+  
+  /* Footer Alt Kısım */
+  .footer-bottom {
+    text-align: center;
+    padding: 10px;
+    background-color: #cdbac8;
+    color: #000;
+  }
+  
+  /* Mesajlaşma Ikonu */
+  .message-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .message-icon img {
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    /* Hafif bir gölge efekti */
+    transition: 0.3s;
+  }
+  
+  .message-icon img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+  }

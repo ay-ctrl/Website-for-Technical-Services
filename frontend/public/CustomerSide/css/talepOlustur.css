@@ -1,0 +1,357 @@
+/* Genel Stiller */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #3f353c;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+  /* Header altına hafif bir gölge */
+}
+
+/* Header Container */
+.header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logo */
+header .logo img {
+  max-width: 120px;
+  /* Logo boyutunu biraz artırdım */
+}
+
+/* Header ve Menü */
+header nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 30px;
+  /* Menü arasındaki boşluğu artırdım */
+}
+
+header nav ul li {
+  position: relative;
+  /* Dropdown'ın doğru konumlanabilmesi için */
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 2rem;
+  /* Menü bağlantı yazı boyutunu büyüttüm */
+  font-weight: bold;
+  padding: 25px 30px;
+  /* İç boşluğu artırdım */
+}
+
+header nav ul li:hover a {
+  background-color: transparent;
+  /* Hover rengi */
+  color: rgb(172, 98, 169);
+  text-decoration: none;
+}
+
+
+/* Giriş Butonu */
+header .auth-buttons a {
+  font-size: 2rem;
+  /* Menü bağlantı yazı boyutunu büyüttüm */
+  /* Yazı boyutunu büyüttüm */
+  margin: 0 10px;
+  padding: 10px 25px;
+  /* Daha geniş buton */
+  text-decoration: none;
+  border-radius: 25px;
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  transition: 0.3s;
+}
+
+header .auth-buttons a:hover {
+  background-color: rgb(172, 85, 169);
+  color: black;
+  border-color: black;
+  box-shadow: 0 5px 10px rgba(181, 126, 179, 0.5), 0 -5px 10px rgba(181, 126, 179, 0.5), 5px 0 10px rgba(181, 126, 179, 0.5), -5px 0 10px rgba(181, 126, 179, 0.5);
+}
+
+
+
+/* Ana İçerik Alanı */
+.hakkimizda-container {
+  width: 100%;
+  height:150px;
+  margin: 20px auto;
+  background-color: #000;
+  color: #fff;
+  padding: 30px;
+  border-radius: 0;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 160px;
+}
+
+.title {
+  text-align: center;
+  font-size: 4rem;
+  margin-bottom: 20px;
+  margin-top:25px;
+  font-weight: bold;
+  
+}
+
+
+
+
+
+/* Genel Form Elemanları */
+form select,
+form input[type="text"],
+form input[type="tel"],
+form textarea {
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #cdbac8;
+  /* Daha modern kenarlık */
+  border-radius: 8px;
+  /* Hafif yuvarlatılmış köşeler */
+  background-color: #1e1e1e;
+  /* Koyu ama dikkat dağıtmayan arka plan */
+  color: #fff;
+  font-size: 1.5rem;
+  transition: all 0.3s ease; /* Hover ve focus için geçiş efekti */
+}
+
+/* Hover ve Focus Efekti */
+form select:hover,
+form input[type="text"]:hover,
+form input[type="tel"]:hover,
+form textarea:hover,
+form select:focus,
+form input[type="text"]:focus,
+form input[type="tel"]:focus,
+form textarea:focus {
+  border-color: rgb(172, 98, 169);
+  background-color: #292929;
+  outline: none;
+  transform: scale(1.01);
+
+}
+
+form label {
+  font-size: 2rem;
+  color: #fff; /* Renk uyumu için */
+  
+}
+
+.radio-group p {
+  font-size: 1.7rem;
+  color: #fff; /* Renk uyumu için */
+  font-weight: bold; /* İsteğe bağlı, yazıyı daha belirgin yapmak için */
+}
+
+/* Gönder Butonu */
+form input[type="submit"] {
+  background-color: #cdbac8;
+  color: black;
+  border: 2px solid black;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 25px;
+  padding: 15px 0;
+  width: 100%;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+  background-color: rgb(172, 85, 169);
+  color: black;
+  border: 1px solid black;
+  box-shadow: 0 5px 10px rgba(181, 126, 179, 0.5), 0 -5px 10px rgba(181, 126, 179, 0.5), 5px 0 10px rgba(181, 126, 179, 0.5), -5px 0 10px rgba(181, 126, 179, 0.5);
+
+}
+
+
+/* Yedek Cihaz Radyo Düğmeleri */
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Daha belirgin boşluk */
+  padding: 8px 0;
+  font-size: 1.3rem;
+  color: #ddd;
+  transition: color 0.3s ease;
+}
+
+.radio-group label:hover {
+  color: rgb(172, 98, 169);
+  /* Hover sırasında sarı vurgu */
+}
+
+.radio-group input[type="radio"] {
+  accent-color: rgb(172, 98, 169) ;
+  transform: scale(1.2);
+}
+
+#talepOlustur {
+  margin-bottom: 70px;
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 10px;
+  background-color: #111;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Adres Alanını Büyütmek */
+form textarea {
+  resize: none;
+}
+
+#talepOlustur form {
+  width: calc(100% - 2cm); /* Form genişliğini yüzde 100'den 2 cm çıkararak yapıyoruz */
+  margin: 50px auto 50px; /* Üstten 20px, alttan 50px boşluk bırakıyoruz */
+}
+
+@media screen and (max-width: 768px) {
+  #talepOlustur form {
+      width: calc(100% - 2em); /* Mobilde de yanlardan boşluk bırakır */
+      margin-top: 20px; /* Üstten 20px boşluk bırakır */
+  }
+}
+
+
+/* Footer */
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+  font-size: 1.5rem;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.footer-column {
+  width: 30%;
+  text-align: center;
+}
+
+/* Logo */
+.footer-logo {
+  max-width: 150px !important;
+  /* Logo boyutunu belirgin şekilde büyüt */
+  height: auto !important;
+  /* Oranını koruyarak yükseklik ayarla */
+  display: block;
+  margin: 0 auto 10px;
+  /* Ortala ve altına boşluk ekle */
+}
+
+/* Footer Bağlantıları */
+.footer-link {
+  font-size: 1.2rem;
+  color: rgb(172, 85, 169);
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin: 5px 0;
+}
+
+.footer-column ul ul li {
+  margin-left: 15px;
+}
+
+.footer-column a {
+  color: rgb(172, 85, 169);
+  text-decoration: none;
+}
+
+.footer-column a:hover {
+  text-decoration: underline;
+}
+
+/* Sosyal Medya İkonları */
+.footer-column img {
+  width: 24px;
+  /* İkon boyutunu küçült */
+  height: 24px;
+  margin: 0 5px;
+  /* Aralarına boşluk ekle */
+  filter: invert(1);
+  /* Beyaz renge dönüştür */
+}
+
+.footer-column img:hover {
+  opacity: 0.8;
+  /* Hover durumunda biraz şeffaflık ekleyin */
+}
+
+/* Footer Alt Kısım */
+.footer-bottom {
+  text-align: center;
+  padding: 10px;
+  background-color: #cdbac8;
+  color: #000;
+}
+
+/* Mesajlaşma Ikonu */
+.message-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.message-icon img {
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  /* Hafif bir gölge efekti */
+  transition: 0.3s;
+}
+
+.message-icon img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+}

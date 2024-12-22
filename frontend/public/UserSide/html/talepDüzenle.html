@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefon Tamiri</title>
+    <meta name="description"
+        content="Yerinde ve garantili cep telefonu tamiri hizmeti! Uygun fiyatlarla ekran, batarya değişimi ve teknik servis çözümleri. Hızlı ve güvenilir tamir için hemen ulaşın.">
+    <link rel="canonical" href="https://telefon-tamiri-seng209-211.com.tr/">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta property="og:title" content="Uygun Fiyatlarla Akıllı Cihaz Tamir Hizmeti Sizlerle">
+    <meta property="og:description" content=" Hızlı ve güvenilir tamir için hemen ulaşın.">
+    <meta property="og:url" content="https://telefon-tamiri-seng209-211.com.tr/">
+    <link rel="stylesheet" href="../css/talepDüzenle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+    <!-- URL LİNKİNİ DAHA GÜZEL BİR ŞEY YAP PLS-->
+</head>
+
+<body class="main page-loading animation">
+    <!-- Header -->
+    <header>
+        <!-- Logo -->
+        <div class="logo">
+            <a href="dashboard.html">
+                <img src="/public/images/ayda-logo.png" alt="Telefon Tamiri"
+                    width="150">
+            </a>
+        </div>
+
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="myRequests.html">Taleplerim</a></li>
+                <li><a href="products.html">Aksesuar ve Ek Ürünler</a></li>
+                <li><a href="hakkımızda.html">Hakkımızda</a></li>
+                <li><a href="SSS.html">SSS</a></li>
+                <li class="dropdown">
+                    <button class="dropdown-button">Admin Kullanıcısı</button>
+                    <div class="dropdown-content">
+                        <a href="#">Ödemeler</a>
+                        <a href="#">Çalışanlar</a>
+                        <a href="changePassword.html">Şifre değiştir</a>
+                        <a href="../../../index.html">Çıkış Yap</a>
+                    </div>
+                </li>
+            </ul>
+        
+        </nav>
+
+    </header>
+
+    <div class="hakkimizda-container">
+        <h2 class="title">TALEP DÜZENLE</h2>
+    </div>
+
+    <div class="form-container">
+        <form>
+            <!-- Talep numarası -->
+            <div class="form-row">
+                <label for="queryNum">Talep numarası:</label>
+                <input type="text" id="queryNum" value="3457867" readonly>
+            </div>
+            <!-- Müşteri Adı -->
+            <div class="form-row">
+                <label for="musteriAdi">Müşteri Adı:</label>
+                <input type="text" id="name" value="Ayse Atik" readonly>
+            </div>
+            <!-- Telefon Modeli -->
+            <div class="form-row">
+                <label for="model">Telefon Modeli:</label>
+                <input type="text" id="model" value="Huawei A7" readonly>
+            </div>
+            <!-- Telefon No -->
+            <div class="form-row">
+                <label for="telefonNo">Telefon No:</label>
+                <input type="text" id="phone" readonly>
+            </div>
+            <!-- Adresi -->
+            <div class="form-row">
+                <label for="adres">Adresi:</label>
+                <input type="text" id="adress" readonly>
+            </div>
+            <!-- IMEI Numarası -->
+            <div class="form-row">
+                <label for="imei">Cihazın IMEI Numarası:</label>
+                <input type="text" id="imei" readonly>
+            </div>
+            <!-- Cihazın Tuş Kilidi -->
+            <div class="form-row">
+                <label for="kilit">Cihazın Tuş Kilidi:</label>
+                <input type="text" id="kilit" readonly>
+            </div>
+            <!-- Cihazın Geliş Tarihi -->
+            <div class="form-row">
+                <label for="gelisTarihi">Cihazın Geliş Tarihi:</label>
+                <input type="date" id="phoneTakenDate">
+            </div>
+            <!-- Problem -->
+            <div class="form-row">
+                <label for="problem">Problem:</label>
+                <input type="text" id="sorunlar" readonly>
+            </div>
+            <!-- Durumu -->
+            <div class="form-row">
+                <label for="durum">Durumu:</label>
+                <select id="state">
+                    <option>Durumu Güncelleyin</option>
+                    <option>Yapiliyor</option>
+                    <option>Yapildi</option>
+                    <option>Parça bekleniyor</option>
+                </select>
+            </div>
+
+            <!-- Yapılan İşlem -->
+            <div class="form-row">
+                <label for="yapilan">Yapılan İşlem:</label>
+                <input type="text" id="processMade">
+            </div>
+            <!-- Ücret -->
+            <div class="form-row">
+                <label for="ucret">Ücret:</label>
+                <input type="text" id="price">
+            </div>
+            <!-- Servisin onarım açıklaması -->
+            <div class="form-row-large">
+                <label for="aciklama">Servisin onarım açıklaması:</label>
+                <textarea id="repairDescription" rows="3" placeholder="Açıklamayı giriniz"></textarea>
+            </div>
+
+            <!-- Hakediş durumu 
+            <div class="form-row-large">
+                <label for="hakedis">Hakediş durumu:</label>
+                <textarea id="hakedis" rows="3" placeholder="Açıklamayı giriniz"></textarea>
+            </div> -->
+            <!-- Butonlar -->
+            <div class="button-container">
+                <button type="button" class="save-btn" onclick="updateRepairRequest(id)">KAYDET</button>
+                <button type="button" class="print-btn">YAZDIR</button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Sol Sütun -->
+            <div class="footer-column">
+                <h3>Telefon Tamiri</h3>
+                <ul>
+                    <li><a href="myRequests.html">Taleplerim</a></li>
+                    <li><a href="products.html">Aksesuar ve Ek
+                            Ürünler</a></li>
+                    <li><a href="hakkımızda.html">Hakkımızda</a></li>
+                    <li><a href="SSS.html">SSS</a></li>
+                </ul>
+            </div>
+            <!-- Orta Sütun -->
+            <div class="footer-column">
+                <h3>İletişim</h3>
+                <p>Adres:Çankaya/Ankara</p>
+                <p>Email: <a href="mailto:destek@gmail.com">destek@gmail.com</a></p>
+                <p>Telefon: <a href="tel:+905XXXXXXXXX">0 (XXX) XXX XX XX</a></p>
+                <p>Çalışma Saatleri: 09:00 - 19:30</p>
+            </div>
+            <!-- Sağ Sütun -->
+            <div class="footer-column">
+                <h3>Sosyal Medya</h3>
+                <a href="https://www.instagram.com/"><img src="https://cdn-icons-png.flaticon.com/256/717/717392.png"
+                        alt="Instagram"></a>
+                <a href="https://x.com/home"><img
+                        src="https://logoeps.com/wp-content/uploads/2014/01/23931-twitter-logo-icon-vector-icon-vector-eps.png"
+                        alt="Twitter"></a>
+                <a href="https://www.whatsapp.com/"><img
+                        src="https://logoeps.com/wp-content/uploads/2014/03/33447-whatsapp-logo-icon-vector-icon-vector-eps.png"
+                        alt="WhatsApp"></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 - Tüm Hakları Saklıdır. Telefon Tamiri</p>
+        </div>
+    </footer>
+
+    <!-- Mesajlaşma Ikonu -->
+    <div class="message-icon">
+        <a href="https://dashboard.tawk.to/#/chat" target="_blank">
+            <img src="/public/images/message.png" alt="Mesajlaşma İkonu">
+        </a>
+    </div>
+
+    <script>
+        async function loadRepairRequest(id) {
+    try {
+        const response = await fetch(`http://localhost:3000/get-request/${id}`);
+        if (!response.ok) {
+            throw new Error(`Talep bulunamadı, HTTP Durum: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Tablodaki verileri güncelle (Eğer tablo için bir <tbody id="tableBody"> varsa)
+        const tableBody = document.getElementById('tableBody');
+        if (tableBody) {
+            tableBody.innerHTML = ''; // Önceki tablo satırlarını temizle
+
+            Object.entries(data).forEach(([key, value]) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${key}</td>
+                    <td>${value}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Form alanlarını doldur
+        for (const [key, value] of Object.entries(data)) {
+            const formElement = document.getElementById(key); // ID, data'nın key'ine eşitse
+            if (formElement) {
+                formElement.value = value || ''; // Form alanı mevcutsa doldur
+            }
+        }
+    } catch (error) {
+        console.error('Talep yüklenemedi:', error);
+    }
+}
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestId = urlParams.get('id');
+        // Talebi güncelleme işlemi
+    async function updateRepairRequest() {
+        const updatedData = {
+            state: document.getElementById('state').value,
+            price: document.getElementById('price').value,
+            processMade: document.getElementById('processMade').value,
+            repairDescription: document.getElementById('repairDescription').value
+        };
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/update-request/${requestId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedData)
+            });
+
+            const data = await response.json();
+            if (data) {
+                alert('Talep başarıyla güncellendi');
+            }
+        } catch (error) {
+            console.error('Talep güncellenemedi:', error);
+        }
+    }
+
+   // Sayfa yüklendiğinde URL parametresindeki id'yi alıp, talebi yükleyin
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestId = urlParams.get('id');
+    loadRepairRequest(requestId);
+});
+
+document.querySelector('.print-btn').addEventListener('click', function () {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Başlık
+    doc.setFontSize(16);
+    doc.text('Talep Bilgileri', 105, 20, null, null, 'center'); // Ortalanmış başlık
+
+    // Formdaki bilgileri al
+    const queryNum = document.getElementById('queryNum').value;
+    const name = document.getElementById('name').value;
+    const model = document.getElementById('model').value;
+    const phone = document.getElementById('phone').value;
+    const adress = document.getElementById('adress').value;
+    const imei = document.getElementById('imei').value;
+    const kilit = document.getElementById('kilit').value;
+    const phoneTakenDate = document.getElementById('phoneTakenDate').value;
+    const sorunlar = document.getElementById('sorunlar').value;
+    const state = document.getElementById('state').value;
+    const processMade = document.getElementById('processMade').value;
+    const price = document.getElementById('price').value;
+    const repairDescription = document.getElementById('repairDescription').value;
+
+    // Form verilerini düzenli bir şekilde PDF'ye ekleme
+    let yPosition = 30;
+
+    // Başlıklar
+    const labels = [
+        'Talep No:', 'Müsteri Adi:', 'Telefon Modeli:', 'Telefon No:', 'Adres:', 'IMEI:',
+        'Tus Kilidi:', 'Cihazin Gelis Tarihi:', 'Problem:', 'Durum:', 'Yapilan İslem:',
+        'Ücret:', 'Onarim Açiklamasi:'
+    ];
+
+    const values = [
+        queryNum, name, model, phone, adress, imei, kilit, phoneTakenDate,
+        sorunlar, state, processMade, price, repairDescription
+    ];
+
+    // Veri ekleme işlemi
+    doc.setFontSize(12);
+    for (let i = 0; i < labels.length; i++) {
+        doc.text(`${labels[i]} ${values[i]}`, 10, yPosition);
+        yPosition += 10;
+    }
+
+    // Renkli kutu (onarım açıklaması için)
+    doc.setDrawColor(0, 0, 255); // Mavi
+    doc.setFillColor(220, 220, 220); // Gri
+    doc.rect(10, yPosition, 190, 30, 'F'); // Kutuyu çiz
+    doc.setFontSize(12);
+    doc.text('Onarım Açıklaması:', 10, yPosition + 10);
+    doc.text(repairDescription, 10, yPosition + 20);
+
+    // PDF dosyasını kaydet
+    doc.save('talep_bilgisi.pdf');
+});
+
+
+
+    
+   
+
+</script>
+
+</body>
+
+</html>

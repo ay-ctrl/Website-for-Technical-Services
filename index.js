@@ -21,6 +21,14 @@ const Product=require('./models/products');
 const Media=require('./models/media');
 
 
+// Frontend dosyalarını statik olarak sun
+app.use(express.static(path.join(__dirname, 'frontend')));
+
+// /index isteğiyle frontend/index.html dosyasını döndür
+app.get('/index', (req, res) => {
+    const filePath = path.join(__dirname, 'frontend', 'index.html');
+    res.sendFile(filePath);
+});
 
 
 //Sunucuya gelen isteklere izin vermek için
