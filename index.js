@@ -213,7 +213,7 @@ app.post('/upload-campaign', upload.single('dosya'), async (req, res) => {
                 const fileId = response.data.id;
 
                 // Thumbnail URL'yi oluşturuyoruz
-                fileUrl = `https://drive.google.com/thumbnail?id=${fileId}`;
+                fileUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w600-h600`;
 
                 // Google Drive'a erişim izni veriyoruz
                 await drive.permissions.create({
@@ -302,7 +302,7 @@ app.post('/upload-product', upload.single('file'), async (req, res) => {
                     type: 'anyone',
                 },
             });
-            fileUrl = `https://drive.google.com/thumbnail?id=${fileId}`;
+            fileUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w600-h600`;
             fs.unlinkSync(filePath); // Geçici dosyayı sil
         }
 
@@ -462,7 +462,7 @@ app.post('/upload-media', upload.single('dosya'), async (req, res) => {
                 const fileId = response.data.id;
 
                 // Thumbnail URL'yi oluşturuyoruz
-                fileUrl = `https://drive.google.com/thumbnail?id=${fileId}`;
+                fileUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w600-h600`;
 
                 // Google Drive'a erişim izni veriyoruz
                 await drive.permissions.create({
