@@ -125,6 +125,28 @@ body {
     /* Menü öğelerini görünür yapar */
   }
   
+  /* Ana İçerik Alanı */
+  .hakkimizda-container {
+    width: 100%;
+    height: 150px;
+    margin: 20px auto;
+    background-color: #111010;
+    color: #fff;
+    padding: 30px;
+    border-radius: 0;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(17, 16, 16, 0.2);
+    margin-top: 160px;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 4rem;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    font-weight: bold;
+  
+  }
 
   /* Footer */
   footer {
