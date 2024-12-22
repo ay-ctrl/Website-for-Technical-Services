@@ -5,9 +5,6 @@
     margin: 0 auto;
 }
 
-#campaign-description {
-    color:white;
-}
 
 h1,
 h2,
@@ -72,85 +69,15 @@ h4 {
     margin-right: 10px;
 }
 
-
-
-
 #kampanyalar {
-    background-color: #121111;
-    padding: 20px 0;
+  background-color:#121111;
+  padding: 50px 50px;
+  margin-top: 10px;
+  /* Üst kısmında boşluk */
+  margin-bottom: 50px;
+  /* Alt kısmında boşluk */
+  height: 100hv;
 }
-
-#kampanyalar .container {
-    text-align: center;
-    margin-top: 50px;
-}
-
-#kampanyalar h1 {
-    font-size: 36px;
-    color: white;
-    margin: 0;
-}
-
-
-
-
-.carousel-inner {
-    background-color: white !important;
-
-}
-
-
-.carousel-caption {
-    color: white;
-
-}
-
-.carousel-indicators li {
-    background-color: white;
-
-}
-
-.carousel-control {
-    color: white;
-
-}
-
-.carousel-control.left,
-.carousel-control.right {
-    background-color: rgba(0, 0, 0, 0.1);
-
-}
-
-
-
-.icon-container {
-    display: flex;
-    align-items: center; /* Yatayda hizalama */
-    justify-content: space-between; /* Yazı ve ikon arasında boşluk */
-    padding-right: 20px; /* Sağ tarafa ekstra boşluk */
-}
-
-.icon-container h3 {
-    margin: 0; 
-    font-size: 24px; /* Yazı boyutunu değiştirmez */
-    text-align: left; /* Sol hizalama */
-    flex-grow: 1; /* Yazıyı genişletir */
-
-}
-
-.add-icon {
-    display: inline-block;
-    font-size: 70px; /* İkon boyutunu değiştirmez */
-    cursor: pointer;
-    margin-right: 0; /* Varsayılan sağ boşluk */
-    margin-left: auto; /* İkonu tamamen sağa iter */
-    color: white; /* İkon rengi */
-}
-
-
-
-
-
 
 /* Müşteri Yorumları */
 .comments-section {
