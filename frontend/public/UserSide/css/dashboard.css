@@ -103,6 +103,10 @@
   height: auto;
 }
 
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
 
 
 #kampanyalar {
@@ -160,7 +164,6 @@
   background-color: rgba(0, 0, 0, 0.1);
   /* Okların arkasındaki siyah zemin */
 }
-
 
 
 .icon-container {
@@ -175,7 +178,7 @@
   font-size: 24px; /* Yazı boyutunu değiştirmez */
   text-align: left; /* Sol hizalama */
   flex-grow: 0; /* Yazının genişlemesini engeller */
-  margin-left: 90px;
+  margin-left: 120px;
 }
 
 .add-icon {
@@ -185,69 +188,8 @@
   margin-right: 100px; /* Varsayılan sağ boşluk */
   margin-left: auto; /* İkonu tamamen sağa iter */
   color: white; /* İkon rengi */
-  transform: translateX(35px); /* İkonu sağa kaydırır */
+  transform: translateX(5px); /* İkonu sağa kaydırır */
 }
-
-
-
-
-#kampanyalar {
-  background-color: #3f353c;
-  padding: 50px 50px;
-  margin-top: 10px;
-  /* Üst kısmında boşluk */
-  margin-bottom: 50px;
-  /* Alt kısmında boşluk */
-  height: 100hv;
-}
-
-/* Kampanyalar başlığı stil */
-#kampanyalar h1 {
-  text-align: center;
-  /* Başlığı ortalar */
-  font-size: 7rem;
-  margin-bottom: 50px;
-  /* Slider ile aradaki boşluk */
-  margin-top: 20px;
-  /* Üstteki alan ile boşluk */
-  color: white;
-  /* Başlık rengini belirler */
-}
-
-#kampanyalar h3 {
-  text-align: center;
-  /* Başlığı ortalar */
-  font-size: 3rem;
-  margin-bottom: 20px;
-  margin-top: 30px;
-  color: white;
-  /* Başlık rengini belirler */
-
-}
-
-.carousel-inner {
-  background-color: white !important;
-  /* Slider içindeki arka planı siyah yap */
-}
-
-
-.carousel-indicators li {
-  background-color: white;
-  /* Göstergelerin rengini beyaz yap */
-}
-
-.carousel-control {
-  color: white;
-  /* Sağ ve sol okların rengini beyaz yap */
-}
-
-.carousel-control.left,
-.carousel-control.right {
-  background-color: rgba(0, 0, 0, 0.1);
-  /* Okların arkasındaki siyah zemin */
-}
-
-
 
 
 /* Neden Cep Kurye Kısmı */

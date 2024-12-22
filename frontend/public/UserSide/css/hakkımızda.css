@@ -125,18 +125,9 @@ body {
     /* Menü öğelerini görünür yapar */
   }
   
-  
-
-
-
-
 .container {
     width: 80%;
     margin: 0 auto;
-}
-
-#campaign-description {
-    color:white;
 }
 
 h1,
@@ -251,6 +242,9 @@ h4 {
 
 }
 
+#campaign-description {
+  color:white;
+}
 
 
 .icon-container {
@@ -275,6 +269,8 @@ h4 {
     margin-right: 0; /* Varsayılan sağ boşluk */
     margin-left: auto; /* İkonu tamamen sağa iter */
     color: white; /* İkon rengi */
+    transform: translateX(30px); /* İkonu sağa kaydırır */
+
 }
 
 
