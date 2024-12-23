@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/addProduct.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <script src="./scripts/script.js"></script>
     <!-- URL LİNKİNİ DAHA GÜZEL BİR ŞEY YAP PLS-->
 </head>
 
@@ -83,7 +84,7 @@
         </div>
 
         <!-- Ekle Butonu -->
-        <button class="ekle-btn">EKLE</button>
+        <button class="ekle-btn" onclick="addProduct()">EKLE</button>
     </div>
 </section>
 
@@ -128,60 +129,13 @@
     </div>
 </footer>
 
-    <!-- Mesajlaşma Ikonu -->
-    <div class="message-icon">
-        <a href="https://dashboard.tawk.to/#/chat" target="_blank">
-            <img src="/public/images/message.png" alt="Mesajlaşma İkonu">
-        </a>
-    </div>
+<!-- Mesajlaşma Ikonu -->
+<div class="message-icon">
+    <a href="https://dashboard.tawk.to/#/chat" target="_blank">
+        <img src="/public/images/message.png" alt="Mesajlaşma İkonu">
+    </a>
+</div>
 
-    <script>
-        document.querySelector('.ekle-btn').addEventListener('click', async () => {
-    const formData = new FormData();
-    const name = document.getElementById('name').value;
-    const priceValue = parseFloat(document.getElementById('price').value);
-    const description = document.getElementById('aciklama').value;
-    const fileInput = document.getElementById('dosya');
-
-    console.log({ name, priceValue, description, file: fileInput.files[0] }); // Verileri test edin
-
-    if (isNaN(priceValue)) {
-        alert('Lütfen geçerli bir fiyat giriniz!');
-        return;
-    }
-    formData.append('name', name);
-    formData.append('price', priceValue);
-    formData.append('description', description);
-    if (fileInput.files.length > 0) {
-        formData.append('file', fileInput.files[0]);
-    }
-
-    try {
-        const response = await fetch('http://localhost:3000/upload-product', {
-            method: 'POST',
-            body: formData,
-        });
-
-         // Yanıt kontrolü
-         if (response.ok) {
-            const data = await response.json();
-            console.log('Ürün başarıyla eklendi!');
-            alert('Ürün başarıyla eklendi!');
-            document.getElementById('name').value="";
-            document.getElementById('price').value="";
-            document.getElementById('aciklama').value="";
-        } else {
-            const data = await response.json();
-            console.error('Hata:', data.error || response.statusText);
-            alert('Ürün eklenirken bir hata oluştu!');
-        }
-    } catch (err) {
-        console.error('Fetch hatası:', err);
-        alert('Bir hata oluştu!');
-    }
-});
-
-    </script>
 
 </body>
 

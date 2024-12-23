@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/products.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <!-- URL LİNKİNİ DAHA GÜZEL BİR ŞEY YAP PLS-->
+    <script src="./scripts/script.js"></script>
 </head>
 
 <body class="main page-loading animation">
@@ -187,117 +187,10 @@
     </div>
 
     <script>
-       let currentPage = 1;  // Başlangıç sayfası
-        let totalPages = 1;   // Toplam sayfa sayısı
-
-        function changePage(page) {
-            if (page < 1 || page > totalPages) return;  // Geçersiz sayfalar için hiçbir şey yapma
-            currentPage = page;
-            fetchProducts();  // Sayfa değiştiğinde ürünleri al
-            // Sayfa başına kaydır
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'  // Yumuşak kaydırma
-            });
-        }
-
-        async function fetchProducts() {
-            try {
-                const response = await fetch(`http://localhost:3000/products?page=${currentPage}`);
-                const data = await response.json();
-
-                const products = data.products;
-                totalPages = data.totalPages;  // Global toplam sayfa sayısını güncelle
-
-                const productList = document.getElementById('product-list');
-                productList.innerHTML = '';
-
-                products.forEach(product => {
-                    const productCard = `
-                        <div class="product-card" id="product-${product._id}">
-                            <img src="${product.photos[0] || 'https://coflex.com.tr/wp-content/uploads/2021/01/resim-yok.jpg'}" alt="${product.name}">
-                            <div class="product-info">
-                                <h3>Ürün Adı: ${product.name}</h3>
-                                <p class="price">Fiyat: ${product.price} TL</p>
-                                <p>${product.description}</p>
-                                <button class="ekle-btn" onclick="deleteProduct('${product._id}')">ÜRÜNÜ SİL</button>
-                            </div>
-                        </div>
-                    `;
-                    productList.innerHTML += productCard;
-                });
-
-                renderPagination();  // Pagination elemanlarını oluştur
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
-        }
-
-        function renderPagination() {
-        const paginationContainer = document.getElementById('pagination');
-        paginationContainer.innerHTML = '';  // Önceki pagination'ı temizle
-
-        // "Önceki" butonu
-        if (currentPage > 1) {
-            const prevButton = document.createElement('a');
-            prevButton.textContent = 'Önceki';
-            prevButton.href = '#';
-            prevButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                changePage(currentPage - 1);
-            });
-            paginationContainer.appendChild(prevButton);
-        }
-
-        // Sayfa numaraları
-        for (let i = 1; i <= totalPages; i++) {
-            const pageButton = document.createElement('a');
-            pageButton.textContent = i;
-            pageButton.href = '#';
-            pageButton.className = i === currentPage ? 'active' : '';  // Aktif sayfayı vurgula
-            pageButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                changePage(i);
-            });
-            paginationContainer.appendChild(pageButton);
-        }
-
-        // "Sonraki" butonu
-        if (currentPage < totalPages) {
-            const nextButton = document.createElement('a');
-            nextButton.textContent = 'Sonraki';
-            nextButton.href = '#';
-            nextButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                changePage(currentPage + 1);
-            });
-            paginationContainer.appendChild(nextButton);
-        }
-    }
-
-        // Sayfa ilk yüklendiğinde ürünleri getir
-        fetchProducts();
-
-
-        async function deleteProduct(productId) {
-            try {
-                const response = await fetch(`http://localhost:3000/products/${productId}`, {
-                    method: 'DELETE',  // HTTP DELETE isteği gönderiyoruz
-                });
-
-                if (response.ok) {
-                    alert("Ürün başarıyla silindi.");
-                    // Ürünü sayfadan kaldır
-                    document.getElementById(`product-${productId}`).remove();
-                } else {
-                    alert("Ürün silinirken bir hata oluştu.");
-                }
-            } catch (error) {
-                console.error("Silme işlemi sırasında hata:", error);
-                alert("Silme işlemi sırasında bir hata oluştu.");
-            }
-        }
-
+        // Sayfa yüklendiğinde talepleri yükle
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProducts();
+        });
     </script>
 </body>
 

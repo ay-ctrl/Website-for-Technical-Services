@@ -17,8 +17,9 @@
     <meta property="og:url" content="https://telefon-tamiri-seng209-211.com.tr/">
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/kampanyaEkle.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <!-- URL LİNKİNİ DAHA GÜZEL BİR ŞEY YAP PLS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="./scripts/script.js"></script>
+
 </head>
 
 <body class="main page-loading animation">
@@ -71,7 +72,7 @@
             </div>
 
             <!-- Ekle Butonu -->
-            <button class="ekle-btn" onclick="submitForm()">EKLE</button>
+            <button class="ekle-btn" onclick="addCampaign()">EKLE</button>
         </div>
     </section>
 
@@ -122,36 +123,6 @@
         </a>
     </div>
 
-    
-
-    <script>
-        async function submitForm() {
-            // Form elemanlarını al
-            const aciklama = document.getElementById('aciklama').value;
-            const dosya = document.getElementById('dosya').files[0];
-    
-            const formData = new FormData();
-            formData.append('aciklama', aciklama);
-            formData.append('dosya', dosya);
-    
-            // Form verilerini backend'e gönder
-            try {
-                const response = await fetch('http://localhost:3000/upload-campaign', {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-                if (data.success) {
-                    alert('Kampanya başarıyla eklendi!');
-                } else {
-                    alert('Bir hata oluştu1!');
-                }
-            } catch (error) {
-                console.error(error);
-                alert('Bir hata oluştu!2');
-            }
-        }
-    </script>
 </body>
 
 </html>
