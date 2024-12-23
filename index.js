@@ -66,30 +66,6 @@ app.post('/api/repairRequests', async (req, res) => {
     }
 });
 
-
-
-// this is for comment sending requests but wont be used at first version
-/* 
-app.post("/api/comment", async (req, res) => {
-    const userIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-
-    try {
-        // Aynı IP'den gelen yorum var mı kontrol et
-        const existingComment = await Comment.findOne({ ip: userIp });
-
-        if (existingComment) {
-            return res.status(400).send({ message: 'Bu IP adresinden zaten yorum yapıldı.' });
-        }
-
-        const newComment = new Comment({ ...req.body, ip: userIp });
-        await newComment.save();
-        res.status(201).send({ message: 'Yorum başarıyla gönderildi!' });
-    } catch (error) {
-        res.status(400).send({ message: 'Yorum gönderilemedi: ' + error.message });
-    }
-});
-*/
-
 // Login route
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
@@ -136,8 +112,6 @@ app.post('/change-password', async (req, res) => {
         res.status(500).json({ message: 'Bir hata oluştu' });
     }
 });
-
-
 
 // Talep sorgulama API
 app.post("/api/repairRequests/search", async (req, res) => {

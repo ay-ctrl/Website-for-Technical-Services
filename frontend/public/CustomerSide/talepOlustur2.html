@@ -17,7 +17,8 @@
     <meta property="og:url" content="https://telefon-tamiri-seng209-211.com.tr/">
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/talepOlustur2.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />,
+    <script src="./scripts/script.js"></script>
 </head>
 
 <body class="main page-loading animation">
@@ -103,19 +104,6 @@
         </div>
     </footer>
 
-
-    <script>
-        // Talep numarasını localStorage'dan al
-        const queryNum = window.localStorage.getItem('queryNum');
-    
-        if (queryNum) {
-            // Talep numarasını sayfada göster
-            document.getElementById('talepNo').textContent = queryNum;
-        } else {
-            alert('Talep numarası bulunamadı.');
-        }
-    </script>
-
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
         var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -129,6 +117,10 @@
         })();
     </script>
     <!--End of Tawk.to Script-->
+
+    <script>
+        document.addEventListener("DOMContentLoaded",showTalepNo());
+    </script>
 
 </body>
 

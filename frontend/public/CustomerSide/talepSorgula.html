@@ -17,7 +17,8 @@
     <meta property="og:url" content="https://telefon-tamiri-seng209-211.com.tr/">
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/talepSorgula.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <script src="./scripts/script.js"></script>
 </head>
 
 <body class="main page-loading animation">
@@ -92,10 +93,6 @@
 
     </div>
 
-
-
-
-
     <!-- Footer -->
     <footer>
         <div class="footer-container">
@@ -136,28 +133,6 @@
         </div>
     </footer>
 
-
-    <script>
-        // Sayfa yüklendiğinde localStorage'dan veriyi al
-        const repairRequestData = JSON.parse(localStorage.getItem('repairRequestData'));
-    
-        if (repairRequestData) {
-            // Veriyi tabloya doldur
-            document.getElementById('customerName').textContent = repairRequestData.name;
-            document.getElementById('customerPhone').textContent = repairRequestData.phone;
-            document.getElementById('customerAddress').textContent = repairRequestData.adress;
-            document.getElementById('problemDescription').textContent = repairRequestData.sorunlar.join(', ');
-            document.getElementById('createdAt').textContent = new Date(repairRequestData.createdAt).toLocaleDateString();
-            document.getElementById('status').textContent = repairRequestData.state || 'Bilinmiyor';
-            document.getElementById('price').textContent = repairRequestData.price || 'Belirlenmedi';
-    
-            // Tabloyu göster
-            document.getElementById('resultTable').style.display = 'table';
-        } else {
-            alert('Talep verisi bulunamadı.');
-        }
-    </script>
-
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
         var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -171,6 +146,10 @@
         })();
     </script>
     <!--End of Tawk.to Script-->
+
+    <script>
+        document.addEventListener("DOMContentLoaded",showRequestInfo());
+    </script>
 
 </body>
 

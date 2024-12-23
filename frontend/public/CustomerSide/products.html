@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/products.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <!-- URL LİNKİNİ DAHA GÜZEL BİR ŞEY YAP PLS-->
+    <script src="./scripts/script.js"></script>
 </head>
 
 <body class="main page-loading animation">
@@ -168,101 +168,6 @@
     </div>
 </footer>
 
-
-
-<script>
-   let currentPage = 1;  // Başlangıç sayfası
-    let totalPages = 1;   // Toplam sayfa sayısı
-
-    function changePage(page) {
-        if (page < 1 || page > totalPages) return;  // Geçersiz sayfalar için hiçbir şey yapma
-        currentPage = page;
-        fetchProducts();  // Sayfa değiştiğinde ürünleri al
-        // Sayfa başına kaydır
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'  // Yumuşak kaydırma
-        });
-    }
-
-    async function fetchProducts() {
-        try {
-            const response = await fetch(`http://localhost:3000/products?page=${currentPage}`);
-            const data = await response.json();
-
-            const products = data.products;
-            totalPages = data.totalPages;  // Global toplam sayfa sayısını güncelle
-
-            const productList = document.getElementById('product-list');
-            productList.innerHTML = '';
-
-            products.forEach(product => {
-                const productCard = `
-                    <div class="product-card" id="product-${product._id}">
-                        <img src="${product.photos[0] || 'https://coflex.com.tr/wp-content/uploads/2021/01/resim-yok.jpg'}" alt="${product.name}">
-                        <div class="product-info">
-                            <h3>Ürün Adı: ${product.name}</h3>
-                            <p class="price">Fiyat: ${product.price} TL</p>
-                            <p>${product.description}</p>
-                        </div>
-                    </div>
-                `;
-                productList.innerHTML += productCard;
-            });
-
-            renderPagination();  // Pagination elemanlarını oluştur
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-    }
-
-    function renderPagination() {
-    const paginationContainer = document.getElementById('pagination');
-    paginationContainer.innerHTML = '';  // Önceki pagination'ı temizle
-
-    // "Önceki" butonu
-    if (currentPage > 1) {
-        const prevLink = document.createElement('a');
-        prevLink.textContent = 'Önceki';
-        prevLink.href = '#';
-        prevLink.addEventListener('click', (e) => {
-            e.preventDefault();  // Varsayılan link davranışını engelle
-            changePage(currentPage - 1);
-        });
-        paginationContainer.appendChild(prevLink);
-    }
-
-    // Sayfa numaraları
-    for (let i = 1; i <= totalPages; i++) {
-        const pageLink = document.createElement('a');
-        pageLink.textContent = i;
-        pageLink.href = '#';
-        pageLink.className = i === currentPage ? 'active' : '';  // Aktif sayfayı vurgula
-        pageLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            changePage(i);
-        });
-        paginationContainer.appendChild(pageLink);
-    }
-
-    // "Sonraki" butonu
-    if (currentPage < totalPages) {
-        const nextLink = document.createElement('a');
-        nextLink.textContent = 'Sonraki';
-        nextLink.href = '#';
-        nextLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            changePage(currentPage + 1);
-        });
-        paginationContainer.appendChild(nextLink);
-    }
-}
-
-    // Sayfa ilk yüklendiğinde ürünleri getir
-    fetchProducts();
-
-</script>
-
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -276,6 +181,10 @@
     })();
 </script>
 <!--End of Tawk.to Script-->
+
+<script>
+    document.addEventListener("DOMContentLoaded",fetchProducts());
+</script>
 
 </body>
 

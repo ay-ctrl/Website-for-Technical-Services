@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/SSS.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <!-- URL LİNKİNİ DAHA GÜZEL BİR ŞEY YAP PLS-->
+    <script src="./scripts/script.js"></script>
 </head>
 
 <body class="main page-loading animation">
@@ -179,32 +179,6 @@
 
     </div>
 
-    <script>
-        const faqs = document.querySelectorAll(".faq button");
-
-        faqs.forEach(faq => {
-            faq.addEventListener('click', (e) => {
-                let cont = e.target.closest(".faq");
-                if (cont.classList.contains("active")) {
-                    console.log("if içi");
-                    cont.classList.remove("active")
-                    console.log(faq);
-                } else {
-                    closeAll();
-                    console.log("if dışı");
-                    cont.classList.add('active');
-                }
-            })
-        });
-
-        function closeAll() {
-            faqs.forEach(faq => {
-                let cont = faq.closest(".faq");
-                cont.classList.remove('active');
-            })
-        };
-    </script>
-
     <!-- Footer -->
     <footer>
         <div class="footer-container">
@@ -259,6 +233,10 @@
         })();
     </script>
     <!--End of Tawk.to Script-->
+
+    <script>
+        document.addEventListener("DOMContentLoaded",sssScript());
+    </script>
 
 </body>
 

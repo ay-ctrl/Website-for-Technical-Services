@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/talepSorgula2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <script src="./scripts/script.js"></script>
 </head>
 
 <body class="main page-loading animation">
@@ -59,7 +60,7 @@
             <h1>TALEP SORGULA</h1>
             <div class="search-box">
                 <input id="queryNumInput" type="text" placeholder="Talep numaranızı giriniz!">
-                <button id="searchButton">SORGULA</button>
+                <button id="searchButton" onclick="talepSorgula()">SORGULA</button>
             </div>
         </div>
     </div>
@@ -105,42 +106,6 @@
         </div>
     </footer>
 
-
-    <script>
-        document.getElementById('searchButton').addEventListener('click', async () => {
-            const queryNum = document.getElementById('queryNumInput').value;
-    
-            if (!queryNum) {
-                alert("Lütfen bir talep numarası girin.");
-                return;
-            }
-    
-            try {
-                const response = await fetch('http://localhost:3000/api/repairRequests/search', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ queryNum })
-                });
-    
-                const data = await response.json();
-    
-                if (data.success) {
-                    // Talep verilerini localStorage'a kaydet
-                    localStorage.setItem('repairRequestData', JSON.stringify(data.data));
-    
-                    // Başka sayfaya yönlendir
-                    window.location.href = 'talepSorgula.html'; // Talep sonucu sayfasına yönlendir
-                } else {
-                    alert(data.message); // Talep bulunamazsa hata mesajı
-                }
-            } catch (error) {
-                console.error(error);
-                alert('Bir hata oluştu.');
-            }
-        });
-    </script>
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
         var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -154,7 +119,7 @@
         })();
     </script>
     <!--End of Tawk.to Script-->
-    
+
 </body>
 
 </html>
