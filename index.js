@@ -7,11 +7,9 @@ const multer = require('multer');
 const { google } = require('googleapis');
 const path = require('path');
 const fs = require('fs');
-const readline = require('readline');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 app.use(express.urlencoded({ extended: true }));
-//app.use(express.static(path.join(__dirname, 'public')));
 
 // Schemas
 const Request = require('./models/repairRequests'); 
@@ -20,20 +18,12 @@ const Campaign=require('./models/campaigns');
 const Product=require('./models/products');
 const Media=require('./models/media');
 
-
 // Frontend dosyalarını statik olarak sun
 app.use(express.static(path.join(__dirname, 'frontend')));
 
-// /index isteğiyle frontend/index.html dosyasını döndür
-app.get('/index', (req, res) => {
-    const filePath = path.join(__dirname, 'frontend/public/CustomerSide', 'index.html');
-    res.sendFile(filePath);
-});
-
-
 //Sunucuya gelen isteklere izin vermek için
 const corsOptions = {
-    origin: 'http://127.0.0.1:5500', // Frontend adresi
+    origin: 'http://localhost:3000', // Frontend adresi
     methods: ['GET', 'POST','DELETE','PUT'], // İzin verilen HTTP metodları
     allowedHeaders: ['Content-Type'], // İzin verilen başlıklar
 };
@@ -50,12 +40,7 @@ mongoose.connect("mongodb+srv://moonloversin:Wg0RBqGNubEaOiAg@backend.cnmfb.mong
     console.log("Connection failed :(");
 });
 
-
-app.post("/api/users",(req,res)=>{
-    console.log(req.body);
-    res.send("Data recieved to the server "+JSON.stringify(req.body));
-});
-
+//To upload a repair request
 app.post('/api/repairRequests', async (req, res) => {
     try {
         const newRequest = new Request(req.body); // Gelen form verisini yeni bir Talep'e çevir
@@ -69,13 +54,11 @@ app.post('/api/repairRequests', async (req, res) => {
 // Login route
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
-
     try {
         const user = await User.authenticate(username, password);
         if (!user) {
             return res.status(401).json({ message: 'Kullanıcı adı veya şifre hatalı!' });
         }
-
         // Doğrulama başarılı
         res.json({ message: 'Giriş başarılı!', user });
     } catch (error) {
@@ -84,9 +67,9 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+//Change password route
 app.post('/change-password', async (req, res) => {
     const { username, oldPassword, newPassword } = req.body;
-
     try {
         // Kullanıcıyı veritabanında bul
         const user = await User.findOne({ username });
@@ -113,7 +96,7 @@ app.post('/change-password', async (req, res) => {
     }
 });
 
-// Talep sorgulama API
+//Talep sorgulama API
 app.post("/api/repairRequests/search", async (req, res) => {
     const { queryNum } = req.body; // Kullanıcıdan gelen sorgulama numarası
 
@@ -139,16 +122,6 @@ app.post("/api/repairRequests/search", async (req, res) => {
     }
 });
 
-app.get("/api/users",(req,res)=>{
-    console.log("aaaaa");
-    res.send("ayse");
-});
-
-app.get("/",(req,res)=>{
-    res.send("hello from api server day");
-});
-
-
 // Multer için dosya yükleme ayarları
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -158,11 +131,9 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname)); // Benzersiz bir isim verilir
     }
 });
-
 const upload = multer({ storage: storage });
 
-
-//to load campaign
+//To load a campaign
 app.post('/upload-campaign', upload.single('dosya'), async (req, res) => {
     try {
         const { aciklama } = req.body;
@@ -210,13 +181,7 @@ app.post('/upload-campaign', upload.single('dosya'), async (req, res) => {
                 console.error("Google Drive yükleme hatası:", googleError);
                 return res.status(500).json({ error: 'Google Drive yükleme hatası oluştu!' });
             }
-
-            // Geçici dosyayı sil
-            try {
-                fs.unlinkSync(req.file.path);
-            } catch (unlinkError) {
-                console.error("Geçici dosya silme hatası:", unlinkError);
-            }
+            fs.unlinkSync(req.file.path); // geçici dosyayı sil
         }
 
         // MongoDB'ye kaydetme
@@ -230,10 +195,18 @@ app.post('/upload-campaign', upload.single('dosya'), async (req, res) => {
     } catch (error) {
         console.error("Genel hata:", error);
         res.status(500).json({ error: 'Bir hata oluştu.' });
+    } finally {
+        // Eğer dosya yükleme başarısız olsa bile geçici dosya silinsin
+        if (req.file) {
+            const filePath = path.join(__dirname, req.file.path);
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath); // Dosyayı sil
+            }
+        }
     }
 });
 
-// to get campaigns
+// To get campaigns
 app.get('/api/campaigns', async (req, res) => {
     try {
         const campaigns = await Campaign.find().sort({ createdAt: -1 }); // En son eklenen en üstte
@@ -243,7 +216,7 @@ app.get('/api/campaigns', async (req, res) => {
     }
 });
   
- // to upload product
+ // To upload product
 app.post('/upload-product', upload.single('file'), async (req, res) => {
     try {
         const { name, price, description } = req.body;
@@ -302,17 +275,27 @@ app.post('/upload-product', upload.single('file'), async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Bir hata oluştu.' });
+    }finally {
+        // Eğer dosya yükleme başarısız olsa bile geçici dosya silinsin
+        if (req.file) {
+            const filePath = path.join(__dirname, req.file.path);
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath); // Dosyayı sil
+            }
+        }
     }
 });
 
-// to get products
+// To get products
 app.get('/products', async (req, res) => {
     const page = parseInt(req.query.page) || 1;  // Varsayılan olarak 1. sayfa
     const limit = 10;  // Sayfa başına gösterilecek ürün sayısı
     const skip = (page - 1) * limit;
 
     try {
-        const products = await Product.find().skip(skip).limit(limit);  // Verileri sayfalar halinde al
+        const products = await Product.find()
+        .skip(skip)
+        .limit(limit);  // Verileri sayfalar halinde al
         const totalProducts = await Product.countDocuments();  // Toplam ürün sayısı
 
         res.json({
@@ -324,7 +307,8 @@ app.get('/products', async (req, res) => {
         res.status(500).json({ message: 'Error fetching products' });
     }
 });
-    
+
+// To delete a product
 app.delete('/products/:id', async (req, res) => {
     try {
         const productId = req.params.id;
@@ -336,7 +320,7 @@ app.delete('/products/:id', async (req, res) => {
     }
 });
 
-
+// To get requests
 app.get('/get-requests', async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;  // Sayfa numarası (varsayılan 1)
@@ -345,6 +329,7 @@ app.get('/get-requests', async (req, res) => {
 
         // Verileri çekme
         const requests = await Request.find()
+            .sort({ createdAt: -1 })
             .skip(skip)  // Başlangıç noktasını atla
             .limit(pageSize);  // Sayfa başına veriyi sınırlama
 
@@ -366,7 +351,6 @@ app.get('/get-requests', async (req, res) => {
     }
 });
 
-
 // API endpoint for updating repair request
 app.put('/api/update-request/:id', async (req, res) => {
     const { id } = req.params;
@@ -384,6 +368,7 @@ app.put('/api/update-request/:id', async (req, res) => {
     }
 });
 
+// To delete a request
 app.delete('/delete-request/:id', async (req, res) => {
     try {
         await Request.findByIdAndDelete(req.params.id);
@@ -392,7 +377,6 @@ app.delete('/delete-request/:id', async (req, res) => {
         res.status(500).send('Silme işlemi başarısız!');
     }
 });
-
 
 // Talebi idsine göre GET ile alma
 app.get('/get-request/:id', async (req, res) => {
@@ -411,7 +395,7 @@ app.get('/get-request/:id', async (req, res) => {
     }
 });
 
-// to load media
+// To load media
 app.post('/upload-media', upload.single('dosya'), async (req, res) => {
     try {
         const { aciklama } = req.body;
@@ -459,13 +443,7 @@ app.post('/upload-media', upload.single('dosya'), async (req, res) => {
                 console.error("Google Drive yükleme hatası:", googleError);
                 return res.status(500).json({ error: 'Google Drive yükleme hatası oluştu!' });
             }
-
-            // Geçici dosyayı sil
-            try {
-                fs.unlinkSync(req.file.path);
-            } catch (unlinkError) {
-                console.error("Geçici dosya silme hatası:", unlinkError);
-            }
+            fs.unlinkSync(req.file.path); //geçici dosyayı sil
         }
 
         // MongoDB'ye kaydetme
@@ -479,10 +457,18 @@ app.post('/upload-media', upload.single('dosya'), async (req, res) => {
     } catch (error) {
         console.error("Genel hata:", error);
         res.status(500).json({ error: 'Bir hata oluştu.' });
+    } finally {
+        // Eğer dosya yükleme başarısız olsa bile geçici dosya silinsin
+        if (req.file) {
+            const filePath = path.join(__dirname, req.file.path);
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath); // Dosyayı sil
+            }
+        }
     }
 });
 
-// to get medias
+// To get medias
 app.get('/api/medias', async (req, res) => {
     try {
         const medias = await Media.find().sort({ createdAt: -1 }); // En son eklenen en üstte
@@ -491,8 +477,6 @@ app.get('/api/medias', async (req, res) => {
         res.status(500).json({ message: 'Bir hata oluştu', error });
     }
 });
-
-
 
 // Google OAuth2 Client Setup
 const client_id = process.env.CLIENT_ID;
@@ -514,7 +498,6 @@ fs.readFile(TOKEN_PATH, (err, token) => {
     // Token ayarlandıktan sonra Google Drive API nesnesini oluşturun
     const drive = google.drive({ version: 'v3', auth: oAuth2Client });
 });
-
 
 app.get('/oauth2callback', async (req, res) => {
   const code = req.query.code; // URL üzerinden gönderilen "code" parametresini alıyoruz
@@ -550,10 +533,5 @@ app.get('/authorize', (req, res) => {
     // Kullanıcıyı OAuth2 sayfasına yönlendiriyoruz
     res.redirect(authUrl);
   });
-  
 
 const drive = google.drive({ version: 'v3', auth: oAuth2Client });
-
-
-
-

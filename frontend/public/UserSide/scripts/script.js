@@ -101,6 +101,10 @@ async function changePassword(){
 
         if (response.ok) {
             alert(result.message); // Şifre başarıyla değiştirildi
+            document.getElementById('username').value="";
+            document.getElementById('old-password').value="";
+            document.getElementById('new-password').value="";
+            document.getElementById('new-password-again').value="";
         } else {
             alert(result.message); // Hata mesajı
         }
@@ -117,8 +121,6 @@ async function addProduct(){
     const priceValue = parseFloat(document.getElementById('price').value);
     const description = document.getElementById('aciklama').value;
     const fileInput = document.getElementById('dosya');
-
-    console.log({ name, priceValue, description, file: fileInput.files[0] }); // Verileri test edin
 
     if (isNaN(priceValue)) {
         alert('Lütfen geçerli bir fiyat giriniz!');
@@ -140,11 +142,11 @@ async function addProduct(){
          // Yanıt kontrolü
          if (response.ok) {
             const data = await response.json();
-            console.log('Ürün başarıyla eklendi!');
             alert('Ürün başarıyla eklendi!');
             document.getElementById('name').value="";
             document.getElementById('price').value="";
             document.getElementById('aciklama').value="";
+            document.getElementById('dosya').value="";
         } else {
             const data = await response.json();
             console.error('Hata:', data.error || response.statusText);
@@ -227,6 +229,8 @@ async function addCampaign() {
         const data = await response.json();
         if (data.success) {
             alert('Kampanya başarıyla eklendi!');
+            document.getElementById('aciklama').value="";
+            document.getElementById('dosya').value="";
         } else {
             alert('Bir hata oluştu1!');
         }
@@ -311,21 +315,21 @@ function displayRequests(requests) {
     });
 }
 
-// Sayfa numaralarını ve önceki/sonraki düğmelerini oluşturur
-function displayPagination(totalRequestsPages, currentRequestPage) {
-    const container = document.getElementById('pagination');
-    container.innerHTML = '';  // Önceki sayfa numaralarını temizle
+// Taleplerim için pagination scripti
+function displayPagination() {
+    const paginationContainer = document.getElementById('pagination');
+    paginationContainer.innerHTML = '';  // Önceki pagination'ı temizle
 
-    // Önceki sayfaya geçiş
+    // "Önceki" butonu
     if (currentRequestPage > 1) {
-        const prevPage = document.createElement('a');
-        prevPage.textContent = 'Önceki';
-        prevPage.href = '#';
-        prevPage.addEventListener('click', (e) => {
+        const prevButton = document.createElement('a');
+        prevButton.textContent = 'Önceki';
+        prevButton.href = '#';
+        prevButton.addEventListener('click', (e) => {
             e.preventDefault();
-            fetchRequests(currentRequestPage - 1);
+            fetchRequests(currentRequestPage - 1); // Önceki sayfaya git
         });
-        container.appendChild(prevPage);
+        paginationContainer.appendChild(prevButton);
     }
 
     // Sayfa numaraları
@@ -333,24 +337,24 @@ function displayPagination(totalRequestsPages, currentRequestPage) {
         const pageButton = document.createElement('a');
         pageButton.textContent = i;
         pageButton.href = '#';
-        pageButton.className = i === currentRequestPage ? 'active' : ''; // Aktif sayfayı vurgula
+        pageButton.className = i === currentRequestPage ? 'active' : '';  // Aktif sayfayı vurgula
         pageButton.addEventListener('click', (e) => {
             e.preventDefault();
-            fetchRequests(i);
+            fetchRequests(i); // Tıklanan sayfayı getir
         });
-        container.appendChild(pageButton);
+        paginationContainer.appendChild(pageButton);
     }
 
-    // Sonraki sayfaya geçiş
+    // "Sonraki" butonu
     if (currentRequestPage < totalRequestsPages) {
-        const nextPage = document.createElement('a');
-        nextPage.textContent = 'Sonraki';
-        nextPage.href = '#';
-        nextPage.addEventListener('click', (e) => {
+        const nextButton = document.createElement('a');
+        nextButton.textContent = 'Sonraki';
+        nextButton.href = '#';
+        nextButton.addEventListener('click', (e) => {
             e.preventDefault();
-            fetchRequests(currentRequestPage + 1);
+            fetchRequests(currentRequestPage + 1); // Sonraki sayfaya git
         });
-        container.appendChild(nextPage);
+        paginationContainer.appendChild(nextButton);
     }
 }
 
@@ -365,7 +369,6 @@ async function deleteRequest(id) {
             });
 
             if (response.ok) {
-                console.log('Talep silindi');
                 fetchRequests(currentRequestPage); // Mevcut sayfayı yeniden yükle
             } else {
                 console.error('Silme başarısız');
@@ -446,7 +449,7 @@ function renderPagination() {
         const pageButton = document.createElement('a');
         pageButton.textContent = i;
         pageButton.href = '#';
-        pageButton.className = i === currentPage ? 'active' : '';  // Aktif sayfayı vurgula
+        pageButton.className = i === currentProductPage ? 'active' : '';  // Aktif sayfayı vurgula
         pageButton.addEventListener('click', (e) => {
             e.preventDefault();
             changePage(i);
@@ -636,5 +639,3 @@ function printRequestInfo () {
     // PDF dosyasını kaydet
     doc.save('talep_bilgisi.pdf');
 }
-
-

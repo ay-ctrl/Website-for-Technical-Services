@@ -38,7 +38,6 @@ function repairServicesCarousel() {
     startCarousel();
 }
 
-
 function showCampaigns() {
     async function fetchCampaigns() {
     try {
@@ -111,7 +110,7 @@ async function logIn() {
 
         // Sunucudan gelen yanıta göre işlem yap
         if (response.ok) {
-            const data = await response.json(); // JSON formatında gelen yanıtı çözümle
+            alert("Giriş başarılı :)");
             window.location.href = '../UserSide/dashboard.html'; 
         } else {
             const errorText = await response.json(); // Hata mesajını JSON olarak al
