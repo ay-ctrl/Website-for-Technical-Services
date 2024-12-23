@@ -277,17 +277,43 @@ let totalRequestsPages = 0;
 
 // Talepleri getirir
 async function fetchRequests(page = 1) {
+    const token = localStorage.getItem('token'); // Token'ı localStorage'dan al
+
+    if (!token) {
+        console.error('Token bulunamadı. Lütfen giriş yapın.');
+        return;
+    }
+
     try {
-        const response = await fetch(`http://localhost:3000/get-requests?page=${page}`);
+        // Backend'e sayfa numarasını ve token'ı gönder
+        const response = await fetch(`http://localhost:3000/get-requests?page=${page}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,  // Token'ı Authorization başlığında gönder
+            },
+        });
+
+        // Yanıtı kontrol et
+        if (!response.ok) {
+            throw new Error('İstek başarısız oldu.');
+        }
+
         const data = await response.json();
+        
+        // Veri formatını kontrol et
+        if (data && data.requests && Array.isArray(data.requests)) {
+            currentRequestPage = data.currentPage;
+            totalRequestsPages = data.totalPages;
 
-        currentRequestPage = data.currentPage;
-        totalRequestsPages = data.totalPages;
-
-        displayRequests(data.requests);
-        displayPagination(totalRequestsPages);
+            displayRequests(data.requests); // Talepleri göster
+            displayPagination(totalRequestsPages); // Sayfalama göster
+        } else {
+            console.error('Geçersiz veri formatı:', data);
+        }
     } catch (err) {
         console.error('Error fetching requests:', err);
+        alert('Talepler alınırken bir hata oluştu.');
     }
 }
 

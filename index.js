@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose= require('mongoose');
 const app = express();
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
 app.use(express.json());
 const multer = require('multer');
@@ -59,8 +60,10 @@ app.post('/api/login', async (req, res) => {
         if (!user) {
             return res.status(401).json({ message: 'Kullanıcı adı veya şifre hatalı!' });
         }
-        // Doğrulama başarılı
-        res.json({ message: 'Giriş başarılı!', user });
+
+        // JWT token oluştur ve geri gönder
+        const token = jwt.sign({ userId: user._id }, 'your_secret_key', { expiresIn: '1h' });
+        res.json({ message: 'Giriş başarılı!', token });
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).json({ message: 'Sunucu hatası' });
@@ -321,7 +324,7 @@ app.delete('/products/:id', async (req, res) => {
 });
 
 // To get requests
-app.get('/get-requests', async (req, res) => {
+app.get('/get-requests',  authenticateToken, async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;  // Sayfa numarası (varsayılan 1)
         const pageSize = 30;  // Sayfa başına gösterilecek veri sayısı
@@ -535,3 +538,20 @@ app.get('/authorize', (req, res) => {
   });
 
 const drive = google.drive({ version: 'v3', auth: oAuth2Client });
+
+// Token doğrulama middleware'ı
+function authenticateToken(req, res, next) {
+    const token = req.header('Authorization')?.replace('Bearer ', '');  // Token'ı header'dan al
+
+    if (!token) {
+        return res.status(401).json({ error: 'Erişim izni yok.' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, 'your_secret_key');  // Token'ı doğrula
+        req.user = decoded; // Token'dan kullanıcı bilgilerini al
+        next(); // İstek işlemi devam etsin
+    } catch (err) {
+        res.status(403).json({ error: 'Geçersiz token.' });
+    }
+}

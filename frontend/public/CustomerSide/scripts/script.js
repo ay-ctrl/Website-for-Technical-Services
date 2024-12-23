@@ -110,6 +110,9 @@ async function logIn() {
 
         // Sunucudan gelen yanıta göre işlem yap
         if (response.ok) {
+            const data = await response.json();  // Yanıtı JSON formatında al
+            // Token'ı localStorage'a kaydet
+            localStorage.setItem('token', data.token);
             alert("Giriş başarılı :)");
             window.location.href = '../UserSide/dashboard.html'; 
         } else {
