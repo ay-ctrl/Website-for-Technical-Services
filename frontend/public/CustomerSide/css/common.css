@@ -7,8 +7,18 @@ body {
     color: #fff;
     overflow-x: hidden;
   }
-  
-  
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Yatay kaydırmayı önler */
+}
+
+img, .container {
+  max-width: 100%;
+  height: auto;
+}
+
   /* Header */
   header {
     display: flex;
@@ -338,134 +348,106 @@ body {
   }
   
 
- 
-  /* Footer */
-  footer {
-    background-color: #222;
-    color: #fff;
-    padding: 20px 0;
-    font-size: 1.5rem;
-  }
-  
-  .footer-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 20px;
-  }
-  
+ /* Footer */
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+  font-size: 1.5rem;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.footer-column {
+  width: 30%;
+  text-align: center;
+  margin-bottom: 20px; /* Alt boşluk ekleyerek kutuların ayrılmasını sağlar */
+}
+
+/* Logo */
+.footer-logo {
+  max-width: 150px !important; /* Logo boyutunu belirgin şekilde büyüt */
+  height: auto !important; /* Oranını koruyarak yükseklik ayarla */
+  display: block;
+  margin: 0 auto 10px; /* Ortala ve altına boşluk ekle */
+}
+
+/* Footer Bağlantıları */
+.footer-link {
+  font-size: 1.2rem;
+  color: rgb(172, 85, 169);
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin: 5px 0;
+}
+
+.footer-column ul ul li {
+  margin-left: 15px;
+}
+
+.footer-column a {
+  color: rgb(172, 85, 169);
+  text-decoration: none;
+}
+
+.footer-column a:hover {
+  text-decoration: underline;
+}
+
+/* Sosyal Medya İkonları */
+.footer-column img {
+  width: 24px; /* İkon boyutunu küçült */
+  height: 24px;
+  margin: 0 5px; /* Aralarına boşluk ekle */
+  filter: invert(1); /* Beyaz renge dönüştür */
+}
+
+.footer-column img:hover {
+  opacity: 0.8; /* Hover durumunda biraz şeffaflık ekleyin */
+}
+
+/* Footer Alt Kısım */
+.footer-bottom {
+  text-align: center;
+  padding: 10px;
+  background-color: #cdbac8;
+  color: #000;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
   .footer-column {
-    width: 30%;
-    text-align: center;
+    width: 100%; /* Tüm sütunlar alt alta gelsin */
   }
-  
-  /* Logo */
-  .footer-logo {
-    max-width: 150px !important;
-    /* Logo boyutunu belirgin şekilde büyüt */
-    height: auto !important;
-    /* Oranını koruyarak yükseklik ayarla */
-    display: block;
-    margin: 0 auto 10px;
-    /* Ortala ve altına boşluk ekle */
+}
+
+@media (max-width: 480px) {
+  footer {
+    font-size: 1.2rem; /* Daha küçük ekranlar için yazı boyutunu küçült */
   }
-  
-  /* Footer Bağlantıları */
-  .footer-link {
-    font-size: 1.2rem;
-    color: rgb(172, 85, 169);
-    text-decoration: none;
+
+  .footer-container {
+    padding: 10px; /* Daha küçük boşluklar */
   }
-  
-  .footer-link:hover {
-    text-decoration: underline;
-  }
-  
-  .footer-column ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer-column ul li {
-    margin: 5px 0;
-  }
-  
-  .footer-column ul ul li {
-    margin-left: 15px;
-  }
-  
-  .footer-column a {
-    color: rgb(172, 85, 169);
-    text-decoration: none;
-  }
-  
-  .footer-column a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Sosyal Medya İkonları */
+
   .footer-column img {
-    width: 24px;
-    /* İkon boyutunu küçült */
-    height: 24px;
-    margin: 0 5px;
-    /* Aralarına boşluk ekle */
-    filter: invert(1);
-    /* Beyaz renge dönüştür */
+    width: 20px; /* Daha küçük ikon boyutları */
+    height: 20px;
   }
-  
-  .footer-column img:hover {
-    opacity: 0.8;
-    /* Hover durumunda biraz şeffaflık ekleyin */
-  }
-  
-  /* Footer Alt Kısım */
-  .footer-bottom {
-    text-align: center;
-    padding: 10px;
-    background-color: #cdbac8;
-    color: #000;
-  }
-  
-  @media (max-width: 767px) {
-    .footer-column {
-        width: 100%; /* Sütunları tam genişlikte yap */
-        padding: 10px; /* İç boşluk */
-        box-sizing: border-box;
-
-    }
-
-    .footer-container {
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        width: 100%; /* Tam genişlik */
-        background-color: #222;
-        overflow-x: hidden;
-    }
-
-    /* Footer Alt Kısım */
-    .footer-bottom {
-        justify-content: center;
-        text-align: center;
-        width:150vw;
-        background-color: #cdbac8;
-    
-    }
-
-
 }
-
-@media (max-width: 574px) {
-    .footer-column {
-        width: 100%;
-    }
-
-    .footer-container {
-        justify-content: center;
-        width: 150vw;
-        background-color: #222;
-        height: auto;
-    }
-}
-
