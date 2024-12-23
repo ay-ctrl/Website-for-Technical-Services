@@ -93,7 +93,168 @@ body {
     box-shadow: 0 5px 10px rgba(181, 126, 179, 0.5), 0 -5px 10px rgba(181, 126, 179, 0.5), 5px 0 10px rgba(181, 126, 179, 0.5), -5px 0 10px rgba(181, 126, 179, 0.5);
   }
   
-  
+  /*Header responsive ve hamburger menu*/
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    /* Header yüksekliğine göre ayarlayın */
+    right: 20px;
+    z-index: 1000;
+}
+
+.hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 3px 0;
+}
+
+/* Mobil Menü */
+.nav-mobile {
+    display: none;
+    flex-direction: column;
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100%;
+    width: 30%;
+    transition: right 0.3s ease-in-out;
+    z-index: 999;
+    padding-top: 100px;
+    /* Yazılar için üst boşluk */
+}
+
+.nav-mobile a {
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    border-bottom: 1px solid rgb(172, 98, 169);
+}
+
+.nav-mobile a:hover {
+    background-color: rgb(172, 98, 169) !important;
+}
+
+
+/* Menü Açıldığında */
+.nav-mobile.open {
+    right: 0;
+    /* Sağdan açılmasını sağlar */
+}
+
+
+/* Hamburger Menü Görünümü */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+}
+
+/* Menü Açma/Kapama */
+.nav-mobile.open {
+    display: flex;
+}
+
+
+
+
+
+
+/* 1189px ile 1408px arasındaki düzenlemeler */
+@media (max-width: 1408px) and (min-width: 1190px) {
+    header nav ul {
+        gap: 20px;
+        /* Menü öğeleri arasındaki boşluğu daralt */
+    }
+
+    header nav ul li a {
+        font-size: 1.5rem;
+        /* Menü yazı boyutunu küçült */
+        padding: 8px 10px;
+        /* Menü bağlantılarını daralt */
+    }
+
+    header .auth-buttons a {
+        font-size: 1.5rem;
+        /* Giriş yap butonunun yazı boyutunu küçült */
+        padding: 8px 12px;
+        /* Giriş yap butonunun iç boşluklarını daralt */
+    }
+}
+
+/* 1024px ile 1189px arasındaki düzenlemeler */
+@media (max-width: 1189px) and (min-width: 1024px) {
+    header nav ul {
+        gap: 15px;
+        /* Menü öğeleri arasındaki boşluğu biraz daha daralt */
+    }
+
+    header nav ul li a {
+        font-size: 1.4rem;
+        /* Menü yazı boyutunu biraz daha küçült */
+        padding: 6px 8px;
+        /* Menü bağlantılarını biraz daha daralt */
+    }
+
+    header .auth-buttons a {
+        font-size: 1.4rem;
+        /* Giriş yap butonunun yazı boyutunu küçült */
+        padding: 6px 10px;
+        /* Butonun iç boşluklarını daralt */
+    }
+}
+
+/* 768px ile 1024px arası */
+@media (max-width: 1024px) {
+    header nav ul {
+        display: none;
+        /* Geniş ekran menüsünü gizle */
+    }
+
+    .hamburger {
+        display: flex;
+        /* Hamburger menüyü görünür yap */
+    }
+
+    .nav-mobile {
+        display: flex;
+        /* Mobil menüyü göster */
+    }
+
+    header .auth-buttons {
+        display: none;
+        /* Giriş yap butonunu mobil menüye taşımak için gizle */
+    }
+}
+
+/* 768px altı */
+@media (max-width: 768px) {
+    header {
+        flex-wrap: wrap;
+        /* Header içeriğini aşağıya kaydır */
+    }
+
+    .logo img {
+        max-width: 100px;
+        /* Logo boyutunu küçült */
+    }
+
+    .nav-mobile a {
+        font-size: 1.2rem;
+        /* Mobil menü yazı boyutunu küçült */
+        padding: 10px 15px;
+        /* Mobil menü boşluklarını düzenle */
+    }
+}
   
   
   /* Ana İçerik Alanı */
@@ -266,26 +427,45 @@ body {
     color: #000;
   }
   
-  /* Mesajlaşma Ikonu */
-  .message-icon {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-  }
-  
-  .message-icon img {
-    width: 70px;
-    height: 70px;
-    cursor: pointer;
-    border-radius: 50%;
-    padding: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    /* Hafif bir gölge efekti */
-    transition: 0.3s;
-  }
-  
-  .message-icon img:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
-  }
+  @media (max-width: 767px) {
+    .footer-column {
+        width: 100%; /* Sütunları tam genişlikte yap */
+        padding: 10px; /* İç boşluk */
+        box-sizing: border-box;
+
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        width: 100%; /* Tam genişlik */
+        background-color: #222;
+        overflow-x: hidden;
+    }
+
+    /* Footer Alt Kısım */
+    .footer-bottom {
+        justify-content: center;
+        text-align: center;
+        width:150vw;
+        background-color: #cdbac8;
+    
+    }
+
+
+}
+
+@media (max-width: 574px) {
+    .footer-column {
+        width: 100%;
+    }
+
+    .footer-container {
+        justify-content: center;
+        width: 150vw;
+        background-color: #222;
+        height: auto;
+    }
+}
+

@@ -17,8 +17,8 @@
     <meta property="og:title" content="Uygun Fiyatlarla Akıllı Cihaz Tamir Hizmeti Sizlerle">
     <meta property="og:description" content=" Hızlı ve güvenilir tamir için hemen ulaşın.">
     <meta property="og:url" content="https://telefon-tamiri-seng209-211.com.tr/">
-    <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="/public/CustomerSide/css/common.css">
+    <link rel="stylesheet" href="/public/CustomerSide/css/index.css">
     <!-- URL LİNKİNİ DAHA GÜZEL BİR ŞEY YAP PLS-->
      
 
@@ -34,7 +34,18 @@
                     width="150">
             </a>
         </div>
-
+        <!-- Hamburger Menu -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <script>
+            function toggleMenu() {
+                const navMobile = document.getElementById('nav-mobile');
+                navMobile.classList.toggle('open');
+            }
+        </script>
         <!-- Navigation -->
         <nav>
             <ul>
@@ -47,12 +58,22 @@
             </ul>
         </nav>
 
+        <!-- Mobile Navigation -->
+        <nav class="nav-mobile" id="nav-mobile">
+            <a href="/public/CustomerSide/html/talepOlustur.html">Talep Oluştur</a>
+            <a href="/public/CustomerSide/html/talepSorgula2.html">Talep Sorgula</a>
+            <a href="/public/CustomerSide/html/products.html">Aksesuar ve Ek Ürünler</a>
+            <a href="/public/CustomerSide/html/hakkımızda.html">Hakkımızda</a>
+            <a href="/public/CustomerSide/html/SSS.html">SSS</a>
+            <a href="public/CustomerSide/html/giris.html" class="giris-btn"><b>Giriş Yap</b></a>
+        </nav>
+
         <!-- Login Button -->
         <div class="auth-buttons">
             <a href="giris.html" class="giris-btn"><b>Giriş Yap</b></a>
         </div>
     </header>
-
+    
     <!--Telefonunuz mu Bozuldu?-->
 
     <section id="telefonunuz">

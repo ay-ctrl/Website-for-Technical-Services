@@ -1,10 +1,9 @@
 
 
-.container {
+.repair-container {
     width: 80%;
     margin: 0 auto;
 }
-
 
 h1,
 h2,
@@ -13,21 +12,21 @@ h4 {
     color: white;
 }
 
-.container h1 {
+.repair-container h1 {
     font-size: 60px;
     font-weight: bold;
     margin-bottom: 30px;
 
 }
 
-.container h2 {
+.repair-container h2 {
     font-size: 50px;
     font-weight: bold;
     margin-bottom: 20px;
     font-weight: bold;
 }
 
-.container h3 {
+.repair-container h3 {
     font-size: 40px;
     font-weight: bold;
     margin-bottom: 10px;
@@ -35,14 +34,14 @@ h4 {
 
 }
 
-.container h4 {
+.repair-container h4 {
     font-size: 35px;
     font-weight: bold;
     margin-bottom: 10px;
     margin-top: 70px;
 }
 
-.container p {
+.repair-container p {
     font-size: 25px;
     margin-bottom: 5px;
 }
@@ -69,15 +68,17 @@ h4 {
     margin-right: 10px;
 }
 
+.main-title{
+    text-align: center;
+    font-size: 7rem;
+
+}
+
+
 #kampanyalar {
   background-color:#121111;
-  padding: 50px 50px;
-  margin-top: 10px;
-  /* Üst kısmında boşluk */
-  margin-bottom: 50px;
-  /* Alt kısmında boşluk */
-  height: 100hv;
 }
+
 
 /* Müşteri Yorumları */
 .comments-section {
