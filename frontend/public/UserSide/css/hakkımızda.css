@@ -273,11 +273,6 @@ h4 {
 
 }
 
-
-
-
-
-
 /* Müşteri Yorumları */
 .comments-section {
     padding: 30px 0;
@@ -292,8 +287,6 @@ h4 {
     font-size: 3rem;
     margin-bottom: 20px;
 }
-
-
 
 /* Yorum Butonu */
 .comment-button {
@@ -318,8 +311,6 @@ h4 {
     border-color: black;
     box-shadow: 0 5px 10px rgba(181, 126, 179, 0.5), 0 -5px 10px rgba(181, 126, 179, 0.5), 5px 0 10px rgba(181, 126, 179, 0.5), -5px 0 10px rgba(181, 126, 179, 0.5);
 }
-
-
 
 
 
