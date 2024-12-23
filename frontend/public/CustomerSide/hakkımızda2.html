@@ -15,18 +15,19 @@
     <meta property="og:title" content="Uygun Fiyatlarla Akıllı Cihaz Tamir Hizmeti Sizlerle">
     <meta property="og:description" content=" Hızlı ve güvenilir tamir için hemen ulaşın.">
     <meta property="og:url" content="https://telefon-tamiri-seng209-211.com.tr/">
-    <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="../css/medyaEkle.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/comment.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <!-- URL LİNKİNİ DAHA GÜZEL BİR ŞEY YAP PLS-->
 </head>
 
 <body class="main page-loading animation">
+
     <!-- Header -->
     <header>
+        <!-- Logo -->
         <div class="logo">
-            <a href="dashboard.html">
-                <img src="/public/images/ayda-logo.png" alt="Telefon Tamiri"
+            <a href="index.html">
+                <img src="../images/ayda-logo.png" alt="Telefon Tamiri"
                     width="150">
             </a>
         </div>
@@ -34,52 +35,29 @@
         <!-- Navigation -->
         <nav>
             <ul>
-                <li><a href="myRequests.html">Taleplerim</a></li>
+                <li><a href="talepOlustur.html">Talep Oluştur</a></li>
+                <li><a href="talepSorgula2.html">Talep Sorgula</a></li>
                 <li><a href="products.html">Aksesuar ve Ek Ürünler</a></li>
                 <li><a href="hakkımızda.html">Hakkımızda</a></li>
                 <li><a href="SSS.html">SSS</a></li>
-                <li class="dropdown">
-                    <button class="dropdown-button">Admin Kullanıcısı</button>
-                    <div class="dropdown-content">
-                        <a href="#">Ödemeler</a>
-                        <a href="#">Çalışanlar</a>
-                        <a href="changePassword.html">Şifre değiştir</a>
-                        <a href="../../../index.html">Çıkış Yap</a>
-                    </div>
-                </li>
             </ul>
-
         </nav>
 
+        <!-- Login Button -->
+        <div class="auth-buttons">
+            <a href="giris.html" class="giris-btn">Giriş Yap</a>
+        </div>
     </header>
 
 
-
-
-    <div class="hakkimizda-container">
-        <h2 class="title">MEDYA EKLE</h2>
-    </div>
-    <section id="medyaEkle">
+    <div class="container">
+        <h1>MÜŞTERİ YORUMLARI</h1>
         <div class="form-container">
-            <!-- Açıklama Alanı -->
-            <div class="form-group">
-                <label for="aciklama">Açıklama:</label>
-                <textarea id="aciklama" rows="5" placeholder="Açıklama giriniz..."></textarea>
-            </div>
-
-            <!-- Dosya Yükleme Alanı -->
-            <div class="form-group">
-                <label for="dosya">Resim/video seç:</label>
-                <input type="file" id="dosya">
-            </div>
-
-            <!-- Ekle Butonu -->
-            <button class="ekle-btn" onclick="submitForm()">EKLE</button>
+            <input type="text" id="name" placeholder="Adınız Soyadınız">
+            <textarea id="comment" rows="5" placeholder="Yorumunuzu yazınız"></textarea>
+            <button id="submitComment" class="js-submitComment">GÖNDER</button>
         </div>
-    </section>
-
-
-
+    </div>
 
 
     <!-- Footer -->
@@ -89,7 +67,8 @@
             <div class="footer-column">
                 <h3>Telefon Tamiri</h3>
                 <ul>
-                    <li><a href="myRequests.html">Taleplerim</a></li>
+                    <li><a href="talepOlustur.html">Talep Oluştur</a></li>
+                    <li><a href="talepSorgula2.html">Talep Sorgula</a></li>
                     <li><a href="products.html">Aksesuar ve Ek Ürünler</a></li>
                     <li><a href="hakkımızda.html">Hakkımızda</a></li>
                     <li><a href="SSS.html">SSS</a></li>
@@ -121,44 +100,53 @@
         </div>
     </footer>
 
-    <!-- Mesajlaşma Ikonu -->
-    <div class="message-icon">
-        <a href="https://dashboard.tawk.to/#/chat" target="_blank">
-            <img src="/public/images/message.png" alt="Mesajlaşma İkonu">
-        </a>
-    </div>
-    
     <script>
-        async function submitForm() {
-            // Form elemanlarını al
-            const aciklama = document.getElementById('aciklama').value;
-            const dosya = document.getElementById('dosya').files[0];
-    
-            const formData = new FormData();
-            formData.append('aciklama', aciklama);
-            formData.append('dosya', dosya);
-    
-            // Form verilerini backend'e gönder
-            try {
-                const response = await fetch('http://localhost:3000/upload-media', {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-                if (data.success) {
-                    alert('Medya başarıyla eklendi!');
-                    // Form inputlarını boşalt
-                    document.getElementById('aciklama').value = '';
-                    document.getElementById('dosya').value = '';  // Dosya inputu da boşaltılır
-                } else {
-                    alert('Bir hata oluştu1!');
-                }
-            } catch (error) {
-                console.error(error);
-                alert('Bir hata oluştu!2');
-            }
+        const submitButton=document.querySelector(".js-submitComment");
+        submitButton.addEventListener("click", async (event) => {
+        event.preventDefault(); // Formun varsayılan davranışını engelle
+
+        const name = document.getElementById("name").value; // Değeri burada al
+        const comment = document.getElementById("comment").value;
+
+        if (!name || !comment) {
+            alert("Lütfen adınızı ve yorumunuzu girin!");
+            return;
         }
+
+        try {
+            const response = await fetch('http://localhost:3000/api/comment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, comment })
+            });
+
+            const responseData = await response.json();
+            if (response.ok) {
+                alert(responseData.message); // Backend'den gelen mesajı göster
+            } else {
+                alert("Yorum gönderilemedi: " + responseData.message);
+            }
+        } catch (error) {
+            alert('Bir hata oluştu: ' + error.message);
+        }
+    });
     </script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/6768177b49e2fd8dfefbf95d/1ifn9nf0p';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 
 </body>
 

@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 
 // /index isteğiyle frontend/index.html dosyasını döndür
 app.get('/index', (req, res) => {
-    const filePath = path.join(__dirname, 'frontend/public/CustomerSide/html', 'index.html');
+    const filePath = path.join(__dirname, 'frontend/public/CustomerSide', 'index.html');
     res.sendFile(filePath);
 });
 
