@@ -117,6 +117,16 @@
     color: #333;
 }
 
+@media (max-width: 768px) {
+    .products {
+        grid-template-columns: 1fr;
+    }
+    .filters {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
 
 .ekle-btn {
     background-color:black;
@@ -129,8 +139,8 @@
     cursor: pointer;
     display: block;
     margin-top: 15px;
-    height: 5rem;
-    width: 20rem;
+    height: auto;
+    width: auto;
 }
 
 .ekle-btn:hover {
@@ -140,20 +150,6 @@
     box-shadow: 0 5px 10px rgba(181, 126, 179, 0.5), 0 -5px 10px rgba(181, 126, 179, 0.5), 5px 0 10px rgba(181, 126, 179, 0.5), -5px 0 10px rgba(181, 126, 179, 0.5);
 
 }
-
-
-@media (max-width: 768px) {
-    .products {
-        grid-template-columns: 1fr;
-    }
-
-    .filters {
-        flex-direction: column;
-        gap: 20px;
-    }
-}
-
-
 
 /* Sayfalama */
 #pagination {
@@ -201,4 +197,23 @@
 .add-icon img:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive düzenleme */
+@media (max-width: 768px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr); /* Mobilde de 2 sütun */
+        gap: 10px; /* Mobilde aradaki boşluklar kaldırıldı */
+        max-width: 100%; /* Tam genişlik */
+    }
+
+    .product-card {
+        max-width: 100%; /* Mobilde ürünler tam genişlik */
+        margin: 0; /* Ürünler arasında margin kaldırıldı */
+    }
+
+    .product-card img {
+        height: 150px; /* Resim yüksekliği küçültüldü */
+        margin-bottom: 0; /* Alt boşluk kaldırıldı */
+    }
 }

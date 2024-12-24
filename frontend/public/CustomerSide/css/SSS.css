@@ -13,14 +13,16 @@
 }
 
 .container {
-  width: 60%;
-  min-width: 620px;
-  min-height: 100vh;
+  width: 90%; /* Daha fazla esneklik için */
+  max-width: 1000px;
+  min-height: 100vh; /* Ekran yüksekliğini tam olarak kapsar */
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 3rem auto;
-  
+  justify-content: flex-start; /* Başlangıçtan hizalamayı garantiye al */
+  margin: 0 auto;
+  position: relative; /* Üst üste binmeyi önler */
+  overflow: visible; /* Taşan öğelerin görünmesini sağlar */
 }
 
 h1 {
@@ -33,13 +35,13 @@ h1 {
 
 .faq {
   background-color: transparent;
-  border: 2px solid  #cdbac8 ;
+  border: 2px solid #cdbac8;
   border-radius: 10px;
   padding: 1.5rem;
   margin-bottom: 2rem;
   width: 100%;
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* Taşan içerikleri gösterir */
 }
 
 .faq h2 {
@@ -107,7 +109,6 @@ h1 {
 
 .faq::before,
 .faq::after {
-  content: '\f075';
   font-family: 'Font Awesome 6 Free';
   font-size: 10rem;
   position: absolute;
@@ -131,3 +132,39 @@ h1 {
   display: block;
 }
 
+@media (max-width: 480px) {
+  .container {
+    width: 100%;  /* Ekran boyutu daha da küçüldükçe container tam genişlikte olacak */
+  }
+
+  h1 {
+    font-size: 2rem;  /* Başlık font boyutu küçültüldü */
+  }
+
+  .faq h2 {
+    font-size: 1.4rem;  /* Başlık font boyutu küçültüldü */
+  }
+
+  .faq p {
+    font-size: 1rem;  /* Paragraf font boyutu küçültüldü */
+  }
+
+  .faq.active h2 {
+    font-size: 1.4rem;  /* Başlık boyutu aktif olduğunda daha küçük */
+  }
+
+  .faq.active p {
+    font-size: 1rem;  /* Paragraf boyutu aktif olduğunda daha küçük */
+  }
+
+  .btn {
+    font-size: 1.4rem;  /* Button font boyutu küçültüldü */
+    top: 5px;  /* Button'un yukarıdan mesafesi azaltıldı */
+    right: 5px;  /* Button'un sağdan mesafesi azaltıldı */
+  }
+
+  .faq::before,
+  .faq::after {
+    font-size: 4rem;  /* İkon boyutu daha da küçültüldü */
+  }
+}

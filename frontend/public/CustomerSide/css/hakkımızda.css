@@ -56,8 +56,6 @@ h4 {
     margin-bottom: 10px;
 }
 
-
-
 .icon-text {
     display: flex;
     align-items: center;
@@ -68,17 +66,9 @@ h4 {
     margin-right: 10px;
 }
 
-.main-title{
-    text-align: center;
-    font-size: 7rem;
-
-}
-
-
 #kampanyalar {
   background-color:#121111;
 }
-
 
 /* Müşteri Yorumları */
 .comments-section {
@@ -94,7 +84,6 @@ h4 {
     font-size: 3rem;
     margin-bottom: 20px;
 }
-
 
 
 /* Yorum Butonu */
@@ -113,6 +102,18 @@ h4 {
     border: 2px solid black;
     transition: 0.3s;
 }
+
+@media screen and (max-width: 480px) {
+    .comment-button {
+        padding: 3px 5px;
+        font-size: 1.2rem;
+        border-width: 1px;
+        margin-top: 20px;
+    }
+    .comments-section {
+        margin-top: 25px;
+    }
+  }
 
 .comment-button:hover {
     background-color: rgb(172, 85, 169);

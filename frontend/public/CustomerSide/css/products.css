@@ -41,8 +41,6 @@
     box-shadow: 0 0 4px rgba(242, 122, 26, 0.5);
 }
 
-
-
 .products {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -145,3 +143,21 @@
     border-color:black;
 }
 
+/* Responsive düzenleme */
+@media (max-width: 768px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr); /* Mobilde de 2 sütun */
+        gap: 10px; /* Mobilde aradaki boşluklar kaldırıldı */
+        max-width: 100%; /* Tam genişlik */
+    }
+
+    .product-card {
+        max-width: 100%; /* Mobilde ürünler tam genişlik */
+        margin: 0; /* Ürünler arasında margin kaldırıldı */
+    }
+
+    .product-card img {
+        height: 150px; /* Resim yüksekliği küçültüldü */
+        margin-bottom: 0; /* Alt boşluk kaldırıldı */
+    }
+}

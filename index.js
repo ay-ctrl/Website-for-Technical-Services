@@ -41,6 +41,15 @@ mongoose.connect("mongodb+srv://moonloversin:Wg0RBqGNubEaOiAg@backend.cnmfb.mong
     console.log("Connection failed :(");
 });
 
+// Statik dosyalar için doğru dizini belirtin
+app.use(express.static(path.join(__dirname, 'frontend/public')));
+
+// Anasayfaya gelen GET isteği için yönlendirme yap
+app.get('/', (req, res) => {
+    res.redirect('/CustomerSide/index.html');  // Anasayfaya yönlendir
+});
+
+
 //To upload a repair request
 app.post('/api/repairRequests', async (req, res) => {
     try {
@@ -225,6 +234,7 @@ app.post('/upload-product', upload.single('file'), async (req, res) => {
         const { name, price, description } = req.body;
 
         if (!name || !price || !description) {
+            alert("Tüm alanlar doldurulmalıdır!");
             return res.status(400).json({ error: 'Tüm alanlar doldurulmalıdır!' });
         }
 
@@ -292,7 +302,7 @@ app.post('/upload-product', upload.single('file'), async (req, res) => {
 // To get products
 app.get('/products', async (req, res) => {
     const page = parseInt(req.query.page) || 1;  // Varsayılan olarak 1. sayfa
-    const limit = 10;  // Sayfa başına gösterilecek ürün sayısı
+    const limit = 30;  // Sayfa başına gösterilecek ürün sayısı
     const skip = (page - 1) * limit;
 
     try {

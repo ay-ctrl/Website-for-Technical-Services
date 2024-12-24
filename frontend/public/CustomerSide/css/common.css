@@ -174,11 +174,6 @@ img, .container {
     display: flex;
 }
 
-
-
-
-
-
 /* 1189px ile 1408px arasındaki düzenlemeler */
 @media (max-width: 1408px) and (min-width: 1190px) {
     header nav ul {
@@ -187,14 +182,14 @@ img, .container {
     }
 
     header nav ul li a {
-        font-size: 1.5rem;
+        font-size: 2rem;
         /* Menü yazı boyutunu küçült */
         padding: 8px 10px;
         /* Menü bağlantılarını daralt */
     }
 
     header .auth-buttons a {
-        font-size: 1.5rem;
+        font-size: 2rem;
         /* Giriş yap butonunun yazı boyutunu küçült */
         padding: 8px 12px;
         /* Giriş yap butonunun iç boşluklarını daralt */
@@ -209,22 +204,44 @@ img, .container {
     }
 
     header nav ul li a {
-        font-size: 1.4rem;
+        font-size: 1.8rem;
         /* Menü yazı boyutunu biraz daha küçült */
         padding: 6px 8px;
         /* Menü bağlantılarını biraz daha daralt */
     }
 
     header .auth-buttons a {
-        font-size: 1.4rem;
+        font-size: 1.8rem;
         /* Giriş yap butonunun yazı boyutunu küçült */
         padding: 6px 10px;
         /* Butonun iç boşluklarını daralt */
+        margin-right: auto;
     }
 }
 
+@media (max-width: 1024px) and (min-width: 950px) {
+    header nav ul {
+      gap: 15px;
+      /* Menü öğeleri arasındaki boşluğu biraz daha daralt */
+  }
+
+  header nav ul li a {
+      font-size: 1.5rem;
+      /* Menü yazı boyutunu biraz daha küçült */
+      padding: 6px 8px;
+      /* Menü bağlantılarını biraz daha daralt */
+  }
+
+  header .auth-buttons a {
+      font-size: 1.5rem;
+      /* Giriş yap butonunun yazı boyutunu küçült */
+      padding: 6px 10px;
+      /* Butonun iç boşluklarını daralt */
+  }
+}
+
 /* 768px ile 1024px arası */
-@media (max-width: 1024px) {
+@media (max-width: 950px) {
     header nav ul {
         display: none;
         /* Geniş ekran menüsünü gizle */
@@ -270,7 +287,6 @@ img, .container {
   /* Ana İçerik Alanı */
   .hakkimizda-container {
     width: 100%;
-    height: 150px;
     margin: 20px auto;
     background-color: #111010;
     color: #fff;
@@ -279,6 +295,7 @@ img, .container {
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 160px;
+    height:auto;
   }
   
   .title {
@@ -289,8 +306,12 @@ img, .container {
     font-weight: bold;
   
   }
+  @media(max-width:480px){
+    .title{
+        font-size: 2.5rem;
+    }
+  }
 
-  
 #kampanyalar {
     background-color: #3f353c;
     padding: 50px 50px;
@@ -298,31 +319,24 @@ img, .container {
     /* Üst kısmında boşluk */
     margin-bottom: 50px;
     /* Alt kısmında boşluk */
-    height: 100hv;
+    height: auto;
   }
   
-  /* Kampanyalar başlığı stil */
-  #kampanyalar h1 {
-    text-align: center;
-    /* Başlığı ortalar */
-    font-size: 7rem;
-    margin-bottom: 50px;
-    /* Slider ile aradaki boşluk */
-    margin-top: 20px;
-    /* Üstteki alan ile boşluk */
-    color: white;
-    /* Başlık rengini belirler */
-  }
   
   #kampanyalar h3 {
     text-align: center;
     /* Başlığı ortalar */
-    font-size: 3rem;
+    font-size: 2rem;
     margin-bottom: 20px;
     margin-top: 30px;
     color: white;
     /* Başlık rengini belirler */
   
+  }
+
+  .main-title{
+    text-align: center;
+    font-size: 7rem;
   }
   
   .carousel-inner {
@@ -346,7 +360,17 @@ img, .container {
     background-color: rgba(0, 0, 0, 0.1);
     /* Okların arkasındaki siyah zemin */
   }
-  
+
+
+  @media(max-width: 620px){
+    /* Kampanyalar başlığı stil */
+    .main-title {
+      font-size: 3rem; 
+      text-align: center;
+
+    }
+}
+
 
  /* Footer */
 footer {

@@ -26,12 +26,17 @@
 <body class="main page-loading animation">
     <!-- Header -->
     <header>
-        <!-- Logo -->
         <div class="logo">
             <a href="dashboard.html">
-                <img src="/public/images/ayda-logo.png" alt="Telefon Tamiri"
-                    width="150">
+                <img src="../images/ayda-logo.png" alt="Telefon Tamiri" width="150">
             </a>
+        </div>
+
+        <!-- Hamburger Menu -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
 
         <!-- Navigation -->
@@ -42,8 +47,8 @@
                 <li><a href="hakkımızda.html">Hakkımızda</a></li>
                 <li><a href="SSS.html">SSS</a></li>
                 <li class="dropdown">
-                    <button class="dropdown-button">Admin Kullanıcısı</button>
-                    <div class="dropdown-content">
+                    <button class="dropdown-button" onclick="toggleDropdown()">Admin Kullanıcısı</button>
+                    <div class="dropdown-content" id="admin-dropdown">
                         <a href="#">Ödemeler</a>
                         <a href="#">Çalışanlar</a>
                         <a href="changePassword.html">Şifre değiştir</a>
@@ -51,10 +56,43 @@
                     </div>
                 </li>
             </ul>
-        
         </nav>
 
+
+       <!-- Mobile Navigation -->
+    <nav class="nav-mobile" id="nav-mobile">
+        <a href="myRequests.html">Taleplerim</a>
+        <a href="products.html">Aksesuar ve Ek Ürünler</a>
+        <a href="hakkımızda.html">Hakkımızda</a>
+        <a href="SSS.html">SSS</a>
+        <span class="dropdown-button-mobile" onclick="toggleDropdownMobile()">Admin Kullanıcısı</span>
+        <div class="dropdown-mobile" id="mobile-dropdown">
+            <a href="#">Ödemeler</a>
+            <a href="#">Çalışanlar</a>
+            <a href="changePassword.html">Şifre değiştir</a>
+            <a href="../CustomerSide/index.html">Çıkış Yap</a>
+        </div>
+    </nav>
+        
     </header>
+
+
+    <script>
+        function toggleMenu() {
+            const navMobile = document.getElementById('nav-mobile');
+            navMobile.classList.toggle('open');
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('admin-dropdown');
+            dropdown.classList.toggle('open');
+        }
+
+        function toggleDropdownMobile() {
+            const dropdownMobile = document.getElementById('mobile-dropdown');
+            dropdownMobile.classList.toggle('open');
+        }
+    </script>
 
      <!-- Ana İçerik Alanı -->
      <div class="hakkimizda-container">
