@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 
 //Sunucuya gelen isteklere izin vermek için
 const corsOptions = {
-    origin: 'http://ayda.site', // Frontend adresi
+    origin: ['http://ayda.site', 'http://localhost:3000'], // Frontend adresi
     methods: ['GET', 'POST','DELETE','PUT'], // İzin verilen HTTP metodları
     allowedHeaders: ['Content-Type'], // İzin verilen başlıklar
 };
