@@ -1,5 +1,5 @@
 //DASHBOARD
-window.API_URL = "http://145.223.100.63:3000";
+window.API_URL = "http://145.223.100.63:5000";
 // Döngüyü başlat
 function startCarousel() {
     const carouselTrack = document.querySelector(".carousel-track");
@@ -223,7 +223,7 @@ async function addCampaign() {
 
     // Form verilerini backend'e gönder
     try {
-        const response = await fetch(`${window.API_URL}/upload-campaign`, {
+        const response = await fetch(`${window.API_URL}/api/upload-campaign`, {
             method: 'POST',
             body: formData
         });

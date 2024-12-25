@@ -34,15 +34,21 @@ app.use(cors(corsOptions)); // CORS'u etkinleştir
 //sunucu ve mongodb bağlantısı
 mongoose.connect("mongodb+srv://moonloversin:Wg0RBqGNubEaOiAg@backend.cnmfb.mongodb.net/NODE-API?retryWrites=true&w=majority&appName=Backend").then(()=>{
     console.log("Connected to database :)"); 
-    app.listen(3000, ()=>{
-        console.log("Server is running on port 3000");
+    app.listen(5000, ()=>{
+        console.log("Server is running on port 5000");
     });
 }).catch(()=>{
     console.log("Connection failed :(");
 });
 
-// Statik dosyalar için doğru dizini belirtin
-app.use(express.static(path.join(__dirname, 'frontend/public')));
+const frontendApp = express();  // Frontend için ayrı express örneği
+
+// Frontend dosyalarını sunma
+frontendApp.use(express.static('frontend/public'));  // frontend klasöründeki dosyaları sunar
+
+frontendApp.listen(3000, () => {
+    console.log("Frontend is running on port 3000");
+});
 
 // Anasayfaya gelen GET isteği için yönlendirme yap
 app.get('/', (req, res) => {
@@ -134,6 +140,10 @@ app.post("/api/repairRequests/search", async (req, res) => {
     }
 });
 
+// 'uploads' klasörünü oluştur
+const uploadDir = path.join(__dirname, 'uploads');
+fs.promises.mkdir(uploadsDir, { recursive: true });
+
 // Multer için dosya yükleme ayarları
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -143,10 +153,22 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname)); // Benzersiz bir isim verilir
     }
 });
-const upload = multer({ storage: storage });
+// Multer'ı yapılandırın
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 10 * 1024 * 1024 }, // Maksimum dosya boyutu (10 MB)
+    fileFilter: (req, file, cb) => {
+        // Sadece belirli türdeki dosyaları kabul et
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!allowedTypes.includes(file.mimetype)) {
+            return cb(new Error('Invalid file type'), false);
+        }
+        cb(null, true);
+    }
+});
 
 //To load a campaign
-app.post('/upload-campaign', upload.single('dosya'), async (req, res) => {
+app.post('/api/upload-campaign', upload.single('dosya'), async (req, res) => {
     try {
         const { aciklama } = req.body;
 

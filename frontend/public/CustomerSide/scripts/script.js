@@ -1,5 +1,5 @@
 //INDEX
-window.API_URL = "http://145.223.100.63:3000";
+window.API_URL = "http://145.223.100.63:5000";
 //Tamir hizmetleri kutularının carouseli
 function repairServicesCarousel() {
     const carouselTrack = document.querySelector(".carousel-track");
