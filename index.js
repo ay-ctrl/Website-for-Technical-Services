@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 const corsOptions = {
     origin: ['http://ayda.site', 'http://localhost:3000'], // Frontend adresi
     methods: ['GET', 'POST','DELETE','PUT'], // İzin verilen HTTP metodları
-    allowedHeaders: ['Content-Type'], // İzin verilen başlıklar
+    allowedHeaders: ['Content-Type','Authorization'], // İzin verilen başlıklar
 };
 
 app.use(cors(corsOptions)); // CORS'u etkinleştir
