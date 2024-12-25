@@ -1,4 +1,5 @@
 //INDEX
+window.API_URL = "http://145.223.100.63:3000";
 //Tamir hizmetleri kutularının carouseli
 function repairServicesCarousel() {
     const carouselTrack = document.querySelector(".carousel-track");
@@ -41,7 +42,7 @@ function repairServicesCarousel() {
 function showCampaigns() {
     async function fetchCampaigns() {
     try {
-        const response = await fetch('http://localhost:3000/api/campaigns');
+        const response = await fetch(`${window.API_URL}/api/campaigns`);
         const campaigns = await response.json();
 
         const carouselIndicators = document.querySelector('.carousel-indicators');
@@ -100,7 +101,7 @@ async function logIn() {
 
     try {
         // Backend'e login isteği gönder
-        const response = await fetch('http://localhost:3000/api/login', {
+        const response = await fetch(`${window.API_URL}/api/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -129,7 +130,7 @@ async function logIn() {
 function showMedias() {
     async function fetchMedias() {
         try {
-        const response = await fetch('http://localhost:3000/api/medias');
+        const response = await fetch(`${window.API_URL}/api/medias`);
         const medias = await response.json();
 
         const carouselIndicators = document.querySelector('.carousel-indicators');
@@ -198,7 +199,7 @@ function changePage(page) {
 
 async function fetchProducts() {
     try {
-        const response = await fetch(`http://localhost:3000/products?page=${currentProductPage}`);
+        const response = await fetch(`${window.API_URL}/products?page=${currentProductPage}`);
         const data = await response.json();
 
         const products = data.products;
@@ -299,7 +300,7 @@ async function talepOlustur(event){
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries()); // Form verilerini bir nesneye çevir
     try {
-        const response = await fetch('http://localhost:3000/api/repairRequests', {
+        const response = await fetch(`${window.API_URL}/api/repairRequests`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -368,7 +369,7 @@ async function talepSorgula() {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/api/repairRequests/search', {
+        const response = await fetch(`${window.API_URL}/api/repairRequests/search`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

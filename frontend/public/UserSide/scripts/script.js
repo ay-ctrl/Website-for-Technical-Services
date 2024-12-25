@@ -1,4 +1,5 @@
 //DASHBOARD
+window.API_URL = "http://145.223.100.63:3000";
 // Döngüyü başlat
 function startCarousel() {
     const carouselTrack = document.querySelector(".carousel-track");
@@ -34,7 +35,7 @@ function startCarousel() {
 
 async function fetchCampaigns() {
     try {
-        const response = await fetch('http://localhost:3000/api/campaigns');
+        const response = await fetch(`${window.API_URL}/api/campaigns`);
         const campaigns = await response.json();
 
         const carouselIndicators = document.querySelector('.carousel-indicators');
@@ -89,7 +90,7 @@ async function changePassword(){
     const newPassword = document.getElementById('new-password').value;
 
     try {
-        const response = await fetch('http://localhost:3000/change-password', {
+        const response = await fetch(`${window.API_URL}/change-password`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -134,7 +135,7 @@ async function addProduct(){
     }
 
     try {
-        const response = await fetch('http://localhost:3000/upload-product', {
+        const response = await fetch(`${window.API_URL}/upload-product`, {
             method: 'POST',
             body: formData,
         });
@@ -161,7 +162,7 @@ async function addProduct(){
 //HAKKIMIZDA
 async function fetchMedias() {
     try {
-        const response = await fetch('http://localhost:3000/api/medias');
+        const response = await fetch(`${window.API_URL}/api/medias`);
         const medias = await response.json();
 
         const carouselIndicators = document.querySelector('.carousel-indicators');
@@ -222,7 +223,7 @@ async function addCampaign() {
 
     // Form verilerini backend'e gönder
     try {
-        const response = await fetch('http://localhost:3000/upload-campaign', {
+        const response = await fetch(`${window.API_URL}/upload-campaign`, {
             method: 'POST',
             body: formData
         });
@@ -252,7 +253,7 @@ async function addMedia() {
 
     // Form verilerini backend'e gönder
     try {
-        const response = await fetch('http://localhost:3000/upload-media', {
+        const response = await fetch(`${window.API_URL}/upload-media`, {
             method: 'POST',
             body: formData
         });
@@ -286,7 +287,7 @@ async function fetchRequests(page = 1) {
 
     try {
         // Backend'e sayfa numarasını ve token'ı gönder
-        const response = await fetch(`http://localhost:3000/get-requests?page=${page}`, {
+        const response = await fetch(`${window.API_URL}/get-requests?page=${page}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -390,7 +391,7 @@ async function deleteRequest(id) {
 
     if (isConfirmed) {
         try {
-            const response = await fetch(`http://localhost:3000/delete-request/${id}`, {
+            const response = await fetch(`${window.API_URL}/delete-request/${id}`, {
                 method: 'DELETE',
             });
 
@@ -424,7 +425,7 @@ function changePage(page) {
 
 async function fetchProducts() {
     try {
-        const response = await fetch(`http://localhost:3000/products?page=${currentProductPage}`);
+        const response = await fetch(`${window.API_URL}/products?page=${currentProductPage}`);
         const data = await response.json();
 
         const products = data.products;
@@ -498,7 +499,7 @@ function renderPagination() {
 
 async function deleteProduct(productId) {
     try {
-        const response = await fetch(`http://localhost:3000/products/${productId}`, {
+        const response = await fetch(`${window.API_URL}/products/${productId}`, {
             method: 'DELETE',  // HTTP DELETE isteği gönderiyoruz
         });
 
@@ -544,7 +545,7 @@ function closeAll(faqs) {
 //TALEP DÜZENLE
 async function loadRepairRequest(id) {
     try {
-    const response = await fetch(`http://localhost:3000/get-request/${id}`);
+    const response = await fetch(`${window.API_URL}/get-request/${id}`);
     if (!response.ok) {
         throw new Error(`Talep bulunamadı, HTTP Durum: ${response.status}`);
     }
@@ -591,7 +592,7 @@ async function updateRepairRequest() {
     };
 
     try {
-        const response = await fetch(`http://localhost:3000/api/update-request/${requestId}`, {
+        const response = await fetch(`${window.API_URL}/api/update-request/${requestId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
