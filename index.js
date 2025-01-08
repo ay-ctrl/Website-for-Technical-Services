@@ -141,7 +141,7 @@ app.post("/api/repairRequests/search", async (req, res) => {
 });
 
 // 'uploads' klasörünü oluştur
-const uploadDir = path.join(__dirname, 'uploads');
+const uploadsDir = path.join(__dirname, 'uploads');
 fs.promises.mkdir(uploadsDir, { recursive: true });
 
 // Multer için dosya yükleme ayarları
