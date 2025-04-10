@@ -37,8 +37,9 @@ mongoose.connect("mongodb+srv://moonloversin:Wg0RBqGNubEaOiAg@backend.cnmfb.mong
     app.listen(5000, ()=>{
         console.log("Server is running on port 5000");
     });
-}).catch(()=>{
+}).catch((error)=>{
     console.log("Connection failed :(");
+    console.error(error);  // Bu çok önemli!
 });
 
 const frontendApp = express();  // Frontend için ayrı express örneği
