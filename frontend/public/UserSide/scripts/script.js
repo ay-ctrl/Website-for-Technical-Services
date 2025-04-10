@@ -220,7 +220,6 @@ async function addCampaign() {
     const formData = new FormData();
     formData.append('aciklama', aciklama);
     formData.append('dosya', dosya);
-
     // Form verilerini backend'e gönder
     try {
         const response = await fetch(`${window.API_URL}/api/upload-campaign`, {
@@ -237,7 +236,7 @@ async function addCampaign() {
         }
     } catch (error) {
         console.error(error);
-        alert('Bir hata oluştu!2');
+        alert('Bir hata oluştu!2 '+ error);
     }
 }
 

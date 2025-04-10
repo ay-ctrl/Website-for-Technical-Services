@@ -42,14 +42,6 @@ mongoose.connect("mongodb+srv://moonloversin:Wg0RBqGNubEaOiAg@backend.cnmfb.mong
     console.error(error);  // Bu çok önemli!
 });
 
-const frontendApp = express();  // Frontend için ayrı express örneği
-
-// Frontend dosyalarını sunma
-frontendApp.use(express.static('frontend/public'));  // frontend klasöründeki dosyaları sunar
-
-frontendApp.listen(3000, () => {
-    console.log("Frontend is running on port 3000");
-});
 
 // Anasayfaya gelen GET isteği için yönlendirme yap
 app.get('/', (req, res) => {
