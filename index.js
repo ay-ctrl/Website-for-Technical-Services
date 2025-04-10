@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 
 //Sunucuya gelen isteklere izin vermek için
 const corsOptions = {
-    origin: ['http://ayda.site', 'http://localhost:3000'], // Frontend adresi
+    origin: ['http://ayda.site', 'http://localhost:3000','http://localhost:5000','http://127.0.0.1:5500'], // Frontend adresi
     methods: ['GET', 'POST','DELETE','PUT'], // İzin verilen HTTP metodları
     allowedHeaders: ['Content-Type','Authorization'], // İzin verilen başlıklar
 };
@@ -141,7 +141,7 @@ app.post("/api/repairRequests/search", async (req, res) => {
 });
 
 // 'uploads' klasörünü oluştur
-const uploadDir = path.join(__dirname, 'uploads');
+const uploadsDir = path.join(__dirname, 'uploads');
 fs.promises.mkdir(uploadsDir, { recursive: true });
 
 // Multer için dosya yükleme ayarları

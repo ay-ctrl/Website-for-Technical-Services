@@ -1,5 +1,5 @@
 //DASHBOARD
-window.API_URL = "http://145.223.100.63:5000";
+window.API_URL = "http://localhost:5000";
 // Döngüyü başlat
 function startCarousel() {
     const carouselTrack = document.querySelector(".carousel-track");
