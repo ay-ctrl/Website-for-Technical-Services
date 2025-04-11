@@ -167,7 +167,7 @@
 /* Neden Cep Kurye Kısmı */
 .neden-cepkurye {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   height: 100vh;
   /* Tüm ekran yüksekliği */
@@ -180,7 +180,7 @@
 }
 
 .neden-cepkurye .content {
-  text-align: left;
+  text-align: center; /* Yazı soldan merkeze alındı */
   /* Metni ortaya hizalar */
 }
 
