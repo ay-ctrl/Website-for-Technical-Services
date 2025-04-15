@@ -78,22 +78,26 @@
 
     <div class="container">
         <div class="form">
-            <label for="username">Kullanıcı Adı</label>
+            <!-- Test kapsamında kırmızı uyarı yıldızı eklendi-->
+            <label for="username">Kullanıcı Adı<span style="color: red">*</span></label>
             <input type="text" id="username" placeholder="Vergi No veya TC Kimlik No">
 
-            <label for="password">Şifre</label>
+            <label for="password">Şifre<span style="color: red">*</span></label>
             <input type="password" id="password" placeholder="Şifre">
 
-
+            <!--
             <div class="content-lg">
+                  BENİ HATIRLA VE ŞİFREMİ UNTTUM KISMI  KISMI TEST İÇİN DEVRE DIŞI BIRAKILDI
                 <div class="checkbox">
                     <input type="checkbox" name="checkbox" id="checkbox">
                     <label for="checkbox">Beni Hatırla</label>
                 </div>
+            
                 <div class="pass-link">
-                    <a href="#">Parolanızı mı unuttunuz?</a> <!-- Metin eklendi -->
-                </div>
+                    <a href="#">Parolanızı mı unuttunuz?</a> 
+                </div> 
             </div>
+    -->
             <button type="submit" id="loginButton" onclick="logIn()"><b>GİRİŞ YAP</b></button>
         </div>
     </div>

@@ -137,6 +137,22 @@
         s1.setAttribute('crossorigin','*');
         s0.parentNode.insertBefore(s1,s0);
         })();
+
+        function talepSorgula() {
+  const queryNum = document.getElementById("queryNumInput").value.trim();
+
+  // 6 haneli sadece rakamlardan oluşan bir sayı mı?
+  const isValid = /^\d{6}$/.test(queryNum);
+
+  if (!isValid) {
+    alert("Lütfen 6 haneli geçerli bir talep numarası giriniz!");
+    return;
+  }
+
+  // Eğer geçerliyse devam edebilirsin
+  console.log("Geçerli talep numarası:", queryNum);
+  // Buraya API çağrısı veya başka işlemler gelebilir
+}
     </script>
     <!--End of Tawk.to Script-->
 
