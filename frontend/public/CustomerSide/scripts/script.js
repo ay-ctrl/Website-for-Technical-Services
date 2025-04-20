@@ -111,9 +111,6 @@ async function logIn() {
 
         // Sunucudan gelen yanıta göre işlem yap
         if (response.ok) {
-            const data = await response.json();  // Yanıtı JSON formatında al
-            // Token'ı localStorage'a kaydet
-            localStorage.setItem('token', data.token);
             window.location.href = '../UserSide/dashboard.html'; 
         } else {
             const errorText = await response.json(); // Hata mesajını JSON olarak al
@@ -293,11 +290,70 @@ function closeAll(faqs) {
 
 //TALEP OLUSTUR
 async function talepOlustur(event){
-    event.preventDefault();
+    event.preventDefault(); // Formun varsayılan gönderimini engelle
     const form = document.getElementById('requestForm');
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries()); // Form verilerini bir nesneye çevir
+
+    // Doğrulama işlemleri
+    const phone = data.phone.trim();
+    const name = data.name.trim();
+    const adres = data.adress.trim();
+    const imei = data.imei.trim();
+    const model = data.model.trim();
+    const kilit = data.kilit.trim();
+
+    // Telefon numarasını doğrula (örnek: 10 haneli numara)
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+        alert("Lütfen geçerli bir telefon numarası girin!");
+        return; // Hata varsa fonksiyon sonlandırılır
+    }
+    
+    const imeiRegex = /^\d{15}$/;
+    // IMEI numarasını doğrula (sadece sayılar ve 15 haneli olmalı)
+    if (imei !== "") {
+        if (!imeiRegex.test(imei)) {
+            alert("Lütfen geçerli bir IMEI numarası girin veya boş bırakın!");
+            return; // Hata varsa fonksiyon sonlandırılır
+        }
+    }
+
+    // Ad ve soyadın geçerli olup olmadığını kontrol et (sadece harfler)
+    const nameRegex = /^[a-zA-Z\s]+$/;
+    if (!nameRegex.test(name)) {
+        alert("Ad ve soyad sadece harflerden oluşmalıdır.");
+        return; // Hata varsa fonksiyon sonlandırılır
+    }
+
+    const modelRegex = /^[a-zA-Z0-9\s\-_.]+$/;
+    if (!modelRegex.test(model)) {
+        alert("Telefon modeli yalnızca harf, rakam, boşluk ve - _ . karakterlerini içerebilir.");
+        return;
+    }
+
+    // Tuş kilidi en fazla 20 karakter olabilir ve zararlı karakter içermemelidir
+    if (kilit !== "") {
+        if (kilit.length > 20) {
+            alert("Tuş kilidi en fazla 20 karakter olabilir.");
+            return;
+        }
+        const kilitRegex = /^[\w\s!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]*$/;
+        if (!kilitRegex.test(kilit)) {
+            alert("Tuş kilidi geçersiz karakterler içeriyor.");
+            return;
+        }
+    }
+
+    // Sadece harf, sayı, . / - ( ) ve boşluklara izin ver
+    const adresRegex = /^[a-zA-Z0-9ğüşöçıİĞÜŞÖÇ\s.\-\/()]+$/;
+    if (!adresRegex.test(adres)) {
+        alert("Adres sadece harf, rakam, boşluk, nokta, /, -, ( ve ) karakterlerinden oluşabilir.");
+        return;
+    }
+
     try {
+        // Form verilerini backend'e gönder
         const response = await fetch(`${window.API_URL}/api/repairRequests`, {
             method: 'POST',
             headers: {
@@ -312,15 +368,15 @@ async function talepOlustur(event){
 
             const queryNum = responseData.queryNum; 
             
-            localStorage.setItem("queryNum",queryNum);
+            localStorage.setItem("queryNum", queryNum);
             window.location.href = 'talepOlustur2.html'; // Yönlendirme
             alert('Talebiniz başarıyla oluşturuldu!');
         } else {
             throw new Error('Sunucudan bir hata alındı.');
         }
-        } catch (error) {
-            alert('Bir hata oluştu: ' + error.message);
-        }
+    } catch (error) {
+        alert('Bir hata oluştu: ' + error.message);
+    }
 }
 
 //TALEP OLUSTUR 2
@@ -361,8 +417,11 @@ function showRequestInfo(){
 async function talepSorgula() {
     const queryNum = document.getElementById('queryNumInput').value;
 
-    if (!queryNum) {
-        alert("Lütfen bir talep numarası girin.");
+    // Sadece 5 haneli rakamlardan oluşmalı
+    const queryNumRegex = /^\d{5}$/;
+
+    if (!queryNumRegex.test(queryNum)) {
+        alert("Lütfen 5 haneli bir talep numarası girin. (Sadece rakam)");
         return;
     }
 

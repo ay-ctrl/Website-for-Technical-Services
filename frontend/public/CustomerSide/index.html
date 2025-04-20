@@ -287,6 +287,24 @@
     </footer>
 
     <script>
+        window.API_URL = "http://localhost:5000";
+        // Her Sayfa yüklendiğinde token doğrulaması yap
+        fetch(`${window.API_URL}/api/verify-token`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include' // Cookie'nin sunucuya gönderilmesini sağlar
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '../UserSide/dashboard.html'; // Giriş sayfasına yönlendir
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
         document.addEventListener("DOMContentLoaded", function () {
             repairServicesCarousel();
             showCampaigns();

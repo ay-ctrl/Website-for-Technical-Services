@@ -11,6 +11,8 @@ const fs = require('fs');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 app.use(express.urlencoded({ extended: true }));
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 // Schemas
 const Request = require('./models/repairRequests'); 
@@ -20,13 +22,14 @@ const Product=require('./models/products');
 const Media=require('./models/media');
 
 // Frontend dosyalarını statik olarak sun
-app.use(express.static(path.join(__dirname, 'frontend')));
+app.use(express.static(path.join(__dirname, 'frontend/public')));
 
 //Sunucuya gelen isteklere izin vermek için
 const corsOptions = {
     origin: ['http://ayda.site', 'http://localhost:3000','http://localhost:5000','http://127.0.0.1:5500','http://127.0.0.1:5501'], // Frontend adresi
     methods: ['GET', 'POST','DELETE','PUT'], // İzin verilen HTTP metodları
     allowedHeaders: ['Content-Type','Authorization'], // İzin verilen başlıklar
+    credentials: true, 
 };
 
 app.use(cors(corsOptions)); // CORS'u etkinleştir
@@ -93,12 +96,41 @@ app.post('/api/login', loginLimiter, async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
-
-        res.status(200).json({ message: 'Giriş başarılı!', token });
+        // HttpOnly Cookie ayarla
+        res.cookie('token', token, {
+            httpOnly: true,  // Token'a JavaScript ile erişilemiyor
+            secure: false,   // Geliştirme ortamında HTTPS'ye gerek yok
+            sameSite: 'Strict',  // Çerez sadece aynı site içinden gönderilebilir
+            maxAge: 30 * 24 * 60 * 60 * 1000,  // 30 gün = 1 ay
+        });        
+        res.status(200).json({ message: 'Giriş başarılı!'});
 
     } catch (error) {
         res.status(500).json({ message: 'Sunucu hatası' });
     }
+});
+
+app.post('/api/logout', (req, res) => {
+    // Çerezi sil
+    res.clearCookie('token', { path: '/' });
+    res.status(200).json({ message: 'Çıkış yapıldı ve çerez silindi.' });
+});
+
+
+app.get('/api/verify-token', (req, res) => {
+    const token = req.cookies.token; // Cookie'den token'ı al
+
+    if (!token) {
+        return res.status(401).json({ success: false, message: 'Token bulunamadı, lütfen giriş yapın.' });
+    }
+
+    // JWT token'ını doğrulama
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ success: false, message: 'Token geçersiz veya süresi dolmuş.1' });
+        }
+        return res.status(200).json({ success: true, message: 'Token geçerli.' });
+    });
 });
 
 //Change password route
@@ -372,7 +404,7 @@ app.delete('/products/:id', async (req, res) => {
 });
 
 // To get requests
-app.get('/get-requests',  authenticateToken, async (req, res) => {
+app.get('/get-requests', async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;  // Sayfa numarası (varsayılan 1)
         const pageSize = 30;  // Sayfa başına gösterilecek veri sayısı

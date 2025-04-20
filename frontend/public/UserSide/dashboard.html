@@ -322,10 +322,6 @@
     </div>
 
     <script>
-        const token = localStorage.getItem('token');
-        if (!token) {
-            window.location.href = '../CustomerSide/giris.html';
-        }
         document.addEventListener("DOMContentLoaded", function () {
             startCarousel();
             fetchCampaigns();

@@ -1,5 +1,28 @@
 //DASHBOARD
 window.API_URL = "http://localhost:5000";
+
+ // Her Sayfa yüklendiğinde token doğrulaması yap
+fetch(`${window.API_URL}/api/verify-token`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    credentials: 'include' // Cookie'nin sunucuya gönderilmesini sağlar
+})
+.then(response => response.json())
+.then(data => {
+    if (!data.success) {
+        // Token geçersizse, kullanıcıyı giriş sayfasına yönlendir
+        console.error('Token geçersiz veya süresi dolmuş2');
+        window.location.href = '../CustomerSide/giris.html'; 
+    } else {
+        console.log('Token geçerli, kullanıcının girişi başarılı');    }
+})
+.catch(error => {
+    console.error('Error:', error);
+    window.location.href = '../CustomerSide/giris.html'; // Herhangi bir hata durumunda da giriş sayfasına yönlendir
+});
+
 // Döngüyü başlat
 function startCarousel() {
     const carouselTrack = document.querySelector(".carousel-track");
@@ -114,18 +137,24 @@ async function changePassword(){
             alert('Bir hata oluştu. Lütfen tekrar deneyin.');
         }
 }
+    async function logOut() {
+        try {
+            const response = await fetch(`${window.API_URL}/api/logout`, {
+                method: 'POST',
+                credentials: 'include', // Çerezi göndermeyi unutmayın
+            });
 
-//LOGOUT
-function logOut(event) {
-    // Event'in varsayılan davranışını engelle
-    event.preventDefault();
-
-    // LocalStorage'dan token'ı sil
-    localStorage.removeItem('token');
-
-    // Kullanıcıyı çıkış yaptıktan sonra yönlendirme yap
-    window.location.href = '../CustomerSide/index.html'; // Giriş sayfasına yönlendir
+            if (response.ok) {
+                // Çıkış başarılı, kullanıcıyı giriş sayfasına yönlendir
+                window.location.href = '../CustomerSide/index.html';
+            } else {
+                alert('Çıkış işlemi başarısız oldu.');
+            }
+        } catch (error) {
+            alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+        }
 }
+
 
 //ADDPRODUCT
 async function addProduct(){
@@ -289,12 +318,6 @@ let totalRequestsPages = 0;
 
 // Talepleri getir
 async function fetchRequests(page = 1) {
-    const token = localStorage.getItem('token'); // Token'ı localStorage'dan al
-
-    if (!token) {
-        console.error('Token bulunamadı. Lütfen giriş yapın.');
-        return;
-    }
 
     try {
         // Backend'e sayfa numarasını ve token'ı gönder
@@ -302,8 +325,8 @@ async function fetchRequests(page = 1) {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,  // Token'ı Authorization başlığında gönder
             },
+            credentials: 'include' // Cookie'nin sunucuya gönderilmesini sağlar
         });
 
         // Yanıtı kontrol et
