@@ -13,6 +13,7 @@ require('dotenv').config();
 app.use(express.urlencoded({ extended: true }));
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
+const helmet = require('helmet');
 
 // Schemas
 const Request = require('./models/repairRequests'); 
@@ -23,6 +24,8 @@ const Media=require('./models/media');
 
 // Frontend dosyalarını statik olarak sun
 app.use(express.static(path.join(__dirname, 'frontend/public')));
+
+app.use(helmet()); // Güvenlik için Helmet kullanımı
 
 //Sunucuya gelen isteklere izin vermek için
 const corsOptions = {
@@ -45,12 +48,10 @@ mongoose.connect("mongodb+srv://moonloversin:Wg0RBqGNubEaOiAg@backend.cnmfb.mong
     console.error(error);  // Bu çok önemli!
 });
 
-
 // Anasayfaya gelen GET isteği için yönlendirme yap
 app.get('/', (req, res) => {
     res.redirect('/CustomerSide/index.html');  // Anasayfaya yönlendir
 });
-
 
 //To upload a repair request
 app.post('/api/repairRequests', async (req, res) => {
