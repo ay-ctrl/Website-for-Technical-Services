@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 const helmet = require('helmet');
+const winston = require('winston'); // Hata logları için winston kullanıyoruz
 
 // Schemas
 const Request = require('./models/repairRequests'); 
@@ -21,6 +22,14 @@ const User=require('./models/users');
 const Campaign=require('./models/campaigns');
 const Product=require('./models/products');
 const Media=require('./models/media');
+
+// Logger config
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.File({ filename: 'error.log', level: 'error' }),
+        new winston.transports.File({ filename: 'combined.log' })
+    ]
+});
 
 // Frontend dosyalarını statik olarak sun
 app.use(express.static(path.join(__dirname, 'frontend/public')));
@@ -44,8 +53,8 @@ mongoose.connect("mongodb+srv://moonloversin:Wg0RBqGNubEaOiAg@backend.cnmfb.mong
         console.log("Server is running on port 5000");
     });
 }).catch((error)=>{
-    console.log("Connection failed :(");
-    console.error(error);  // Bu çok önemli!
+    console.log("Database Connection failed :(");
+    logger.error(`Database connection failed: ${error.message}`, { stack: error.stack });
 });
 
 // Anasayfaya gelen GET isteği için yönlendirme yap
@@ -60,7 +69,8 @@ app.post('/api/repairRequests', async (req, res) => {
         await newRequest.save(); // MongoDB'ye kaydet
         res.status(201).send({message:'Talep başarıyla kaydedildi!', queryNum: newRequest.queryNum});
     } catch (error) {
-        res.status(400).send('Talep kaydedilemedi: ' + error.message);
+        logger.error(`Repair request could not be saved: ${error.message}`, { stack: error.stack });
+        res.status(400).send({ message: 'Bir hata oluştu, lütfen tekrar deneyin.' });
     }
 });
 
@@ -75,6 +85,7 @@ const loginLimiter = rateLimit({
     skipSuccessfulRequests: true,
     keyGenerator: (req) => req.ip,
     handler: (req, res) => {
+        logger.warn(`Failed login attempt from IP: ${req.ip}. Exceeded limit.`);
         res.status(429).json({ message: 'Çok fazla başarısız giriş denemesi. Lütfen 60 dakika sonra tekrar deneyin.' });
     }
 });
@@ -107,7 +118,8 @@ app.post('/api/login', loginLimiter, async (req, res) => {
         res.status(200).json({ message: 'Giriş başarılı!'});
 
     } catch (error) {
-        res.status(500).json({ message: 'Sunucu hatası' });
+        logger.error(`Login failed for ${req.ip}. Error: ${error.message}`);
+        res.status(500).json({ message: 'Sunucu hatası, lütfen daha sonra tekrar deneyin.' });
     }
 });
 
@@ -122,13 +134,15 @@ app.get('/api/verify-token', (req, res) => {
     const token = req.cookies.token; // Cookie'den token'ı al
 
     if (!token) {
+        logger.warn(`Token bulunamadı, IP: ${req.ip}`);  // IP adresini logla
         return res.status(401).json({ success: false, message: 'Token bulunamadı, lütfen giriş yapın.' });
     }
 
     // JWT token'ını doğrulama
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
-            return res.status(401).json({ success: false, message: 'Token geçersiz veya süresi dolmuş.1' });
+            logger.error(`Token doğrulama hatası, IP: ${req.ip}, Error: ${err.message}`);
+            return res.status(401).json({ success: false, message: 'Token geçersiz veya süresi dolmuş.' });
         }
         return res.status(200).json({ success: true, message: 'Token geçerli.' });
     });
@@ -148,6 +162,7 @@ app.post('/change-password', async (req, res) => {
         // Eski şifre doğrulama
         const isMatch = await bcrypt.compare(oldPassword, user.password);
         if (!isMatch) {
+            logger.warn(`Yanlış şifre denemesi, IP: ${req.ip}, Kullanıcı Adı: ${username}`);
             return res.status(400).json({ message: 'Eski şifre yanlış' });
         }
 
@@ -156,9 +171,10 @@ app.post('/change-password', async (req, res) => {
         user.password = hashedPassword;
         await user.save();
 
+        logger.info(`Şifre başarıyla değiştirildi, IP: ${req.ip}, Kullanıcı Adı: ${username}`);
         res.status(200).json({ message: 'Şifre başarıyla değiştirildi' });
     } catch (error) {
-        console.error(error);
+        logger.error(`Şifre değişikliği hatası, IP: ${req.ip}, Hata: ${error.message}`); 
         res.status(500).json({ message: 'Bir hata oluştu' });
     }
 });
@@ -173,18 +189,20 @@ app.post("/api/repairRequests/search", async (req, res) => {
 
         if (repairRequest) {
             // Talep bulunduysa, talep bilgilerini geri gönder
+            logger.info(`Talep bulundu, IP: ${req.ip}, Sorgulama Numarası: ${queryNum}`);
             res.json({
                 success: true,
                 data: repairRequest
             });
         } else {
+            logger.warn(`Talep bulunamadı, IP: ${req.ip}, Sorgulama Numarası: ${queryNum}`); 
             res.json({
                 success: false,
                 message: 'Talep bulunamadı!'
             });
         }
     } catch (error) {
-        console.error(error);
+        logger.error(`Talep sorgulama hatası, IP: ${req.ip}, Sorgulama Numarası: ${queryNum}, Hata: ${error.message}`);
         res.status(500).json({ message: 'Bir hata oluştu.' });
     }
 });
@@ -259,9 +277,10 @@ app.post('/api/upload-campaign', upload.single('dosya'), async (req, res) => {
                         type: 'anyone',
                     },
                 });
+                logger.info(`File uploaded to Google Drive, File ID: ${fileId}, IP: ${req.ip}`);
 
             } catch (googleError) {
-                console.error("Google Drive yükleme hatası:", googleError);
+                logger.error(`Google Drive yükleme hatası: ${googleError.message}, IP: ${req.ip}`);
                 return res.status(500).json({ error: 'Google Drive yükleme hatası oluştu!' });
             }
             fs.unlinkSync(req.file.path); // geçici dosyayı sil
@@ -273,10 +292,11 @@ app.post('/api/upload-campaign', upload.single('dosya'), async (req, res) => {
             imageURL: fileUrl,  // Thumbnail URL'sini kaydediyoruz
         });
         await newCampaign.save();
+        logger.info(`New campaign uploaded successfully, Campaign ID: ${newCampaign._id}, IP: ${req.ip}`);
 
         res.status(200).json({ success: true, message: 'Kampanya başarıyla yüklendi!', campaign: newCampaign });
     } catch (error) {
-        console.error("Genel hata:", error);
+        logger.error(`Campaign upload failed: ${error.message}, IP: ${req.ip}`);
         res.status(500).json({ error: 'Bir hata oluştu.' });
     } finally {
         // Eğer dosya yükleme başarısız olsa bile geçici dosya silinsin
@@ -293,8 +313,10 @@ app.post('/api/upload-campaign', upload.single('dosya'), async (req, res) => {
 app.get('/api/campaigns', async (req, res) => {
     try {
         const campaigns = await Campaign.find().sort({ createdAt: -1 }); // En son eklenen en üstte
+        logger.info(`Campaigns fetched successfully, IP: ${req.ip}`);
         res.status(200).json(campaigns);
     } catch (error) {
+        logger.error(`Failed to fetch campaigns: ${error.message}, IP: ${req.ip}`);
         res.status(500).json({ message: 'Bir hata oluştu', error });
     }
 });
@@ -354,11 +376,12 @@ app.post('/upload-product', upload.single('file'), async (req, res) => {
             photos: [fileUrl],
         });
         await product.save();
+        logger.info(`Product uploaded successfully, Product ID: ${product.id}, IP: ${req.ip}`);
 
         res.status(200).json({ message: 'Ürün başarıyla yüklendi!', product });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Bir hata oluştu.' });
+        logger.error(`Failed to upload product: ${err.message}, IP: ${req.ip}`);
+        res.status(500).json({ error: 'Ürün yüklenirken bir hata oluştu.' });
     }finally {
         // Eğer dosya yükleme başarısız olsa bile geçici dosya silinsin
         if (req.file) {
@@ -388,6 +411,7 @@ app.get('/products', async (req, res) => {
             currentPage: page,
         });
     } catch (error) {
+        logger.error(`Ürünler alınırken bir hata oluştu: ${error.message}`);
         res.status(500).json({ message: 'Error fetching products' });
     }
 });
@@ -399,7 +423,7 @@ app.delete('/products/:id', async (req, res) => {
         await Product.findByIdAndDelete(productId);  // Ürünü sil
         res.status(200).send("Ürün başarıyla silindi.");
     } catch (error) {
-        console.error("Error deleting product:", error);
+        logger.error(`Ürün silme hatası: ${error.message}. Ürün ID: ${productId}`);
         res.status(500).send("Ürün silme hatası.");
     }
 });
@@ -430,8 +454,8 @@ app.get('/get-requests', async (req, res) => {
             totalRequests,
         });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Bir hata oluştu.' });
+        logger.error(`GET /get-requests Hata: ${err.message}`);
+        res.status(500).json({ error: 'Talepler alınırken bir hata oluştu.' });
     }
 });
 
@@ -443,11 +467,13 @@ app.put('/api/update-request/:id', async (req, res) => {
     try {
         const updatedRequest = await Request.findByIdAndUpdate(id, updateData, { new: true });
         if (!updatedRequest) {
+            logger.warn(`PUT /api/update-request/${id} - Talep bulunamadı (ID: ${id})`);
             return res.status(404).json({ message: 'Talep bulunamadı' });
         }
+        logger.info(`PUT /api/update-request/${id} - Talep başarıyla güncellendi (ID: ${id})`);
         res.json(updatedRequest);
     } catch (error) {
-        console.error('Sunucu Hatası:', error);  // Hata detaylarını konsola yazdır
+        logger.error(`PUT /api/update-request/${id} - Sunucu hatası: ${error.message}`);
         res.status(500).json({ message: 'Bir hata oluştu', error });
     }
 });
@@ -456,8 +482,10 @@ app.put('/api/update-request/:id', async (req, res) => {
 app.delete('/delete-request/:id', async (req, res) => {
     try {
         await Request.findByIdAndDelete(req.params.id);
+        logger.info(`DELETE /delete-request/${requestId} - Talep başarıyla silindi (ID: ${requestId})`);
         res.status(200).send('Talep silindi.');
     } catch (err) {
+        logger.error(`DELETE /delete-request/${req.params.id} - Sunucu hatası: ${error.message}`);
         res.status(500).send('Silme işlemi başarısız!');
     }
 });
@@ -470,12 +498,13 @@ app.get('/get-request/:id', async (req, res) => {
         // Veritabanında talebi ID'ye göre arayın
         const request = await Request.findById(requestId); // MongoDB'de `findById` metodu
         if (!request) {
+            logger.warn(`GET /get-request/${requestId} - Talep bulunamadı (ID: ${requestId})`);
             return res.status(404).json({ error: 'Request not found' });
         }
         res.json(request); // JSON formatında yanıt gönder
     } catch (error) {
-        console.error('Hata:', error); // Hata detaylarını logla
-        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+        logger.error(`GET /get-request/${requestId} - Sunucu hatası: ${error.message}`);
+        res.status(500).json({ error: 'İç Sunucu Hatası. Lütfen tekrar deneyin.' });
     }
 });
 
@@ -522,9 +551,10 @@ app.post('/upload-media', upload.single('dosya'), async (req, res) => {
                         type: 'anyone',
                     },
                 });
+                logger.info(`Dosya başarıyla Google Drive'a yüklendi: ${fileId}`);
 
             } catch (googleError) {
-                console.error("Google Drive yükleme hatası:", googleError);
+                logger.error(`Google Drive yükleme hatası: ${googleError.message}`);
                 return res.status(500).json({ error: 'Google Drive yükleme hatası oluştu!' });
             }
             fs.unlinkSync(req.file.path); //geçici dosyayı sil
@@ -536,10 +566,11 @@ app.post('/upload-media', upload.single('dosya'), async (req, res) => {
             imageURL: fileUrl,  // Thumbnail URL'sini kaydediyoruz
         });
         await newMedia.save();
+        logger.info(`Yeni kampanya başarıyla yüklendi: ${newMedia._id}`);
 
         res.status(200).json({ success: true, message: 'Kampanya başarıyla yüklendi!', campaign: newMedia });
     } catch (error) {
-        console.error("Genel hata:", error);
+        logger.error(`Genel hata: ${error.message}`);
         res.status(500).json({ error: 'Bir hata oluştu.' });
     } finally {
         // Eğer dosya yükleme başarısız olsa bile geçici dosya silinsin
@@ -558,7 +589,8 @@ app.get('/api/medias', async (req, res) => {
         const medias = await Media.find().sort({ createdAt: -1 }); // En son eklenen en üstte
         res.status(200).json(medias);
     } catch (error) {
-        res.status(500).json({ message: 'Bir hata oluştu', error });
+        logger.error(`Medya verisi alınırken hata oluştu: ${error.message}`);
+        res.status(500).json({ message: 'İşlem sırasında bir hata oluştu. Lütfen tekrar deneyin.' });
     }
 });
 
@@ -575,6 +607,7 @@ const TOKEN_PATH = 'token.json';
 fs.readFile(TOKEN_PATH, (err, token) => {
     if (err) {
         console.error('Token dosyası bulunamadı. Yetkilendirme yapmalısınız.');
+        logger.error(`Token dosyası bulunamadı veya okuma hatası oluştu: ${err.message}`);
         return;
     }
     oAuth2Client.setCredentials(JSON.parse(token));
@@ -587,6 +620,8 @@ app.get('/oauth2callback', async (req, res) => {
   const code = req.query.code; // URL üzerinden gönderilen "code" parametresini alıyoruz
   
   if (!code) {
+    const errorMessage = 'Authorization code not found in the URL.';
+    logger.error(errorMessage);  // Hata mesajını logla
     return res.status(400).send('Code not found in the URL.');
   }
 
@@ -599,7 +634,7 @@ app.get('/oauth2callback', async (req, res) => {
     fs.writeFileSync(TOKEN_PATH, JSON.stringify(tokens));
     res.send('Token başarıyla kaydedildi!');
   } catch (error) {
-    console.error('Error retrieving access token:', error);
+    logger.error(`Error retrieving token: ${error.message}`);
     res.status(500).send('Token alınırken bir hata oluştu.');
   }
 });
@@ -633,6 +668,7 @@ function authenticateToken(req, res, next) {
         req.user = decoded; // Token'dan kullanıcı bilgilerini al
         next(); // İstek işlemi devam etsin
     } catch (err) {
+        logger.error(`Token doğrulama hatası: ${err.message}`);
         res.status(403).json({ error: 'Geçersiz token.' });
     }
 }
