@@ -61,30 +61,42 @@ app.post('/api/repairRequests', async (req, res) => {
 });
 
 const rateLimit = require('express-rate-limit');
+
 const loginLimiter = rateLimit({
-    windowMs: 60 * 60 * 1000, // 15 dakika
-    max: 3, // 3 deneme
+    windowMs: 60 * 60 * 1000, // 1 saat
+    max: 3, // 3 deneme hakkı
     message: { message: 'Çok fazla başarısız giriş denemesi. Lütfen 60 dakika sonra tekrar deneyin.' },
     standardHeaders: true,
     legacyHeaders: false,
-  });
-// Login route
+    skipSuccessfulRequests: true,
+    keyGenerator: (req) => req.ip,
+    handler: (req, res) => {
+        res.status(429).json({ message: 'Çok fazla başarısız giriş denemesi. Lütfen 60 dakika sonra tekrar deneyin.' });
+    }
+});
+
 app.post('/api/login', loginLimiter, async (req, res) => {
     const { username, password } = req.body;
+
     try {
         const user = await User.authenticate(username, password);
+
         if (!user) {
             return res.status(401).json({ message: 'Kullanıcı adı veya şifre hatalı!' });
         }
 
+        // reset the counter
+        loginLimiter.resetKey(req.ip);
+
         const token = jwt.sign(
             { userId: user._id },
-            process.env.JWT_SECRET, // .env dosyasından alınmalı
+            process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
-        res.json({ message: 'Giriş başarılı!', token });
+
+        res.status(200).json({ message: 'Giriş başarılı!', token });
+
     } catch (error) {
-        console.error('Error during login:', error);
         res.status(500).json({ message: 'Sunucu hatası' });
     }
 });
