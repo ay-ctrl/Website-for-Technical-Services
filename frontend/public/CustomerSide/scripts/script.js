@@ -114,15 +114,13 @@ async function logIn() {
             const data = await response.json();  // Yanıtı JSON formatında al
             // Token'ı localStorage'a kaydet
             localStorage.setItem('token', data.token);
-            alert("Giriş başarılı :)");
             window.location.href = '../UserSide/dashboard.html'; 
         } else {
             const errorText = await response.json(); // Hata mesajını JSON olarak al
             alert('Hata: ' + errorText.message); // Hata mesajını göster
         }
         } catch (error) {
-            console.error('Hata:', error);
-            alert('Sunucuya bağlanırken bir hata oluştu.');
+            alert('Bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
         }
 }
 

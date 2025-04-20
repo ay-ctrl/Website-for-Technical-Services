@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 
 //Sunucuya gelen isteklere izin vermek için
 const corsOptions = {
-    origin: ['http://ayda.site', 'http://localhost:3000','http://localhost:5000','http://127.0.0.1:5500'], // Frontend adresi
+    origin: ['http://ayda.site', 'http://localhost:3000','http://localhost:5000','http://127.0.0.1:5500','http://127.0.0.1:5501'], // Frontend adresi
     methods: ['GET', 'POST','DELETE','PUT'], // İzin verilen HTTP metodları
     allowedHeaders: ['Content-Type','Authorization'], // İzin verilen başlıklar
 };
@@ -60,8 +60,16 @@ app.post('/api/repairRequests', async (req, res) => {
     }
 });
 
+const rateLimit = require('express-rate-limit');
+const loginLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 15 dakika
+    max: 3, // 3 deneme
+    message: { message: 'Çok fazla başarısız giriş denemesi. Lütfen 60 dakika sonra tekrar deneyin.' },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
 // Login route
-app.post('/api/login', async (req, res) => {
+app.post('/api/login', loginLimiter, async (req, res) => {
     const { username, password } = req.body;
     try {
         const user = await User.authenticate(username, password);
@@ -69,8 +77,11 @@ app.post('/api/login', async (req, res) => {
             return res.status(401).json({ message: 'Kullanıcı adı veya şifre hatalı!' });
         }
 
-        // JWT token oluştur ve geri gönder
-        const token = jwt.sign({ userId: user._id }, 'your_secret_key', { expiresIn: '1h' });
+        const token = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_SECRET, // .env dosyasından alınmalı
+            { expiresIn: '1h' }
+        );
         res.json({ message: 'Giriş başarılı!', token });
     } catch (error) {
         console.error('Error during login:', error);

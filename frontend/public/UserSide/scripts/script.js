@@ -115,6 +115,18 @@ async function changePassword(){
         }
 }
 
+//LOGOUT
+function logOut(event) {
+    // Event'in varsayılan davranışını engelle
+    event.preventDefault();
+
+    // LocalStorage'dan token'ı sil
+    localStorage.removeItem('token');
+
+    // Kullanıcıyı çıkış yaptıktan sonra yönlendirme yap
+    window.location.href = '../CustomerSide/index.html'; // Giriş sayfasına yönlendir
+}
+
 //ADDPRODUCT
 async function addProduct(){
     const formData = new FormData();
@@ -275,7 +287,7 @@ async function addMedia() {
 let currentRequestPage = 1;
 let totalRequestsPages = 0;
 
-// Talepleri getirir
+// Talepleri getir
 async function fetchRequests(page = 1) {
     const token = localStorage.getItem('token'); // Token'ı localStorage'dan al
 

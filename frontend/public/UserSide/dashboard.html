@@ -50,7 +50,7 @@
                         <a href="#">Ödemeler</a>
                         <a href="#">Çalışanlar</a>
                         <a href="changePassword.html">Şifre değiştir</a>
-                        <a href="../CustomerSide/index.html">Çıkış Yap</a>
+                        <a href="#" id="logoutLink" onclick="logOut(event)">Çıkış Yap</a>
                     </div>
                 </li>
             </ul>
@@ -68,7 +68,7 @@
             <a href="#">Ödemeler</a>
             <a href="#">Çalışanlar</a>
             <a href="changePassword.html">Şifre değiştir</a>
-            <a href="../CustomerSide/index.html">Çıkış Yap</a>
+            <a href="#" id="logoutLink" onclick="logOut(event)">Çıkış Yap</a>
         </div>
     </nav>
         
@@ -322,6 +322,10 @@
     </div>
 
     <script>
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '../CustomerSide/giris.html';
+        }
         document.addEventListener("DOMContentLoaded", function () {
             startCarousel();
             fetchCampaigns();
