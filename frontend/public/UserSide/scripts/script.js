@@ -2,26 +2,112 @@
 window.API_URL = "http://localhost:5000";
 
  // Her Sayfa yüklendiğinde token doğrulaması yap
-fetch(`${window.API_URL}/api/verify-token`, {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    credentials: 'include' // Cookie'nin sunucuya gönderilmesini sağlar
-})
-.then(response => response.json())
-.then(data => {
-    if (!data.success) {
-        // Token geçersizse, kullanıcıyı giriş sayfasına yönlendir
-        console.error('Token geçersiz veya süresi dolmuş2');
-        window.location.href = '../CustomerSide/giris.html'; 
-    } else {
-        console.log('Token geçerli, kullanıcının girişi başarılı');    }
-})
-.catch(error => {
-    console.error('Error:', error);
-    window.location.href = '../CustomerSide/giris.html'; // Herhangi bir hata durumunda da giriş sayfasına yönlendir
+ async function verifyTokenBeforeLoad() {
+    try {
+        const response = await fetch(`${window.API_URL}/api/verify-token`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+        });
+        const result = await response.json();
+
+        if (!result.success) {
+            window.location.href = '../CustomerSide/giris.html';
+        }
+    } catch (err) {
+        console.error('Hata:', err);
+        window.location.href = '../CustomerSide/giris.html';
+    }
+}
+verifyTokenBeforeLoad();
+
+function toggleMenu() {
+    const navMobile = document.getElementById('nav-mobile');
+    navMobile.classList.toggle('open');
+}
+
+function toggleDropdown() {
+    const dropdown = document.getElementById('admin-dropdown');
+    dropdown.classList.toggle('open');
+}
+
+function toggleDropdownMobile() {
+    const dropdownMobile = document.getElementById('mobile-dropdown');
+    dropdownMobile.classList.toggle('open');
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const dropdownButtonMobile = document.querySelector(".dropdown-button-mobile");
+    if (dropdownButtonMobile) {
+        dropdownButtonMobile.addEventListener("click", toggleDropdownMobile);
+    }
+
+    const logoutLink = document.getElementById("logoutLink");
+    if (logoutLink) {
+        logoutLink.addEventListener("click", logOut);
+    }
+
+    const mobileLogoutLink = document.getElementById("mlogoutLink");
+    if (mobileLogoutLink) {
+        mobileLogoutLink.addEventListener("click", logOut);
+    }
+
+    const hamburger = document.querySelector('.hamburger');
+    if (hamburger) {
+        hamburger.addEventListener('click', toggleMenu);
+    }
+
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+
+    let currentPage = 1; // Sayfa takip değişkeni
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            changePage(currentPage - 1);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            changePage(currentPage + 1);
+        });
+    }
+
+    const changePasswordButton = document.getElementById('change-pass-button');
+    if (changePasswordButton) {
+        changePasswordButton.addEventListener('click', (e) => {
+            changePassword();
+        });
+    }
+
+    const addProductButton = document.getElementById('add-product');
+    if (addProductButton) {
+        addProductButton.addEventListener('click', (e) => {
+            addProduct();
+        });
+    }
+
+    const addCampaignButton = document.getElementById('add-campaign');
+    if (addCampaignButton) {
+        addCampaignButton.addEventListener('click', (e) => {
+            addCampaign();
+        });
+    }
+
+    const addMediaButton = document.getElementById('add-media');
+    if (addMediaButton) {
+        addMediaButton.addEventListener('click', (e) => {
+            addMedia();
+        });
+    }
+
 });
+
 
 // Döngüyü başlat
 function startCarousel() {
@@ -137,24 +223,24 @@ async function changePassword(){
             alert('Bir hata oluştu. Lütfen tekrar deneyin.');
         }
 }
-    async function logOut() {
-        try {
-            const response = await fetch(`${window.API_URL}/api/logout`, {
-                method: 'POST',
-                credentials: 'include', // Çerezi göndermeyi unutmayın
-            });
 
-            if (response.ok) {
-                // Çıkış başarılı, kullanıcıyı giriş sayfasına yönlendir
-                window.location.href = '../CustomerSide/index.html';
-            } else {
-                alert('Çıkış işlemi başarısız oldu.');
-            }
-        } catch (error) {
-            alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+async function logOut() {
+    try {
+        const response = await fetch(`${window.API_URL}/api/logout`, {
+            method: 'POST',
+            credentials: 'include', // Çerezi göndermeyi unutmayın
+        });
+
+        if (response.ok) {
+            // Çıkış başarılı, kullanıcıyı giriş sayfasına yönlendir
+            window.location.href = '../CustomerSide/index.html';
+        } else {
+            alert('Çıkış işlemi başarısız oldu.');
         }
+    } catch (error) {
+        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+    }
 }
-
 
 //ADDPRODUCT
 async function addProduct(){
@@ -312,46 +398,6 @@ async function addMedia() {
         }
 }
 
-//MYREQUESTS
-let currentRequestPage = 1;
-let totalRequestsPages = 0;
-
-// Talepleri getir
-async function fetchRequests(page = 1) {
-
-    try {
-        // Backend'e sayfa numarasını ve token'ı gönder
-        const response = await fetch(`${window.API_URL}/get-requests?page=${page}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include' // Cookie'nin sunucuya gönderilmesini sağlar
-        });
-
-        // Yanıtı kontrol et
-        if (!response.ok) {
-            throw new Error('İstek başarısız oldu.');
-        }
-
-        const data = await response.json();
-        
-        // Veri formatını kontrol et
-        if (data && data.requests && Array.isArray(data.requests)) {
-            currentRequestPage = data.currentPage;
-            totalRequestsPages = data.totalPages;
-
-            displayRequests(data.requests); // Talepleri göster
-            displayPagination(totalRequestsPages); // Sayfalama göster
-        } else {
-            console.error('Geçersiz veri formatı:', data);
-        }
-    } catch (err) {
-        console.error('Error fetching requests:', err);
-        alert('Talepler alınırken bir hata oluştu.');
-    }
-}
-
 // Talepleri tabloya ekler
 function displayRequests(requests) {
     const tbody = document.querySelector('.tbody');
@@ -370,11 +416,21 @@ function displayRequests(requests) {
             <td>${request.yedekCihaz}</td>
             <td>${request.price}</td>
             <td><a href="talepDüzenle.html?id=${request._id}"><button>📝</button></a></td>
-            <td><button onclick="deleteRequest('${request._id}')">🗑️</button></td>
+            <td><button class="delete-btn" data-id="${request._id}">🗑️</button></td>
         `;
         tbody.appendChild(row);
     });
+
+    // Silme butonlarına event listener ekle
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const id = e.target.getAttribute('data-id');
+            deleteRequest(id);
+        });
+    });
 }
+
 
 // Taleplerim için pagination scripti
 function displayPagination() {
@@ -442,132 +498,6 @@ async function deleteRequest(id) {
     }
 }
 
-//PRODUCTS
-let currentProductPage = 1;  // Başlangıç sayfası
-let totalProductPages = 1;   // Toplam sayfa sayısı
-
-function changePage(page) {
-    if (page < 1 || page > totalProductPages) return;  // Geçersiz sayfalar için hiçbir şey yapma
-    currentProductPage = page;
-    fetchProducts();  // Sayfa değiştiğinde ürünleri al
-    // Sayfa başına kaydır
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'  // Yumuşak kaydırma
-    });
-}
-
-async function fetchProducts() {
-    try {
-        const response = await fetch(`${window.API_URL}/products?page=${currentProductPage}`);
-        const data = await response.json();
-
-        const products = data.products;
-        totalProductPages = data.totalPages;  // Global toplam sayfa sayısını güncelle
-
-        const productList = document.getElementById('product-list');
-        productList.innerHTML = '';
-
-        products.forEach(product => {
-            const productCard = `
-                <div class="product-card" id="product-${product._id}">
-                    <img src="${product.photos[0] || 'https://coflex.com.tr/wp-content/uploads/2021/01/resim-yok.jpg'}" alt="${product.name}">
-                    <div class="product-info">
-                        <h3>Ürün Adı: ${product.name}</h3>
-                        <p class="price">Fiyat: ${product.price} TL</p>
-                        <p>${product.description}</p>
-                        <button class="ekle-btn" onclick="deleteProduct('${product._id}')">ÜRÜNÜ SİL</button>
-                    </div>
-                </div>
-            `;
-            productList.innerHTML += productCard;
-        });
-
-        renderPagination();  // Pagination elemanlarını oluştur
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-}
-
-function renderPagination() {
-    const paginationContainer = document.getElementById('pagination');
-    paginationContainer.innerHTML = '';  // Önceki pagination'ı temizle
-
-    // "Önceki" butonu
-    if (currentProductPage > 1) {
-        const prevButton = document.createElement('a');
-        prevButton.textContent = 'Önceki';
-        prevButton.href = '#';
-        prevButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            changePage(currentProductPage - 1);
-        });
-        paginationContainer.appendChild(prevButton);
-    }
-
-    // Sayfa numaraları
-    for (let i = 1; i <= totalProductPages; i++) {
-        const pageButton = document.createElement('a');
-        pageButton.textContent = i;
-        pageButton.href = '#';
-        pageButton.className = i === currentProductPage ? 'active' : '';  // Aktif sayfayı vurgula
-        pageButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            changePage(i);
-        });
-        paginationContainer.appendChild(pageButton);
-    }
-
-    // "Sonraki" butonu
-    if (currentProductPage < totalProductPages) {
-        const nextButton = document.createElement('a');
-        nextButton.textContent = 'Sonraki';
-        nextButton.href = '#';
-        nextButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            changePage(currentPage + 1);
-        });
-        paginationContainer.appendChild(nextButton);
-    }
-}
-
-async function deleteProduct(productId) {
-    try {
-        const response = await fetch(`${window.API_URL}/products/${productId}`, {
-            method: 'DELETE',  // HTTP DELETE isteği gönderiyoruz
-        });
-
-        if (response.ok) {
-            alert("Ürün başarıyla silindi.");
-            // Ürünü sayfadan kaldır
-            document.getElementById(`product-${productId}`).remove();
-        } else {
-            alert("Ürün silinirken bir hata oluştu.");
-        }
-    } catch (error) {
-        console.error("Silme işlemi sırasında hata:", error);
-        alert("Silme işlemi sırasında bir hata oluştu.");
-    }
-}
-
-//SSS
-function sssScript(){
-    
-    const faqs = document.querySelectorAll(".faq button");
-
-    faqs.forEach(faq => {
-        faq.addEventListener('click', (e) => {
-            let cont = e.target.closest(".faq");
-            if (cont.classList.contains("active")) {
-                cont.classList.remove("active")
-            } else {
-                closeAll(faqs);
-                cont.classList.add('active');
-            }
-        })
-    });
-
-}
 
 function closeAll(faqs) {
     faqs.forEach(faq => {
@@ -576,127 +506,3 @@ function closeAll(faqs) {
     })
 }
 
-//TALEP DÜZENLE
-async function loadRepairRequest(id) {
-    try {
-    const response = await fetch(`${window.API_URL}/get-request/${id}`);
-    if (!response.ok) {
-        throw new Error(`Talep bulunamadı, HTTP Durum: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    // Tablodaki verileri güncelle (Eğer tablo için bir <tbody id="tableBody"> varsa)
-    const tableBody = document.getElementById('tableBody');
-    if (tableBody) {
-        tableBody.innerHTML = ''; // Önceki tablo satırlarını temizle
-
-        Object.entries(data).forEach(([key, value]) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${key}</td>
-                <td>${value}</td>
-            `;
-            tableBody.appendChild(row);
-        });
-    }
-
-    // Form alanlarını doldur
-    for (const [key, value] of Object.entries(data)) {
-        const formElement = document.getElementById(key); // ID, data'nın key'ine eşitse
-        if (formElement) {
-            formElement.value = value || ''; // Form alanı mevcutsa doldur
-        }
-    }
-    } catch (error) {
-    console.error('Talep yüklenemedi:', error);
-    }
-}
-
-// Talebi güncelleme işlemi
-async function updateRepairRequest() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const requestId = urlParams.get('id');
-
-    const updatedData = {
-        state: document.getElementById('state').value,
-        price: document.getElementById('price').value,
-        processMade: document.getElementById('processMade').value,
-        repairDescription: document.getElementById('repairDescription').value
-    };
-
-    try {
-        const response = await fetch(`${window.API_URL}/api/update-request/${requestId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedData)
-        });
-
-        const data = await response.json();
-        if (data) {
-            alert('Talep başarıyla güncellendi');
-        }
-    } catch (error) {
-        console.error('Talep güncellenemedi:', error);
-    }
-}
-
-//Talep formunun yazıcı ile yazdırılması
-function printRequestInfo () {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    // Başlık
-    doc.setFontSize(16);
-    doc.text('Talep Bilgileri', 105, 20, null, null, 'center'); // Ortalanmış başlık
-
-    // Formdaki bilgileri al
-    const queryNum = document.getElementById('queryNum').value;
-    const name = document.getElementById('name').value;
-    const model = document.getElementById('model').value;
-    const phone = document.getElementById('phone').value;
-    const adress = document.getElementById('adress').value;
-    const imei = document.getElementById('imei').value;
-    const kilit = document.getElementById('kilit').value;
-    const phoneTakenDate = document.getElementById('phoneTakenDate').value;
-    const sorunlar = document.getElementById('sorunlar').value;
-    const state = document.getElementById('state').value;
-    const processMade = document.getElementById('processMade').value;
-    const price = document.getElementById('price').value;
-    const repairDescription = document.getElementById('repairDescription').value;
-
-    // Form verilerini düzenli bir şekilde PDF'ye ekleme
-    let yPosition = 30;
-
-    // Başlıklar
-    const labels = [
-    'Talep No:', 'Müsteri Adi:', 'Telefon Modeli:', 'Telefon No:', 'Adres:', 'IMEI:',
-    'Tus Kilidi:', 'Cihazin Gelis Tarihi:', 'Problem:', 'Durum:', 'Yapilan İslem:',
-    'Ücret:', 'Onarim Açiklamasi:'
-    ];
-
-    const values = [
-    queryNum, name, model, phone, adress, imei, kilit, phoneTakenDate,
-    sorunlar, state, processMade, price, repairDescription
-    ];
-
-    // Veri ekleme işlemi
-    doc.setFontSize(12);
-    for (let i = 0; i < labels.length; i++) {
-    doc.text(`${labels[i]} ${values[i]}`, 10, yPosition);
-    yPosition += 10;
-    }
-
-    // Renkli kutu (onarım açıklaması için)
-    doc.setDrawColor(0, 0, 255); // Mavi
-    doc.setFillColor(220, 220, 220); // Gri
-    doc.rect(10, yPosition, 190, 30, 'F'); // Kutuyu çiz
-    doc.setFontSize(12);
-    doc.text('Onarım Açıklaması:', 10, yPosition + 10);
-    doc.text(repairDescription, 10, yPosition + 20);
-
-    // PDF dosyasını kaydet
-    doc.save('talep_bilgisi.pdf');
-}

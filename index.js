@@ -15,6 +15,12 @@ const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 const helmet = require('helmet');
 const winston = require('winston'); // Hata logları için winston kullanıyoruz
+const verifyToken = require('./middleware/verifytoken'); // Token doğrulama middleware'ı
+app.disable('x-powered-by');
+
+//const routes = require('./routes');
+
+//app.use('/', routes);
 
 // Schemas
 const Request = require('./models/repairRequests'); 
@@ -31,18 +37,54 @@ const logger = winston.createLogger({
     ]
 });
 
-// Frontend dosyalarını statik olarak sun
-app.use(express.static(path.join(__dirname, 'frontend/public')));
-
-app.use(helmet()); // Güvenlik için Helmet kullanımı
-
 //Sunucuya gelen isteklere izin vermek için
 const corsOptions = {
-    origin: ['http://ayda.site', 'http://localhost:3000','http://localhost:5000','http://127.0.0.1:5500','http://127.0.0.1:5501'], // Frontend adresi
+    origin: ['http://localhost:5000'], // Frontend adresi
     methods: ['GET', 'POST','DELETE','PUT'], // İzin verilen HTTP metodları
     allowedHeaders: ['Content-Type','Authorization'], // İzin verilen başlıklar
     credentials: true, 
 };
+
+app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          "https://cdn.jsdelivr.net", // Bootstrap 5
+          "https://ajax.googleapis.com", // jQuery
+          "https://maxcdn.bootstrapcdn.com", // Bootstrap 3
+          "cdnjs.cloudflare.com",
+        ],
+        styleSrc: [
+          "'self'",
+          "https://cdn.jsdelivr.net", // Bootstrap 5
+          "https://maxcdn.bootstrapcdn.com", // Bootstrap 3
+          "https://cdnjs.cloudflare.com", // Font Awesome
+        ],
+        fontSrc: ["'self'", "https://maxcdn.bootstrapcdn.com", "https://fonts.gstatic.com","https://cdnjs.cloudflare.com"],
+        connectSrc: ["'self'"],
+        imgSrc: ["'self'",
+            "https://cdn-icons-png.flaticon.com/256/0/747.png",
+            "data:",
+            "https://upload.wikimedia.org",  // Wikimedia görselleri için izin
+            "https://logos-world.net",  // Logos World görselleri için izin
+            "https://i.pinimg.com",  // Pinterest görselleri için izin
+            "https://logoeps.com",
+            "https://cdn-icons-png.flaticon.com",  // Flaticon görselleri için izin
+            "https://drive.google.com", 
+            "https://lh3.googleusercontent.com",
+            "https://coflex.com.tr",
+            "https://st2.depositphotos.com",
+        ],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
+      },
+    })
+);
+
+// Frontend dosyalarını statik olarak sun
+app.use(express.static(path.join(__dirname, 'frontend/public')));
 
 app.use(cors(corsOptions)); // CORS'u etkinleştir
 
@@ -123,7 +165,7 @@ app.post('/api/login', loginLimiter, async (req, res) => {
     }
 });
 
-app.post('/api/logout', (req, res) => {
+app.post('/api/logout', verifyToken , (req, res) => {
     // Çerezi sil
     res.clearCookie('token', { path: '/' });
     res.status(200).json({ message: 'Çıkış yapıldı ve çerez silindi.' });
@@ -149,7 +191,7 @@ app.get('/api/verify-token', (req, res) => {
 });
 
 //Change password route
-app.post('/change-password', async (req, res) => {
+app.post('/change-password', verifyToken , async (req, res) => {
     const { username, oldPassword, newPassword } = req.body;
     try {
         // Kullanıcıyı veritabanında bul
@@ -235,7 +277,7 @@ const upload = multer({
 });
 
 //To load a campaign
-app.post('/api/upload-campaign', upload.single('dosya'), async (req, res) => {
+app.post('/api/upload-campaign', verifyToken , upload.single('dosya'), async (req, res) => {
     try {
         const { aciklama } = req.body;
 
@@ -322,7 +364,7 @@ app.get('/api/campaigns', async (req, res) => {
 });
   
  // To upload product
-app.post('/upload-product', upload.single('file'), async (req, res) => {
+app.post('/upload-product', verifyToken , upload.single('file'), async (req, res) => {
     try {
         const { name, price, description } = req.body;
 
@@ -417,7 +459,7 @@ app.get('/products', async (req, res) => {
 });
 
 // To delete a product
-app.delete('/products/:id', async (req, res) => {
+app.delete('/products/:id', verifyToken , async (req, res) => {
     try {
         const productId = req.params.id;
         await Product.findByIdAndDelete(productId);  // Ürünü sil
@@ -429,7 +471,7 @@ app.delete('/products/:id', async (req, res) => {
 });
 
 // To get requests
-app.get('/get-requests', async (req, res) => {
+app.get('/get-requests',verifyToken , async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;  // Sayfa numarası (varsayılan 1)
         const pageSize = 30;  // Sayfa başına gösterilecek veri sayısı
@@ -460,7 +502,7 @@ app.get('/get-requests', async (req, res) => {
 });
 
 // API endpoint for updating repair request
-app.put('/api/update-request/:id', async (req, res) => {
+app.put('/api/update-request/:id', verifyToken ,async (req, res) => {
     const { id } = req.params;
     const updateData = req.body;
 
@@ -479,19 +521,22 @@ app.put('/api/update-request/:id', async (req, res) => {
 });
 
 // To delete a request
-app.delete('/delete-request/:id', async (req, res) => {
+// To delete a request
+app.delete('/delete-request/:id', verifyToken, async (req, res) => {
     try {
-        await Request.findByIdAndDelete(req.params.id);
+        const requestId = req.params.id;  // ID'yi burada alıyoruz
+        await Request.findByIdAndDelete(requestId);
         logger.info(`DELETE /delete-request/${requestId} - Talep başarıyla silindi (ID: ${requestId})`);
         res.status(200).send('Talep silindi.');
-    } catch (err) {
+    } catch (error) {
         logger.error(`DELETE /delete-request/${req.params.id} - Sunucu hatası: ${error.message}`);
-        res.status(500).send('Silme işlemi başarısız!');
+        res.status(500).json({ message: "Sunucu hatası" });
     }
 });
 
+
 // Talebi idsine göre GET ile alma
-app.get('/get-request/:id', async (req, res) => {
+app.get('/get-request/:id', verifyToken ,  async (req, res) => {
     const requestId = req.params.id;
 
     try {
@@ -509,7 +554,7 @@ app.get('/get-request/:id', async (req, res) => {
 });
 
 // To load media
-app.post('/upload-media', upload.single('dosya'), async (req, res) => {
+app.post('/upload-media', verifyToken , upload.single('dosya'), async (req, res) => {
     try {
         const { aciklama } = req.body;
 

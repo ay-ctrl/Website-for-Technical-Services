@@ -1,5 +1,29 @@
 //INDEX
 window.API_URL = "http://localhost:5000"; // API URL'sini burada tanımlıyoruz
+
+document.addEventListener("DOMContentLoaded", function () {
+    // ... Diğer event handlerlar
+
+    const requestForm = document.getElementById("requestForm");
+    if (requestForm) {
+        requestForm.addEventListener("submit", talepOlustur);
+    }
+
+    const hamburger=document.getElementById("hamburger");
+    if (hamburger) {
+        hamburger.addEventListener("click", toggleMenu);
+    }
+
+    const searchButton = document.getElementById("searchButton");
+    if (searchButton) {
+        searchButton.addEventListener("click", talepSorgula);
+    }
+});
+
+function toggleMenu() {
+    const navMobile = document.getElementById('nav-mobile');
+    navMobile.classList.toggle('open');
+}
 //Tamir hizmetleri kutularının carouseli
 function repairServicesCarousel() {
     const carouselTrack = document.querySelector(".carousel-track");
@@ -91,34 +115,6 @@ function showCampaigns() {
     }
 
     fetchCampaigns();
-}
-
-//LOGIN
-async function logIn() {
-
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    try {
-        // Backend'e login isteği gönder
-        const response = await fetch(`${window.API_URL}/api/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password }), // Kullanıcı adı ve şifreyi gönderiyoruz
-        });
-
-        // Sunucudan gelen yanıta göre işlem yap
-        if (response.ok) {
-            window.location.href = '../UserSide/dashboard.html'; 
-        } else {
-            const errorText = await response.json(); // Hata mesajını JSON olarak al
-            alert('Hata: ' + errorText.message); // Hata mesajını göster
-        }
-        } catch (error) {
-            alert('Bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
-        }
 }
 
 //HAKKIMIZDA
@@ -376,40 +372,6 @@ async function talepOlustur(event){
         }
     } catch (error) {
         alert('Bir hata oluştu: ' + error.message);
-    }
-}
-
-//TALEP OLUSTUR 2
-function showTalepNo(){
-    // Talep numarasını localStorage'dan al
-    const queryNum = window.localStorage.getItem('queryNum');
-
-    if (queryNum) {
-        // Talep numarasını sayfada göster
-        document.getElementById('talepNo').textContent = queryNum;
-    } else {
-        alert('Talep numarası bulunamadı.');
-    }
-}
-
-//TALEP SORGULA
-// Sayfa yüklendiğinde localStorage'dan veriyi al
-function showRequestInfo(){
-    const repairRequestData = JSON.parse(localStorage.getItem('repairRequestData'));
-
-    if (repairRequestData) {
-        // Veriyi tabloya doldur
-        document.getElementById('customerName').textContent = repairRequestData.name;
-        document.getElementById('customerPhone').textContent = repairRequestData.phone;
-        document.getElementById('customerAddress').textContent = repairRequestData.adress;
-        document.getElementById('problemDescription').textContent = repairRequestData.sorunlar.join(', ');
-        document.getElementById('createdAt').textContent = new Date(repairRequestData.createdAt).toLocaleDateString();
-        document.getElementById('status').textContent = repairRequestData.state || 'Bilinmiyor';
-        document.getElementById('price').textContent = repairRequestData.price || 'Belirlenmedi';
-        // Tabloyu göster
-        document.getElementById('resultTable').style.display = 'table';
-    } else {
-        alert('Talep verisi bulunamadı.');
     }
 }
 

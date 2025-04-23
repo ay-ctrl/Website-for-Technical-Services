@@ -10,15 +10,14 @@
     <link rel="canonical" href="https://telefon-tamiri-seng209-211.com.tr/">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap 5 JS dosyası (CDN ile) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta property="og:title" content="Uygun Fiyatlarla Akıllı Cihaz Tamir Hizmeti Sizlerle">
     <meta property="og:description" content=" Hızlı ve güvenilir tamir için hemen ulaşın.">
     <meta property="og:url" content="https://telefon-tamiri-seng209-211.com.tr/">
     <link rel="stylesheet" href="../CustomerSide/css/common.css">
     <link rel="stylesheet" href="../CustomerSide/css/index.css">
+    <script src="../CustomerSide/scripts/indexx.js"></script>
     <script src="../CustomerSide/scripts/script.js"></script>
 </head>
 
@@ -37,12 +36,6 @@
             <div></div>
             <div></div>
         </div>
-        <script>
-            function toggleMenu() {
-                const navMobile = document.getElementById('nav-mobile');
-                navMobile.classList.toggle('open');
-            }
-        </script>
         <!-- Navigation -->
         <nav>
             <ul>
@@ -68,7 +61,6 @@
         <div class="auth-buttons">
             <a href="giris.html" class="giris-btn"><b>Giriş Yap</b></a>
         </div>
-            
     </header>
 
     <!--Telefonunuz mu Bozuldu?-->
@@ -285,45 +277,6 @@
             <p>© 2024 - Tüm Hakları Saklıdır - AYDA</p>
         </div>
     </footer>
-
-    <script>
-        window.API_URL = "http://localhost:5000";
-        // Her Sayfa yüklendiğinde token doğrulaması yap
-        fetch(`${window.API_URL}/api/verify-token`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include' // Cookie'nin sunucuya gönderilmesini sağlar
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                window.location.href = '../UserSide/dashboard.html'; // Giriş sayfasına yönlendir
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-        document.addEventListener("DOMContentLoaded", function () {
-            repairServicesCarousel();
-            showCampaigns();
-        });
-    </script>
-
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-        (function () {
-            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/6768177b49e2fd8dfefbf95d/1ifn9nf0p';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
 
 </body>
 
