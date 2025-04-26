@@ -49,16 +49,36 @@ app.get('/', (req, res) => {
 });
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// yeni eklendi
 //To upload a repair request
 app.post('/api/repairRequests', async (req, res) => {
     try {
-        const newRequest = new Request(req.body); // Gelen form verisini yeni bir Talep'e çevir
-        await newRequest.save(); // MongoDB'ye kaydet
-        res.status(201).send({message:'Talep başarıyla kaydedildi!', queryNum: newRequest.queryNum});
+        // Önce bellek üzerinde hızlı validasyon
+        if (!req.body.model || !req.body.name || !req.body.phone) {
+            return res.status(400).send('Zorunlu alanlar eksik!');
+        }
+
+        // Model oluşturmadan önce queryNum hesapla (DB hit'i azaltır)
+        const queryNum = Math.floor(10000 + Math.random() * 90000);
+        const newRequest = new Request({ ...req.body, queryNum });
+
+        // writeConcern: "majority" ile performans/consistency trade-off
+        await newRequest.save({ w: "majority", j: false }); 
+
+        res.status(201).json({ 
+            message: 'Talep oluşturuldu!', 
+            queryNum,
+            _id: newRequest._id // Sonraki sorgular için
+        });
     } catch (error) {
-        res.status(400).send('Talep kaydedilemedi: ' + error.message);
+        res.status(500).json({ 
+            error: 'Talep oluşturulamadı',
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
     }
 });
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// yeni eklendi
+
 
 // Login route
 app.post('/api/login', async (req, res) => {
@@ -107,31 +127,42 @@ app.post('/change-password', async (req, res) => {
     }
 });
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// yeni eklendi
 //Talep sorgulama API
 app.post("/api/repairRequests/search", async (req, res) => {
-    const { queryNum } = req.body; // Kullanıcıdan gelen sorgulama numarası
+    const { queryNum } = req.body;
+    
+    // Hızlı validasyon
+    if (!queryNum || isNaN(queryNum)) {
+        return res.status(400).json({ success: false, message: 'Geçersiz talep numarası' });
+    }
 
     try {
-        // Talep numarasına göre veritabanında arama yap
-        const repairRequest = await Request.findOne({ queryNum });
+        // Sadece gerekli alanları seç + index kullanımı
+        const repairRequest = await Request.findOne({ queryNum })
+            .select('name phone adress sorunlar createdAt state price')
+            .lean(); // Daha hızlı JSON dönüşümü
 
-        if (repairRequest) {
-            // Talep bulunduysa, talep bilgilerini geri gönder
-            res.json({
-                success: true,
-                data: repairRequest
-            });
-        } else {
-            res.json({
-                success: false,
-                message: 'Talep bulunamadı!'
-            });
+        if (!repairRequest) {
+            return res.json({ success: false, message: 'Talep bulunamadı!' });
         }
+
+        // Hızlı yanıt
+        res.json({
+            success: true,
+            data: repairRequest
+        });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Bir hata oluştu.' });
+        console.error('Sorgu hatası:', error);
+        res.status(500).json({ 
+            success: false,
+            message: 'Sunucu hatası',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
     }
 });
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// yeni eklendi
 
 // 'uploads' klasörünü oluştur
 const uploadsDir = path.join(__dirname, 'uploads');
@@ -579,4 +610,4 @@ function authenticateToken(req, res, next) {
     } catch (err) {
         res.status(403).json({ error: 'Geçersiz token.' });
     }
-}
+}  
