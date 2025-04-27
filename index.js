@@ -17,10 +17,12 @@ const helmet = require('helmet');
 const winston = require('winston'); // Hata logları için winston kullanıyoruz
 const verifyToken = require('./middleware/verifytoken'); // Token doğrulama middleware'ı
 app.disable('x-powered-by');
+const https = require('https');
 
-//const routes = require('./routes');
-
-//app.use('/', routes);
+// Sertifikaları yükle
+const privateKey = fs.readFileSync('localhost-key.pem', 'utf8');
+const certificate = fs.readFileSync('localhost.pem', 'utf8');
+const httpsCredentials = { key: privateKey, cert: certificate };
 
 // Schemas
 const Request = require('./models/repairRequests'); 
@@ -91,9 +93,10 @@ app.use(cors(corsOptions)); // CORS'u etkinleştir
 //sunucu ve mongodb bağlantısı
 mongoose.connect("mongodb+srv://moonloversin:Wg0RBqGNubEaOiAg@backend.cnmfb.mongodb.net/NODE-API?retryWrites=true&w=majority&appName=Backend").then(()=>{
     console.log("Connected to database :)"); 
-    app.listen(5000, ()=>{
-        console.log("Server is running on port 5000");
-    });
+    // HTTPS sunucusunu başlat
+    https.createServer(httpsCredentials, app).listen(5000, () => {
+    console.log('Sunucu HTTPS üzerinden 5000 portunda çalışıyor!');
+  });
 }).catch((error)=>{
     console.log("Database Connection failed :(");
     logger.error(`Database connection failed: ${error.message}`, { stack: error.stack });
@@ -279,6 +282,9 @@ const upload = multer({
 //To load a campaign
 app.post('/api/upload-campaign', verifyToken , upload.single('dosya'), async (req, res) => {
     try {
+        const drive = await getAuthorizedDrive();
+        if (!drive) return res.status(401).send('Yetkilendirme gerekli.');
+
         const { aciklama } = req.body;
 
         if (!aciklama) {
@@ -323,6 +329,13 @@ app.post('/api/upload-campaign', verifyToken , upload.single('dosya'), async (re
 
             } catch (googleError) {
                 logger.error(`Google Drive yükleme hatası: ${googleError.message}, IP: ${req.ip}`);
+                
+            if (googleError.message.includes('invalid_grant')) {
+                return res.status(401).json({
+                error: 'Google yetkilendirme süresi doldu.',
+                authExpired: true,
+                });
+                }
                 return res.status(500).json({ error: 'Google Drive yükleme hatası oluştu!' });
             }
             fs.unlinkSync(req.file.path); // geçici dosyayı sil
@@ -521,7 +534,6 @@ app.put('/api/update-request/:id', verifyToken ,async (req, res) => {
 });
 
 // To delete a request
-// To delete a request
 app.delete('/delete-request/:id', verifyToken, async (req, res) => {
     try {
         const requestId = req.params.id;  // ID'yi burada alıyoruz
@@ -533,7 +545,6 @@ app.delete('/delete-request/:id', verifyToken, async (req, res) => {
         res.status(500).json({ message: "Sunucu hatası" });
     }
 });
-
 
 // Talebi idsine göre GET ile alma
 app.get('/get-request/:id', verifyToken ,  async (req, res) => {
@@ -639,16 +650,16 @@ app.get('/api/medias', async (req, res) => {
     }
 });
 
-// Google OAuth2 Client Setup
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
-const redirect_uris = process.env.REDIRECT_URIS;
+const redirect_uris = process.env.REDIRECT_URIS; // Bu bir dizi olmalı
 
 const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
 const SCOPES = ['https://www.googleapis.com/auth/drive.file'];
 const TOKEN_PATH = 'token.json';
 
+// Token dosyasını oku
 fs.readFile(TOKEN_PATH, (err, token) => {
     if (err) {
         console.error('Token dosyası bulunamadı. Yetkilendirme yapmalısınız.');
@@ -656,64 +667,54 @@ fs.readFile(TOKEN_PATH, (err, token) => {
         return;
     }
     oAuth2Client.setCredentials(JSON.parse(token));
-
-    // Token ayarlandıktan sonra Google Drive API nesnesini oluşturun
-    const drive = google.drive({ version: 'v3', auth: oAuth2Client });
 });
 
-app.get('/oauth2callback', async (req, res) => {
-  const code = req.query.code; // URL üzerinden gönderilen "code" parametresini alıyoruz
-  
-  if (!code) {
-    const errorMessage = 'Authorization code not found in the URL.';
-    logger.error(errorMessage);  // Hata mesajını logla
-    return res.status(400).send('Code not found in the URL.');
-  }
-
-  try {
-    // Kodla token al
-    const { tokens } = await oAuth2Client.getToken(code);
-    oAuth2Client.setCredentials(tokens);
-
-    // Token'ı dosyaya kaydet
-    fs.writeFileSync(TOKEN_PATH, JSON.stringify(tokens));
-    res.send('Token başarıyla kaydedildi!');
-  } catch (error) {
-    logger.error(`Error retrieving token: ${error.message}`);
-    res.status(500).send('Token alınırken bir hata oluştu.');
-  }
-});
-
-// Kullanıcıyı OAuth2 sayfasına yönlendir
 app.get('/authorize', (req, res) => {
+    const error = req.query.error;
     const authUrl = oAuth2Client.generateAuthUrl({
-      access_type: 'offline',
-      scope: SCOPES,
+        access_type: 'offline',
+        scope: SCOPES,
     });
-    
-    // URL'yi konsola yazdırıyoruz
-    console.log('Yetkilendirme URL\'si: ', authUrl);
-  
-    // Kullanıcıyı OAuth2 sayfasına yönlendiriyoruz
-    res.redirect(authUrl);
-  });
 
-const drive = google.drive({ version: 'v3', auth: oAuth2Client });
-
-// Token doğrulama middleware'ı
-function authenticateToken(req, res, next) {
-    const token = req.header('Authorization')?.replace('Bearer ', '');  // Token'ı header'dan al
-
-    if (!token) {
-        return res.status(401).json({ error: 'Erişim izni yok.' });
+    // Kullanıcıya bilgi mesajı ver
+    let message = '';
+    if (error === 'expired') {
+        message = '🔄 Oturum süresi dolmuş olabilir, lütfen tekrar giriş yapın.';
     }
 
+    res.send(`
+      <h2>Google ile giriş yap</h2>
+      ${message ? `<p style="color:red;">${message}</p>` : ''}
+      <a href="${authUrl}">Google ile Yetkilendir</a>
+    `);
+});
+
+// 🔑 Callback: Google'dan gelen yetki kodunu token'a çevirme
+app.get('/oauth2callback', async (req, res) => {
+    const code = req.query.code;
+    if (!code) return res.status(400).send('Authorization code not found.');
+
     try {
-        const decoded = jwt.verify(token, 'your_secret_key');  // Token'ı doğrula
-        req.user = decoded; // Token'dan kullanıcı bilgilerini al
-        next(); // İstek işlemi devam etsin
+        const { tokens } = await oAuth2Client.getToken(code);
+        oAuth2Client.setCredentials(tokens);
+
+        // Token'ı kaydet
+        fs.writeFileSync(TOKEN_PATH, JSON.stringify(tokens));
+        res.send('✅ Token başarıyla kaydedildi! Artık yükleme yapabilirsiniz.');
+    } catch (error) {
+        console.error('Token alınırken hata:', error.message);
+        return res.redirect('/authorize?error=expired');
+    }
+});
+
+// 🔄 Drive yetkili nesnesini döndüren fonksiyon
+async function getAuthorizedDrive() {
+    try {
+        const token = await fs.promises.readFile(TOKEN_PATH, 'utf-8');
+        oAuth2Client.setCredentials(JSON.parse(token));
+        return google.drive({ version: 'v3', auth: oAuth2Client });
     } catch (err) {
-        logger.error(`Token doğrulama hatası: ${err.message}`);
-        res.status(403).json({ error: 'Geçersiz token.' });
+        console.error('Token okunamadı. Yetkilendirme gerekli.');
+        return null;
     }
 }

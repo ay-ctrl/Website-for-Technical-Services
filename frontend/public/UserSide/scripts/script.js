@@ -1,5 +1,5 @@
 //DASHBOARD
-window.API_URL = "http://localhost:5000";
+window.API_URL = "https://localhost:5000";
 
  // Her Sayfa yüklendiğinde token doğrulaması yap
  async function verifyTokenBeforeLoad() {
@@ -359,7 +359,11 @@ async function addCampaign() {
             document.getElementById('aciklama').value="";
             document.getElementById('dosya').value="";
         } else {
-            alert('Bir hata oluştu1!');
+            alert('Bir hata oluştuuu!');
+            if (data.authExpired) {
+                alert('Google yetkilendirme süreniz dolmuş. Lütfen tekrar giriş yapın.');
+                window.location.href = `${window.API_URL}/authorize`;
+            }
         }
     } catch (error) {
         console.error(error);

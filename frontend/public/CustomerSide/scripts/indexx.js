@@ -1,4 +1,4 @@
-window.API_URL = "http://localhost:5000";
+window.API_URL = "https://localhost:5000";
 // Her Sayfa yüklendiğinde token doğrulaması yap
 fetch(`${window.API_URL}/api/verify-token`, {
     method: 'GET',

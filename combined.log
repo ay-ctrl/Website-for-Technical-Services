@@ -1,0 +1,19 @@
+{"level":"error","message":"Token doğrulama hatası, IP: ::1, Error: jwt expired"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: invalid_grant, IP: ::1"}
+{"level":"error","message":"Token doğrulama hatası, IP: ::1, Error: jwt expired"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: invalid_grant, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: undefined"}
+{"level":"info","message":"Campaigns fetched successfully, IP: undefined"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: invalid_grant, IP: ::1"}
+{"level":"warn","message":"Token bulunamadı, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: invalid_grant, IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: invalid_grant, IP: ::1"}
