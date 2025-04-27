@@ -294,7 +294,7 @@ app.post('/api/upload-campaign', verifyToken , upload.single('dosya'), async (re
         let fileUrl = '';
         if (req.file) {
             try {
-                const filePath = path.join(__dirname, req.file.path);
+                const filePath = path.join(__dirname, 'uploads', req.file.filename);
                 const fileMetadata = {
                     name: req.file.originalname,
                     parents: ["1CzwXTomfW0fF-Lzv86RNufOQm2bXidem"], // Google Drive klasör ID
@@ -338,7 +338,6 @@ app.post('/api/upload-campaign', verifyToken , upload.single('dosya'), async (re
                 }
                 return res.status(500).json({ error: 'Google Drive yükleme hatası oluştu!' });
             }
-            fs.unlinkSync(req.file.path); // geçici dosyayı sil
         }
 
         // MongoDB'ye kaydetme
@@ -649,6 +648,7 @@ app.get('/api/medias', async (req, res) => {
         res.status(500).json({ message: 'İşlem sırasında bir hata oluştu. Lütfen tekrar deneyin.' });
     }
 });
+
 
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;

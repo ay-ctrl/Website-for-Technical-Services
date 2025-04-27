@@ -17,3 +17,53 @@
 {"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
 {"level":"error","message":"Google Drive yükleme hatası: invalid_grant, IP: ::1"}
 {"level":"error","message":"Google Drive yükleme hatası: invalid_grant, IP: ::1"}
+{"level":"error","message":"Token doğrulama hatası, IP: ::1, Error: jwt expired"}
+{"level":"error","message":"Token doğrulama hatası, IP: ::1, Error: jwt expired"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"error","message":"Token doğrulama hatası, IP: ::1, Error: jwt expired"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: invalid_grant, IP: ::1"}
+{"level":"error","message":"Token doğrulama hatası, IP: ::1, Error: jwt expired"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: invalid_grant, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: undefined"}
+{"level":"info","message":"Campaigns fetched successfully, IP: undefined"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: invalid_grant, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: undefined"}
+{"level":"info","message":"Campaigns fetched successfully, IP: undefined"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"File uploaded to Google Drive, File ID: 1Eq9oe7S0dcpXcISfjmVv0To7pTPqcj36, IP: ::1"}
+{"level":"info","message":"New campaign uploaded successfully, Campaign ID: 680e6b46c17b0c9c6489c6eb, IP: ::1"}
+{"level":"error","message":"Campaign upload failed: getAuthorizedDrive is not defined, IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: No access, refresh token, API key or refresh handler callback is set., IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: No access, refresh token, API key or refresh handler callback is set., IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: No access, refresh token, API key or refresh handler callback is set., IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: No access, refresh token, API key or refresh handler callback is set., IP: ::1"}
+{"level":"error","message":"Google Drive yükleme hatası: No access, refresh token, API key or refresh handler callback is set., IP: ::1"}
+{"level":"info","message":"File uploaded to Google Drive, File ID: 1faRyaF87YKHOGWK35CpqF_ds5uEZmARP, IP: ::1"}
+{"level":"info","message":"New campaign uploaded successfully, Campaign ID: 680e728ac55eac4ee2d6e36d, IP: ::1"}
+{"level":"error","message":"Token doğrulama hatası, IP: ::1, Error: jwt expired"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"File uploaded to Google Drive, File ID: 1OMOnDsnqh2a3aKHz4E1wFzxbfyA9R0KS, IP: ::1"}
+{"level":"info","message":"New campaign uploaded successfully, Campaign ID: 680e7810ca14556cdcecea30, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: undefined"}
+{"level":"info","message":"Campaigns fetched successfully, IP: undefined"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"File uploaded to Google Drive, File ID: 1xx1-L-vFs7xh9qPykhAspwuEF2u4OZOQ, IP: ::1"}
+{"level":"info","message":"New campaign uploaded successfully, Campaign ID: 680e786fca14556cdcecea37, IP: ::1"}
+{"level":"info","message":"Campaigns fetched successfully, IP: undefined"}
+{"level":"info","message":"Campaigns fetched successfully, IP: undefined"}
+{"level":"info","message":"Campaigns fetched successfully, IP: ::1"}
+{"level":"info","message":"File uploaded to Google Drive, File ID: 1sbDNIGPY7yccWHANAUf8nOk_LmzzKN0D, IP: ::1"}
+{"level":"info","message":"New campaign uploaded successfully, Campaign ID: 680e83c8c2e1dc9bbe277736, IP: ::1"}
+{"level":"info","message":"File uploaded to Google Drive, File ID: 18RYD6tIO-cVSCiSXnqou7WYeeg9clXGr, IP: ::1"}
+{"level":"info","message":"New campaign uploaded successfully, Campaign ID: 680e841254ee705f1a7c845d, IP: ::1"}
