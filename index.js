@@ -47,6 +47,17 @@ const corsOptions = {
     credentials: true, 
 };
 
+app.use(cors(corsOptions)); // CORS'u etkinleştir
+
+app.use(
+    helmet.hsts({
+      maxAge: 31536000, // 1 yıl
+      includeSubDomains: true,
+      preload: true
+    }),
+    helmet.noSniff(),
+  );
+
 app.use(
     helmet.contentSecurityPolicy({
       directives: {
@@ -86,21 +97,28 @@ app.use(
 );
 
 // Frontend dosyalarını statik olarak sun
-app.use(express.static(path.join(__dirname, 'frontend/public')));
+app.use(cors(corsOptions),express.static(path.join(__dirname, 'frontend/public')));
 
-app.use(cors(corsOptions)); // CORS'u etkinleştir
+if (process.env.NODE_ENV !== 'test') {
+    mongoose.connect("mongodb+srv://moonloversin:Wg0RBqGNubEaOiAg@backend.cnmfb.mongodb.net/NODE-API?retryWrites=true&w=majority&appName=Backend").then(() => {
+        console.log("Connected to database :)");
+        https.createServer(httpsCredentials, app).listen(5000, () => {
+            console.log('Sunucu HTTPS üzerinden 5000 portunda çalışıyor!');
+        });
+    }).catch((error) => {
+        console.log("Database Connection failed :(");
+        logger.error(`Database connection failed: ${error.message}`, { stack: error.stack });
+    });
+}
 
-//sunucu ve mongodb bağlantısı
-mongoose.connect("mongodb+srv://moonloversin:Wg0RBqGNubEaOiAg@backend.cnmfb.mongodb.net/NODE-API?retryWrites=true&w=majority&appName=Backend").then(()=>{
-    console.log("Connected to database :)"); 
-    // HTTPS sunucusunu başlat
-    https.createServer(httpsCredentials, app).listen(5000, () => {
-    console.log('Sunucu HTTPS üzerinden 5000 portunda çalışıyor!');
-  });
-}).catch((error)=>{
-    console.log("Database Connection failed :(");
-    logger.error(`Database connection failed: ${error.message}`, { stack: error.stack });
-});
+app.get('/health', async (req, res) => {
+    try {
+      await mongoose.connection.db.admin().ping();
+      res.status(200).send('Veritabanı sağlıklı');
+    } catch (err) {
+      res.status(500).send('Veritabanı hatası');
+    }
+  });  
 
 // Anasayfaya gelen GET isteği için yönlendirme yap
 app.get('/', (req, res) => {
@@ -718,3 +736,5 @@ async function getAuthorizedDrive() {
         return null;
     }
 }
+
+module.exports = app;
