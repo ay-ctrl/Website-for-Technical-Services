@@ -197,6 +197,13 @@ async function changePassword(){
     const username = document.getElementById('username').value;
     const oldPassword = document.getElementById('old-password').value;
     const newPassword = document.getElementById('new-password').value;
+    const newPasswordAgain= document.getElementById('new-password-again').value="";
+
+    // Yeni şifrelerin eşleşip eşleşmediğini kontrol et
+    if (newPassword !== newPasswordAgain) {
+        alert('Yeni şifreler eşleşmiyor! Lütfen yeniden giriniz.');
+        return; // Şifreler eşleşmiyorsa fonksiyon sonlanır
+    }
 
     try {
         const response = await fetch(`${window.API_URL}/change-password`, {

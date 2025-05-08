@@ -11,7 +11,7 @@ const repairRequestSchema = new mongoose.Schema({
     yedekCihaz: { type: String , default: "hayır"}, // "evet" veya "hayır"
     queryNum: { type: Number},
     state: {type: String, default: "Talep Alındı"},
-    price: {type:String},
+    price: {type:String, default: "belirtilmemiş"},
     phoneTakenDate: {type: Date, default: undefined},
     processMade: {type: String},
     repairDescription: {type:String},

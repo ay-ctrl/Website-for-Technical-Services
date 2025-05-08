@@ -109,6 +109,10 @@ if (process.env.NODE_ENV !== 'test') {
         console.log("Database Connection failed :(");
         logger.error(`Database connection failed: ${error.message}`, { stack: error.stack });
     });
+} else {
+    mongoose.connect(process.env.MONGO_TEST_URI).then(() => {
+        console.log("Connected to test database :)"); 
+    });
 }
 
 app.get('/health', async (req, res) => {
@@ -128,14 +132,66 @@ app.get('/', (req, res) => {
 //To upload a repair request
 app.post('/api/repairRequests', async (req, res) => {
     try {
-        const newRequest = new Request(req.body); // Gelen form verisini yeni bir Talep'e çevir
-        await newRequest.save(); // MongoDB'ye kaydet
-        res.status(201).send({message:'Talep başarıyla kaydedildi!', queryNum: newRequest.queryNum});
+        const { name, phone, adress, imei, model, kilit, sorunlar } = req.body;
+
+        if (!name || name.trim() === '') {
+            return res.status(400).send({ message: 'Ad ve soyad zorunludur.' });
+        }
+        // Name: sadece harf ve boşluk
+        const nameRegex = /^[a-zA-ZğüşöçıİĞÜŞÖÇ\s]+$/;
+        if (!nameRegex.test(name?.trim())) {
+            return res.status(400).send({ message: 'Ad ve soyad sadece harflerden oluşmalıdır.' });
+        }
+
+        // Telefon: 10 haneli rakam
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!phoneRegex.test(phone?.trim())) {
+            return res.status(400).send({ message: 'Geçerli bir telefon numarası girin.' });
+        }
+
+        // Adres: izin verilen karakterlerle sınırlandır
+        const adresRegex = /^[a-zA-Z0-9ğüşöçıİĞÜŞÖÇ\s.\-\/()]+$/;
+        if (!adresRegex.test(adress?.trim())) {
+            return res.status(400).send({ message: 'Adres geçersiz karakterler içeriyor.' });
+        }
+
+        // IMEI: boş olabilir ama varsa 15 haneli rakam olmalı
+        if (imei && !/^\d{15}$/.test(imei.trim())) {
+            return res.status(400).send({ message: 'IMEI 15 haneli olmalı veya boş bırakılmalıdır.' });
+        }
+
+        if (!model || model.trim() === '') {
+            return res.status(400).send({ message: 'Telefon modeli zorunludur.' });
+        }
+        // Model: yalnızca harf, rakam, boşluk, - _ . içerebilir
+        const modelRegex = /^[a-zA-Z0-9\s\-_.]+$/;
+        if (!modelRegex.test(model?.trim())) {
+            return res.status(400).send({ message: 'Model geçersiz karakter içeriyor.' });
+        }
+
+        // Kilit: boş olabilir ama varsa 20 karakteri geçemez ve izinli karakterler içermeli
+        if (kilit) {
+            if (kilit.length > 20) {
+                return res.status(400).send({ message: 'Tuş kilidi en fazla 20 karakter olabilir.' });
+            }
+        }
+
+        // Sorunlar: dizi olmalı ve en az bir eleman içermeli
+        if (!Array.isArray(sorunlar) || sorunlar.length === 0) {
+            return res.status(400).send({ message: 'Lütfen en az bir sorun seçin.' });
+        }
+
+        // Doğrulamayı geçen talep verisini kaydet
+        const newRequest = new Request(req.body);
+        await newRequest.save();
+
+        res.status(201).send({ message: 'Talep başarıyla kaydedildi!', queryNum: newRequest.queryNum });
     } catch (error) {
         logger.error(`Repair request could not be saved: ${error.message}`, { stack: error.stack });
         res.status(400).send({ message: 'Bir hata oluştu, lütfen tekrar deneyin.' });
     }
 });
+
 
 const rateLimit = require('express-rate-limit');
 
@@ -155,6 +211,9 @@ const loginLimiter = rateLimit({
 
 app.post('/api/login', loginLimiter, async (req, res) => {
     const { username, password } = req.body;
+    if (!username || !password) {
+        return res.status(401).json({ message: 'Lütfen tüm alanları doldurun!' });
+    }
 
     try {
         const user = await User.authenticate(username, password);
@@ -213,8 +272,14 @@ app.get('/api/verify-token', (req, res) => {
 
 //Change password route
 app.post('/change-password', verifyToken , async (req, res) => {
-    const { username, oldPassword, newPassword } = req.body;
+    const { username, oldPassword, newPassword, newPasswordAgain } = req.body;
     try {
+
+        // Yeni şifrelerin eşleşip eşleşmediğini kontrol et
+        if (newPassword !== newPasswordAgain) {
+            return res.status(400).json({ message: 'Yeni şifreler eşleşmiyor!' });
+        }
+        
         // Kullanıcıyı veritabanında bul
         const user = await User.findOne({ username });
 
@@ -228,6 +293,7 @@ app.post('/change-password', verifyToken , async (req, res) => {
             logger.warn(`Yanlış şifre denemesi, IP: ${req.ip}, Kullanıcı Adı: ${username}`);
             return res.status(400).json({ message: 'Eski şifre yanlış' });
         }
+
 
         // Yeni şifreyi hashle ve güncelle
         const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -245,7 +311,9 @@ app.post('/change-password', verifyToken , async (req, res) => {
 //Talep sorgulama API
 app.post("/api/repairRequests/search", async (req, res) => {
     const { queryNum } = req.body; // Kullanıcıdan gelen sorgulama numarası
-
+    if (isNaN(queryNum)) {
+        return res.status(400).json({success:false, message: 'Geçersiz talep numarası' });
+    }
     try {
         // Talep numarasına göre veritabanında arama yap
         const repairRequest = await Request.findOne({ queryNum });
@@ -259,7 +327,7 @@ app.post("/api/repairRequests/search", async (req, res) => {
             });
         } else {
             logger.warn(`Talep bulunamadı, IP: ${req.ip}, Sorgulama Numarası: ${queryNum}`); 
-            res.json({
+            res.status(200).json({ // 200 koduyla başarılı olarak dönecek ancak success: false olacak
                 success: false,
                 message: 'Talep bulunamadı!'
             });
@@ -269,6 +337,7 @@ app.post("/api/repairRequests/search", async (req, res) => {
         res.status(500).json({ message: 'Bir hata oluştu.' });
     }
 });
+
 
 // 'uploads' klasörünü oluştur
 const uploadsDir = path.join(__dirname, 'uploads');
@@ -556,7 +625,7 @@ app.delete('/delete-request/:id', verifyToken, async (req, res) => {
         const requestId = req.params.id;  // ID'yi burada alıyoruz
         await Request.findByIdAndDelete(requestId);
         logger.info(`DELETE /delete-request/${requestId} - Talep başarıyla silindi (ID: ${requestId})`);
-        res.status(200).send('Talep silindi.');
+        res.status(200).json({ message: "Talep silindi!" });
     } catch (error) {
         logger.error(`DELETE /delete-request/${req.params.id} - Sunucu hatası: ${error.message}`);
         res.status(500).json({ message: "Sunucu hatası" });
