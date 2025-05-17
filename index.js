@@ -319,15 +319,25 @@ app.post('/change-password', verifyToken , async (req, res) => {
     }
 });
 
+
 //Talep sorgulama API
 app.post("/api/repairRequests/search", async (req, res) => {
+
     const { queryNum } = req.body; // Kullanıcıdan gelen sorgulama numarası
     if (isNaN(queryNum)) {
         return res.status(400).json({success:false, message: 'Geçersiz talep numarası' });
     }
+    
+    // Hızlı validasyon
+    if (!queryNum || isNaN(queryNum)) {
+        return res.status(400).json({ success: false, message: 'Geçersiz talep numarası' });
+    }
+
     try {
-        // Talep numarasına göre veritabanında arama yap
-        const repairRequest = await Request.findOne({ queryNum });
+        // Sadece gerekli alanları seç + index kullanımı
+        const repairRequest = await Request.findOne({ queryNum })
+            .select('name phone adress sorunlar createdAt state price')
+            .lean(); // Daha hızlı JSON dönüşümü
 
         if (repairRequest) {
             // Talep bulunduysa, talep bilgilerini geri gönder
@@ -343,11 +353,30 @@ app.post("/api/repairRequests/search", async (req, res) => {
                 message: 'Talep bulunamadı!'
             });
         }
+        if (!repairRequest) {
+            return res.json({ success: false, message: 'Talep bulunamadı!' });
+
+        }
+        // Hızlı yanıt
+        res.json({
+            success: true,
+            data: repairRequest
+        });
+
     } catch (error) {
+
         logger.error(`Talep sorgulama hatası, IP: ${req.ip}, Sorgulama Numarası: ${queryNum}, Hata: ${error.message}`);
         res.status(500).json({ message: 'Bir hata oluştu.' });
+
+        console.error('Sorgu hatası:', error);
+        res.status(500).json({ 
+            success: false,
+            message: 'Sunucu hatası',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
     }
 });
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////// yeni eklendi
 
 
 // 'uploads' klasörünü oluştur
@@ -817,5 +846,4 @@ async function getAuthorizedDrive() {
         return null;
     }
 }
-
 module.exports = app;

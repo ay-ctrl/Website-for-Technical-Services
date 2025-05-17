@@ -290,6 +290,7 @@ async function talepOlustur(event){
     const form = document.getElementById('requestForm');
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries()); // Form verilerini bir nesneye çevir
+    data.sorunlar = formData.getAll("sorunlar");
 
     // Doğrulama işlemleri
     const phone = data.phone.trim();
