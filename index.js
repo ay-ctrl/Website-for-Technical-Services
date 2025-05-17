@@ -200,7 +200,10 @@ app.post('/api/repairRequests', async (req, res) => {
         res.status(201).send({ message: 'Talep başarıyla kaydedildi!', queryNum: newRequest.queryNum });
     } catch (error) {
         logger.error(`Repair request could not be saved: ${error.message}`, { stack: error.stack });
-        res.status(400).send({ message: 'Bir hata oluştu, lütfen tekrar deneyin.' });
+         if (!res.headersSent) {
+            res.status(400).send({ message: 'Bir hata oluştu, lütfen tekrar deneyin.' });
+        }
+        
     }
 });
 
@@ -324,9 +327,6 @@ app.post('/change-password', verifyToken , async (req, res) => {
 app.post("/api/repairRequests/search", async (req, res) => {
 
     const { queryNum } = req.body; // Kullanıcıdan gelen sorgulama numarası
-    if (isNaN(queryNum)) {
-        return res.status(400).json({success:false, message: 'Geçersiz talep numarası' });
-    }
     
     // Hızlı validasyon
     if (!queryNum || isNaN(queryNum)) {
@@ -336,7 +336,7 @@ app.post("/api/repairRequests/search", async (req, res) => {
     try {
         // Sadece gerekli alanları seç + index kullanımı
         const repairRequest = await Request.findOne({ queryNum })
-            .select('name phone adress sorunlar createdAt state price')
+            .select('queryNum name phone adress sorunlar createdAt state price')
             .lean(); // Daha hızlı JSON dönüşümü
 
         if (repairRequest) {
@@ -366,17 +366,13 @@ app.post("/api/repairRequests/search", async (req, res) => {
     } catch (error) {
 
         logger.error(`Talep sorgulama hatası, IP: ${req.ip}, Sorgulama Numarası: ${queryNum}, Hata: ${error.message}`);
-        res.status(500).json({ message: 'Bir hata oluştu.' });
-
-        console.error('Sorgu hatası:', error);
-        res.status(500).json({ 
-            success: false,
-            message: 'Sunucu hatası',
-            error: process.env.NODE_ENV === 'development' ? error.message : undefined
-        });
+         // Daha önce yanıt gönderildiyse tekrar gönderme
+        if (!res.headersSent) {
+            return res.status(500).json({ message: 'Bir hata oluştu.' });
+        }
     }
 });
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////// yeni eklendi
+
 
 
 // 'uploads' klasörünü oluştur
