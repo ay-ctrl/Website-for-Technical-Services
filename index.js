@@ -15,6 +15,7 @@ const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 const helmet = require('helmet');
 const winston = require('winston'); // Hata logları için winston kullanıyoruz
+const DailyRotateFile = require('winston-daily-rotate-file');
 const verifyToken = require('./middleware/verifytoken'); // Token doğrulama middleware'ı
 app.disable('x-powered-by');
 const https = require('https');
@@ -33,9 +34,20 @@ const Media=require('./models/media');
 
 // Logger config
 const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.combine(
+        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        winston.format.printf(info => `${info.timestamp} [${info.level.toUpperCase()}]: ${info.message}`)
+    ),
     transports: [
-        new winston.transports.File({ filename: 'error.log', level: 'error' }),
-        new winston.transports.File({ filename: 'combined.log' })
+        new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+        new DailyRotateFile({
+            filename: 'logs/combined-%DATE%.log',
+            datePattern: 'YYYY-MM-DD',
+            zippedArchive: true,
+            maxSize: '10m',
+            maxFiles: '14d'
+        })
     ]
 });
 
@@ -191,7 +203,6 @@ app.post('/api/repairRequests', async (req, res) => {
         res.status(400).send({ message: 'Bir hata oluştu, lütfen tekrar deneyin.' });
     }
 });
-
 
 const rateLimit = require('express-rate-limit');
 
@@ -352,6 +363,7 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname)); // Benzersiz bir isim verilir
     }
 });
+
 // Multer'ı yapılandırın
 const upload = multer({
     storage: storage,
@@ -794,7 +806,7 @@ app.get('/oauth2callback', async (req, res) => {
     }
 });
 
-// 🔄 Drive yetkili nesnesini döndüren fonksiyon
+// Drive yetkili nesnesini döndüren fonksiyon
 async function getAuthorizedDrive() {
     try {
         const token = await fs.promises.readFile(TOKEN_PATH, 'utf-8');

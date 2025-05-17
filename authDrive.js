@@ -22,7 +22,7 @@ if (fs.existsSync('token.json')) {
       // Yeni token almak için auth URL'si oluştur
       getNewToken();
     } else {
-      console.log("✅ Token başarıyla yenilendi.");
+      console.log("Token başarıyla yenilendi.");
       // Yenilenmiş token'ı kaydet
       fs.writeFileSync('token.json', JSON.stringify(newToken));
     }
@@ -51,7 +51,7 @@ function getNewToken() {
       if (err) return console.error('Token alınamadı:', err);
       oAuth2Client.setCredentials(token);
       fs.writeFileSync('token.json', JSON.stringify(token));
-      console.log('✅ Token kaydedildi: token.json');
+      console.log('Token kaydedildi: token.json');
     });
   });
 }

@@ -1,13 +1,12 @@
 jest.mock('../../middleware/verifyToken', () => {
   return (req, res, next) => {
     // Token kontrolü yapmadan kullanıcıyı sahte olarak ekleyip geç
-    req.user = { id: 'testuserid', role: 'user' }; // Gerekirse role vs. ekle
+    req.user = { id: 'testuserid', role: 'user' }; 
     next();
   };
 });
 
 const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
 const request = require('supertest');
 const app = require('../../index'); // Express uygulamasını al
 const User = require('../../models/users'); // Kullanıcı modelini al

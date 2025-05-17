@@ -1,7 +1,7 @@
 jest.mock('../../middleware/verifyToken', () => {
   return (req, res, next) => {
     // Token kontrolü yapmadan kullanıcıyı sahte olarak ekleyip geç
-    req.user = { id: 'testuserid', role: 'user' }; // Gerekirse role vs. ekle
+    req.user = { id: 'testuserid', role: 'user' }; 
     next();
   };
 });
@@ -44,7 +44,7 @@ beforeEach(async () => {
 
 });
 
-describe('Repair Request Creation Tests', () => {
+describe('Repair request creation tests', () => {
 
   describe('TC_01: Valid data should create a request successfully when mandatory fields are filled correctly', () => {
     test('should create a request successfully with valid data', async () => {

@@ -19,7 +19,6 @@ const repairRequestSchema = new mongoose.Schema({
 });
 
 
-
 repairRequestSchema.pre("save", function (next) {
     // Eğer queryNum zaten ayarlanmışsa yeniden oluşturma
     if (!this.queryNum) {
