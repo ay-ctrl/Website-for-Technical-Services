@@ -109,7 +109,7 @@ header nav ul li .dropdown-content {
   width: 100%;
 }
 
-header nav ul li:hover .dropdown-content {
+header nav ul li .dropdown:hover .dropdown-content {
   display: block;
 }
 

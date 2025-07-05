@@ -1,3 +1,7 @@
+.description {
+    font-size: 20px;
+    text-align: center;
+} /* ürün sayfasına bilgilendirme yazısı için */
 
 .filters {
     display: flex;
