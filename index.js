@@ -112,7 +112,7 @@ app.use(
 app.use(cors(corsOptions),express.static(path.join(__dirname, 'frontend/public')));
 
 if (process.env.NODE_ENV !== 'test') {
-    mongoose.connect("mongodb+srv://moonloversin:Wg0RBqGNubEaOiAg@backend.cnmfb.mongodb.net/NODE-API?retryWrites=true&w=majority&appName=Backend").then(() => {
+    mongoose.connect(process.env.MONGO_URI).then(() => {
         console.log("Connected to database :)");
         https.createServer(httpsCredentials, app).listen(5000, () => {
             console.log('Sunucu HTTPS üzerinden 5000 portunda çalışıyor!');

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 beforeAll(async () => {
-  await mongoose.connect("mongodb+srv://moonloversin:Wg0RBqGNubEaOiAg@backend.cnmfb.mongodb.net/NODE-API?retryWrites=true&w=majority&appName=Backend", {
+  await mongoose.connect("your mongoDB Atlas connection URI", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

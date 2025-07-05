@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //INDEX
-window.API_URL = "http://localhost:5000"; // API URL'sini burada tanımlıyoruz
 
 function toggleMenu() {
     const navMobile = document.getElementById('nav-mobile');

@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
 //TALEP DÜZENLE
 async function loadRepairRequest(id) {
     try {

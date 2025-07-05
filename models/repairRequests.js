@@ -18,10 +18,9 @@ const repairRequestSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-////////////////////////////////////////////////////////// yeni eklendi
 repairRequestSchema.index({ phone: 1 });        
 repairRequestSchema.index({ createdAt: -1 });  
-///////////////////////////////////////////////////////// yeni eklendi
+
 repairRequestSchema.pre("save", function (next) {
     // Eğer queryNum zaten ayarlanmışsa yeniden oluşturma
     if (!this.queryNum) {

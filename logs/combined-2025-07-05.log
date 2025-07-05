@@ -7,82 +7,172 @@
 2025-07-05 16:08:05 [ERROR]: Database connection failed: querySrv ENOTFOUND _mongodb._tcp.cluster0.mongodb.net
 2025-07-05 16:12:12 [ERROR]: Token dosyası bulunamadı veya okuma hatası oluştu: ENOENT: no such file or directory, open 'C:\Users\ASUS\Desktop\WEBSITE\WEBSITE-main\token.json'
 2025-07-05 16:12:12 [ERROR]: Token dosyası bulunamadı veya okuma hatası oluştu: ENOENT: no such file or directory, open 'C:\Users\ASUS\Desktop\WEBSITE\WEBSITE-main\token.json'
+2025-07-05 16:12:13 [INFO]: Şifre başarıyla değiştirildi, IP: ::ffff:127.0.0.1, Kullanıcı Adı: testuser
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 28519
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 28519, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 65293
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 65293, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [WARN]: Yanlış şifre denemesi, IP: ::ffff:127.0.0.1, Kullanıcı Adı: testuser
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 25862
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 25862, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 79481
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 79481, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 31900
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 31900, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 70007
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 70007, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [WARN]: Talep bulunamadı, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 92729
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 92729, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 39898
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 39898, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 62973
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 62973, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 14005
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 14005, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 43248
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 43248, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 86042
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 86042, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 35199
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 35199, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 22352
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 22352, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 20329
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 20329, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 64464
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 64464, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 15623
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 15623, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 28731
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 28731, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 16166
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 16166, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [WARN]: Talep bulunamadı, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 87890
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 87890, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 37663
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 37663, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 80024
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 80024, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 15040
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 15040, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: PUT /api/update-request/686924aee76faa4f02c5bd5f - Talep başarıyla güncellendi (ID: 686924aee76faa4f02c5bd5f)
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 97074
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 97074, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: PUT /api/update-request/686924aee76faa4f02c5bd64 - Talep başarıyla güncellendi (ID: 686924aee76faa4f02c5bd64)
+2025-07-05 16:12:14 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 39340
 2025-07-05 16:12:14 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 39340, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:12:14 [INFO]: DELETE /delete-request/686924aee76faa4f02c5bd69 - Talep başarıyla silindi (ID: 686924aee76faa4f02c5bd69)
 2025-07-05 16:13:26 [ERROR]: Token dosyası bulunamadı veya okuma hatası oluştu: ENOENT: no such file or directory, open 'C:\Users\ASUS\Desktop\WEBSITE\WEBSITE-main\token.json'
 2025-07-05 16:13:26 [ERROR]: Token dosyası bulunamadı veya okuma hatası oluştu: ENOENT: no such file or directory, open 'C:\Users\ASUS\Desktop\WEBSITE\WEBSITE-main\token.json'
+2025-07-05 16:13:26 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 31509
 2025-07-05 16:13:26 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 31509, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:26 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 62937
 2025-07-05 16:13:26 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 62937, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 40180
+2025-07-05 16:13:27 [INFO]: Şifre başarıyla değiştirildi, IP: ::ffff:127.0.0.1, Kullanıcı Adı: testuser
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 40180, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 36621
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 36621, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 73282
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 73282, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 19390
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 19390, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 46482
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 46482, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 96394
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 96394, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 17047
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 17047, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 45900
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 45900, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 99772
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 99772, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 94499
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 94499, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [WARN]: Yanlış şifre denemesi, IP: ::ffff:127.0.0.1, Kullanıcı Adı: testuser
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 40175
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 40175, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 25260
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 25260, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 63869
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 63869, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 32177
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 32177, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 79504
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 79504, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 11472
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 11472, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 56932
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 56932, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [WARN]: Talep bulunamadı, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 87890
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 87890, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 69445
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 69445, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 81634
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 81634, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 13236
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 13236, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: PUT /api/update-request/686924f7e5fab11b8ed14a9b - Talep başarıyla güncellendi (ID: 686924f7e5fab11b8ed14a9b)
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 95103
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 95103, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: PUT /api/update-request/686924f7e5fab11b8ed14aa0 - Talep başarıyla güncellendi (ID: 686924f7e5fab11b8ed14aa0)
+2025-07-05 16:13:27 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 46473
 2025-07-05 16:13:27 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 46473, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:13:27 [INFO]: DELETE /delete-request/686924f7e5fab11b8ed14aa5 - Talep başarıyla silindi (ID: 686924f7e5fab11b8ed14aa5)
 2025-07-05 16:13:59 [ERROR]: Token dosyası bulunamadı veya okuma hatası oluştu: ENOENT: no such file or directory, open 'C:\Users\ASUS\Desktop\WEBSITE\WEBSITE-main\token.json'
 2025-07-05 16:13:59 [ERROR]: Token dosyası bulunamadı veya okuma hatası oluştu: ENOENT: no such file or directory, open 'C:\Users\ASUS\Desktop\WEBSITE\WEBSITE-main\token.json'
+2025-07-05 16:14:00 [INFO]: Şifre başarıyla değiştirildi, IP: ::ffff:127.0.0.1, Kullanıcı Adı: testuser
+2025-07-05 16:14:00 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 78220
 2025-07-05 16:14:00 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 78220, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:00 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 35388
 2025-07-05 16:14:00 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 35388, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:00 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 54215
 2025-07-05 16:14:00 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 54215, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:00 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 29564
 2025-07-05 16:14:00 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 29564, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 28680
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 28680, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 95389
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 95389, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [WARN]: Yanlış şifre denemesi, IP: ::ffff:127.0.0.1, Kullanıcı Adı: testuser
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 96409
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 96409, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 79447
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 79447, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 32272
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 32272, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 26192
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 26192, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 58096
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 58096, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 92400
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 92400, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 37463
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 37463, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 78091
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 78091, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 31725
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 31725, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 30991
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 30991, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 27888
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 27888, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 17574
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 17574, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 26185
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 26185, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [WARN]: Talep bulunamadı, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 87890
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 87890, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 40354
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 40354, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 14894
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 14894, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 49403
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 49403, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: PUT /api/update-request/68692519b7bdaafc00006641 - Talep başarıyla güncellendi (ID: 68692519b7bdaafc00006641)
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 82577
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 82577, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: PUT /api/update-request/68692519b7bdaafc00006646 - Talep başarıyla güncellendi (ID: 68692519b7bdaafc00006646)
+2025-07-05 16:14:01 [INFO]: Talep bulundu, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 87758
 2025-07-05 16:14:01 [ERROR]: Talep sorgulama hatası, IP: ::ffff:127.0.0.1, Sorgulama Numarası: 87758, Hata: Cannot set headers after they are sent to the client
+2025-07-05 16:14:01 [INFO]: DELETE /delete-request/68692519b7bdaafc0000664b - Talep başarıyla silindi (ID: 68692519b7bdaafc0000664b)
