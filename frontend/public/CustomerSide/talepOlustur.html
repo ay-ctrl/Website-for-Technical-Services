@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta property="og:title" content="Uygun Fiyatlarla Akıllı Cihaz Tamir Hizmeti Sizlerle">
     <meta property="og:description" content=" Hızlı ve güvenilir tamir için hemen ulaşın.">
     <meta property="og:url" content="https://telefon-tamiri-seng209-211.com.tr/">
@@ -32,17 +31,11 @@
             </a>
         </div>
         <!-- Hamburger Menu -->
-        <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger">
             <div></div>
             <div></div>
             <div></div>
         </div>
-        <script>
-            function toggleMenu() {
-                const navMobile = document.getElementById('nav-mobile');
-                navMobile.classList.toggle('open');
-            }
-        </script>
         <!-- Navigation -->
         <nav>
             <ul>
@@ -60,12 +53,12 @@
             <a href="products.html">Aksesuar ve Ek Ürünler</a>
             <a href="hakkımızda.html">Hakkımızda</a>
             <a href="SSS.html">SSS</a>
-            <a href="giris.html" class="giris-btn"><b>Giriş Yap</b></a>
+            <a href="giris.html" class="giris-btn"><b>Personel Girişi</b></a>
         </nav>
 
         <!-- Login Button -->
         <div class="auth-buttons">
-            <a href="giris.html" class="giris-btn">Giriş Yap</a>
+            <a href="giris.html" class="giris-btn"><b>Personel Girişi</b></a>
         </div>
     </header>
 
@@ -76,28 +69,23 @@
 
     <!-- Talep Oluştur -->
     <section id="talepOlustur">
-        <form id="requestForm" onsubmit="talepOlustur(event)">
+        <form id="requestForm">
             <!--action bağlantısını talepOlustur2 ekranına yönlendir.-->
-            <!-- Test kapsamında kırmızı uyarı yıldızı eklendi-->
             <h1>Talep Oluştur</h1>
-            <label for="model">Telefon Modeliniz:<span style="color: red">*</span></label>
+            <label for="model">Telefon Modeliniz*:</label>
             <input id="model" type="text" name="model" placeholder="Örn: iPhone 16" required>
 
-            <label for="name">Adınız Soyadınız:<span style="color: red">*</span></label>
+            <label for="name">Adınız Soyadınız*:</label>
             <input id="name" type="text" name="name" placeholder="Adınızı ve Soyadınızı girin" required>
-            <p id="nameWarning" style="color: red; display: none;">Lütfen sadece harf giriniz.</p>
 
-            <label for="number">Telefon Numaranız:<span style="color: red">*</span></label>
+            <label for="number">Telefon Numaranız*:</label>
             <input id="number" type="tel" name="phone" placeholder="Örn: 0555 555 55 55" required>
-            <p id="warning" style="color: red; display: none; font-weight: bold;">
-  Lütfen geçerli bir telefon numarası giriniz. Sadece 11 haneli rakamlar kabul edilir.
-</p>
 
-            <label for="adres">Adres:<span style="color: red">*</span></label>
+            <label for="adres">Adres*:</label>
             <textarea id="adres" name="adress" placeholder="Adresinizi girin" rows="4" required></textarea>
 
             <!-- Sorun Seçimi Açılır Menü -->
-            <label for="sorunlar">Karşılaşılan Sorun:<span style="color: red">*</span></label>
+            <label for="sorunlar">Karşılaşılan Sorun*:</label>
             <select id="sorunlar" name="sorunlar" multiple>
                 <option value="Ekran Sorunları">Ekran Sorunları</option>
                 <option value="Batarya Sorunları">Batarya Sorunları</option>
@@ -175,51 +163,6 @@
             <p>© 2024 - Tüm Hakları Saklıdır - AYDA</p>
         </div>
     </footer>
-    
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-        s1.async=true;
-        s1.src='https://embed.tawk.to/6768177b49e2fd8dfefbf95d/1ifn9nf0p';
-        s1.charset='UTF-8';
-        s1.setAttribute('crossorigin','*');
-        s0.parentNode.insertBefore(s1,s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
-
-    <script>
-        const input = document.getElementById("number");
-        const warning = document.getElementById("warning");
-      
-        input.addEventListener("input", () => {
-          const value = input.value.replace(/\D/g, "");
-          if (value.length < 11 || /[^0-9]/.test(input.value)) {
-            warning.style.display = "inline";
-          } else {
-            warning.style.display = "none";
-          }
-        });
-
-        const nameInput = document.getElementById("name");
-        const nameWarning = document.getElementById("nameWarning");
-
-        nameInput.addEventListener("input", () => {
-          // Sadece harf ve boşluk kabul edilir (Türkçe harfler dahil)
-          const regex = /^[a-zA-ZçÇğĞıİöÖşŞüÜ\s]*$/;
-        
-          if (!regex.test(nameInput.value)) {
-            nameWarning.style.display = "block";
-            // Hatalı karakteri otomatik temizlemek istersen:
-            nameInput.value = nameInput.value.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s]/g, "");
-          } else {
-            nameWarning.style.display = "none";
-          }
-        });
-
-      </script>
 
 </body>
 

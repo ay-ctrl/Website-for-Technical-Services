@@ -167,7 +167,7 @@
 /* Neden Cep Kurye Kısmı */
 .neden-cepkurye {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   height: 100vh;
   /* Tüm ekran yüksekliği */
@@ -180,8 +180,8 @@
 }
 
 .neden-cepkurye .content {
-  text-align: left;
-  /* Metni ortaya hizalar */
+  text-align: center; /* Yazı soldan merkeze alındı */
+
 }
 
 .neden-cepkurye h1 {
@@ -390,21 +390,21 @@
   transition: transform 0.3s ease;
 }
 
-/* Kutuların Renklendirilmesi */
+/* Kutuların Renklendirilmesi */ /* box renkleri değiştirildi */
 .box:nth-child(1) {
-  background-color: #ff5722;
+  background-color: #fda5c6; /* Eski renk: #ff5722 */
 }
 
 .box:nth-child(2) {
-  background-color: #7e57c2;
+  background-color: #d599c3; /* Eski renk: #7e57c2 */
 }
 
 .box:nth-child(3) {
-  background-color: #ec407a;
+  background-color: #ac8cbf; /* Eski renk: #ec407a */
 }
 
 .box:nth-child(4) {
-  background-color: #03a9f4;
+  background-color: #8570b2; /* Eski renk: #03a9f4 */
 }
 
 /* Hover Efekti (Yazılar ve Görseller Yukarı Hareket Eder) */
@@ -495,7 +495,7 @@
 }
 
 .service-item:hover {
-  background-color: rgb(172, 85, 169);
+  background-color: #d599c3 /* hover rengi değiştirildi */;
   color: black;
 
 }
@@ -524,7 +524,7 @@
   margin-bottom: 30px;
 }
 
-/* Markalar Bölümü Düzenlemesi */
+/* Markalar Bölümü Düzenlemesi */ /* arka plan rengi düzenlendi */
 .markalar {
   display: flex;
   /* Flexbox kullanımı */
@@ -534,6 +534,11 @@
   /* Taşan logoları bir alt satıra taşı */
   gap: 30px;
   /* Aralarına boşluk ekle */
+  background-color: #c3aebd;
+  width: 60%;
+  margin: 0 auto;
+  padding: 1%;
+  border-radius: 8px;
 }
 
 .marka {

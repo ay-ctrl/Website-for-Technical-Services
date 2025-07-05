@@ -1,5 +1,30 @@
 //INDEX
-window.API_URL = "http://localhost:5000";
+window.API_URL = "https://localhost:5000"; 
+
+document.addEventListener("DOMContentLoaded", function () {
+    // ... Diğer event handlerlar
+
+    const requestForm = document.getElementById("requestForm");
+    if (requestForm) {
+        requestForm.addEventListener("submit", talepOlustur);
+    }
+
+    const hamburger=document.getElementById("hamburger");
+    if (hamburger) {
+        hamburger.addEventListener("click", toggleMenu);
+    }
+
+    const searchButton = document.getElementById("searchButton");
+    if (searchButton) {
+        searchButton.addEventListener("click", talepSorgula);
+    }
+});
+
+function toggleMenu() {
+    const navMobile = document.getElementById('nav-mobile');
+    navMobile.classList.toggle('open');
+}
+
 //Tamir hizmetleri kutularının carouseli
 function repairServicesCarousel() {
   const carouselTrack = document.querySelector(".carousel-track");
@@ -126,7 +151,6 @@ async function logIn() {
     alert("Sunucuya bağlanırken bir hata oluştu.");
   }
 }
-
 //HAKKIMIZDA
 function showMedias() {
   async function fetchMedias() {
@@ -300,37 +324,95 @@ function closeAll(faqs) {
 }
 
 //TALEP OLUSTUR
-async function talepOlustur(event) {
-  event.preventDefault();
-  const form = document.getElementById("requestForm");
-  const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries()); // Form verilerini bir nesneye çevir
-  try {
-    const response = await fetch(`${window.API_URL}/api/repairRequests`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+async function talepOlustur(event){
+    event.preventDefault(); // Formun varsayılan gönderimini engelle
+    const form = document.getElementById('requestForm');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries()); // Form verilerini bir nesneye çevir
+    data.sorunlar = formData.getAll("sorunlar");
+
+    // Doğrulama işlemleri
+    const phone = data.phone.trim();
+    const name = data.name.trim();
+    const adres = data.adress.trim();
+    const imei = data.imei.trim();
+    const model = data.model.trim();
+    const kilit = data.kilit.trim();
+
+    // Telefon numarasını doğrula (örnek: 10 haneli numara)
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+        alert("Lütfen geçerli bir telefon numarası girin!");
+        return; // Hata varsa fonksiyon sonlandırılır
+    }
+    
+    const imeiRegex = /^\d{15}$/;
+    // IMEI numarasını doğrula (sadece sayılar ve 15 haneli olmalı)
+    if (imei !== "") {
+        if (!imeiRegex.test(imei)) {
+            alert("Lütfen geçerli bir IMEI numarası girin veya boş bırakın!");
+            return; // Hata varsa fonksiyon sonlandırılır
+        }
+    }
+
+    // Ad ve soyadın geçerli olup olmadığını kontrol et (sadece harfler)
+    const nameRegex = /^[a-zA-Z\s]+$/;
+    if (!nameRegex.test(name)) {
+        alert("Ad ve soyad sadece harflerden oluşmalıdır.");
+        return; // Hata varsa fonksiyon sonlandırılır
+    }
+
+    const modelRegex = /^[a-zA-Z0-9\s\-_.]+$/;
+    if (!modelRegex.test(model)) {
+        alert("Telefon modeli yalnızca harf, rakam, boşluk ve - _ . karakterlerini içerebilir.");
+        return;
+    }
+
+    // Tuş kilidi en fazla 20 karakter olabilir ve zararlı karakter içermemelidir
+    if (kilit !== "") {
+        if (kilit.length > 20) {
+            alert("Tuş kilidi en fazla 20 karakter olabilir.");
+            return;
+        }
+        const kilitRegex = /^[\w\s!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]*$/;
+        if (!kilitRegex.test(kilit)) {
+            alert("Tuş kilidi geçersiz karakterler içeriyor.");
+            return;
+        }
+    }
+
+    // Sadece harf, sayı, . / - ( ) ve boşluklara izin ver
+    const adresRegex = /^[a-zA-Z0-9ğüşöçıİĞÜŞÖÇ\s.\-\/()]+$/;
+    if (!adresRegex.test(adres)) {
+        alert("Adres sadece harf, rakam, boşluk, nokta, /, -, ( ve ) karakterlerinden oluşabilir.");
+        return;
+    }
+
+    try {
+        // Form verilerini backend'e gönder
+        const response = await fetch(`${window.API_URL}/api/repairRequests`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
 
     if (response.ok) {
       // Sunucuya başarılı şekilde gönderildi
       const responseData = await response.json(); // Sunucudan gelen yanıtı al
-
-      const queryNum = responseData.queryNum;
-
+      const queryNum = responseData.queryNum; 
+            
       localStorage.setItem("queryNum", queryNum);
-      window.location.href = "talepOlustur2.html"; // Yönlendirme
-      alert("Talebiniz başarıyla oluşturuldu!");
-    } else {
-      throw new Error("Sunucudan bir hata alındı.");
-    }
+      window.location.href = 'talepOlustur2.html'; // Yönlendirme
+      alert('Talebiniz başarıyla oluşturuldu!');
+  } else {
+      throw new Error('Sunucudan bir hata alındı.');
+  }
   } catch (error) {
-    alert("Bir hata oluştu: " + error.message);
+    alert('Bir hata oluştu: ' + error.message);
   }
 }
-
 //TALEP OLUSTUR 2
 function showTalepNo() {
   // Talep numarasını localStorage'dan al
@@ -378,37 +460,36 @@ function showRequestInfo() {
 //TALEP SORGULA2
 async function talepSorgula() {
   const queryNum = document.getElementById("queryNumInput").value;
+    // Sadece 5 haneli rakamlardan oluşmalı
+    const queryNumRegex = /^\d{5}$/;
 
-  if (!queryNum) {
-    alert("Lütfen bir talep numarası girin.");
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      `${window.API_URL}/api/repairRequests/search`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ queryNum }),
-      }
-    );
-
-    const data = await response.json();
-
-    if (data.success) {
-      // Talep verilerini localStorage'a kaydet
-      localStorage.setItem("repairRequestData", JSON.stringify(data.data));
-
-      // Başka sayfaya yönlendir
-      window.location.href = "talepSorgula.html"; // Talep sonucu sayfasına yönlendir
-    } else {
-      alert(data.message); // Talep bulunamazsa hata mesajı
+    if (!queryNumRegex.test(queryNum)) {
+        alert("Lütfen 5 haneli bir talep numarası girin. (Sadece rakam)");
+        return;
     }
-  } catch (error) {
-    console.error(error);
-    alert("Bir hata oluştu.");
-  }
+
+    try {
+        const response = await fetch(`${window.API_URL}/api/repairRequests/search`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ queryNum })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Talep verilerini localStorage'a kaydet
+            localStorage.setItem('repairRequestData', JSON.stringify(data.data));
+
+            // Başka sayfaya yönlendir
+            window.location.href = 'talepSorgula.html'; // Talep sonucu sayfasına yönlendir
+        } else {
+            alert(data.message); // Talep bulunamazsa hata mesajı
+        }
+    } catch (error) {
+        console.error(error);
+        alert('Bir hata oluştu.');
+    }
 }

@@ -59,3 +59,7 @@ table td:first-child {
   /* İlk sütunun genişliği ayarlandı */
 }
 
+.hidden {
+  display: none;
+}
+

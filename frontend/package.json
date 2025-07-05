@@ -1,9 +1,0 @@
-{
-  "name": "frontend",
-  "version": "1.0.0",
-  "description": "Statik frontend projesi",
-  "scripts": {
-    "start": "echo 'No start script defined'",
-    "build": "echo 'No build script defined'"
-  }
-}

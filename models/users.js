@@ -20,8 +20,8 @@ userSchema.statics.authenticate = async function (username, password) {
 module.exports = mongoose.model('User', userSchema);
 
 // Şifreyi hash'lemek için fonksiyon
-
-/*async function hashPassword(password) {
+/*
+async function hashPassword(password) {
     const saltRounds = 10; // Güvenlik için kullanılan salt sayısı
     try {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -31,6 +31,7 @@ module.exports = mongoose.model('User', userSchema);
         console.error('Hata:', err);
     }
 }
-hashPassword("pasword here to hash");*/
+hashPassword("pass to hash");
+*/
 
 

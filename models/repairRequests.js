@@ -11,14 +11,15 @@ const repairRequestSchema = new mongoose.Schema({
     yedekCihaz: { type: String , default: "hayır"}, // "evet" veya "hayır"
     queryNum: { type: Number},
     state: {type: String, default: "Talep Alındı"},
-    price: {type:String},
+    price: {type:String, default: "belirtilmemiş"},
     phoneTakenDate: {type: Date, default: undefined},
     processMade: {type: String},
     repairDescription: {type:String},
     createdAt: { type: Date, default: Date.now }
 });
 
-
+repairRequestSchema.index({ phone: 1 });        
+repairRequestSchema.index({ createdAt: -1 });  
 
 repairRequestSchema.pre("save", function (next) {
     // Eğer queryNum zaten ayarlanmışsa yeniden oluşturma
