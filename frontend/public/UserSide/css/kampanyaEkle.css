@@ -1,0 +1,87 @@
+
+
+
+.form-container {
+    margin: 50px auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #111;
+    border-radius: 25px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+#kampanyaEkle {
+    margin-bottom: 70px;
+    max-width: 800px;
+    margin: 50px auto;
+    margin-bottom: 50px;
+    background-color: #111;
+    border-radius: 10px;
+
+
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+}
+
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.5rem;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+    color: #f5f5f5;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+textarea:focus,
+textarea:hover,
+input[type="file"]:focus,
+input[type="file"]:hover {
+    border-color: #ac55a9;
+    box-shadow: 0 0 10px rgba(172, 85, 169, 0.5);
+    outline: none;
+}
+
+.ekle-btn {
+    background-color: #cdbac8;
+    color: black;
+    border: 2px solid black;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 25px;
+    padding: 15px 0;
+    width: 90%;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    margin: 40px auto 40px;
+    /* Üst, orta ve alt boşluklar */
+    display: block;
+    /* Ortalamak için block yap */
+    text-align: center;
+    /* İçeriği ortala */
+}
+
+.ekle-btn:hover {
+    background-color: rgb(172, 85, 169);
+    color: black;
+    border: 1px solid black;
+    box-shadow: 0 5px 10px rgba(181, 126, 179, 0.5), 0 -5px 10px rgba(181, 126, 179, 0.5), 5px 0 10px rgba(181, 126, 179, 0.5), -5px 0 10px rgba(181, 126, 179, 0.5);
+
+}
+
+.ekle-btn:active {
+    transform: scale(0.98);
+}
+

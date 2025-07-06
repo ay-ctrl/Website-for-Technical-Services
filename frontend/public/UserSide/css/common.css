@@ -1,0 +1,446 @@
+/* Genel Stiller */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #3f353c;
+    color: #fff;
+    overflow-x: hidden;
+  }
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+img, .container {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Header Container */
+.header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logo */
+header .logo img {
+  max-width: 120px;
+}
+
+/* Header ve Menü */
+header nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 30px;
+  align-items: center;
+
+}
+
+header nav ul li {
+  position: relative;
+}
+
+header nav ul li.dropdown {
+  position: relative;
+} 
+
+/* Menü bağlantıları */
+header nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 25px 30px;
+}
+
+header nav ul li:hover a {
+  background-color: transparent;
+  color: rgb(172, 98, 169);
+  text-decoration: none;
+}
+
+/* Dropdown Menü */
+header nav ul li .dropdown-button {
+  all: unset;
+  /* Tüm varsayılan stilleri kaldırır */
+  cursor: pointer;
+  /* Buton gibi davranmasını sağlamak için */
+  color: white;
+  /* Yazı rengi */
+  font-size: 2rem;
+  /* Font boyutu */
+  font-weight: bold;
+  /* Kalın yazı */
+  padding: 15px 20px;
+  /* Diğer öğelerle uyum için boşluk */
+  display: block;
+  text-align: left;
+}
+
+header nav ul li:hover .dropdown-button {
+  color: rgb(172, 98, 169);
+  /* Tıklanıldığında pembe renk */
+  text-decoration: none;
+}
+
+header nav ul li .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  z-index: 100;
+  width: 100%;
+}
+
+header nav ul li.dropdown:hover > .dropdown-content {
+  display: block;
+}
+
+header nav ul li .dropdown-content a {
+  color: white;
+  padding: 5px 10px;
+  text-decoration: none;
+  display: block;
+}
+
+header nav ul li .dropdown-content a:hover {
+  background-color: rgb(172, 98, 169);
+}
+
+.dropdown-button-mobile {
+  font-size: 2rem;
+  color: white;
+  padding: 5px 18px;
+  padding-top: 10px;
+}
+
+/* Hamburger Menü */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1001;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 3px 0;
+}
+
+/* Mobil Menü */
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  background-color: #000;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  height: 100%;
+  width: 250px;
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+  padding-top: 100px;
+}
+
+.nav-mobile a {
+  padding: 15px 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  border-bottom: 1px solid rgb(172, 98, 169);
+}
+
+.nav-mobile a:hover {
+  background-color: rgb(172, 98, 169);
+}
+
+.nav-mobile.open {
+  right: 0;
+}
+
+.dropdown-content,
+.dropdown-mobile {
+  display: none;
+  position: relative;
+  background-color: #000;
+  z-index: 999;
+  margin-top: 10px;
+}
+
+.dropdown-content.open,
+.dropdown-mobile.open {
+  display: block;
+}
+
+.dropdown-content a,
+.dropdown-mobile a {
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+}
+
+
+
+@media (max-width: 1408px) and (min-width: 1189px) {
+  header nav ul {
+    gap: 20px;
+  }
+
+  header nav ul li a {
+    font-size: 2rem;
+    padding: 8px 10px;
+  }
+
+  header .auth-buttons a {
+    font-size: 2rem;
+    padding: 8px 12px;
+  }
+
+}
+
+@media (max-width: 1189px) and (min-width: 950px) {
+  header nav ul {
+    gap: 15px;
+  }
+
+  header nav ul li a {
+    font-size: 1.8rem;
+    padding: 6px 8px;
+  }
+
+  header .auth-buttons a {
+    font-size: 1.8rem;
+    padding: 6px 10px;
+  }
+
+}
+
+
+@media (max-width: 950px) {
+  header nav ul {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-mobile {
+    display: flex;
+  }
+
+  header .auth-buttons {
+    display: none;
+  }
+}
+
+
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap;
+  }
+
+  .logo img {
+    max-width: 100px;
+  }
+
+  .nav-mobile a {
+    font-size: 1.2rem;
+    padding: 10px 15px;
+  }
+}
+  
+  /* Ana İçerik Alanı */
+  .hakkimizda-container {
+    width: 100%;
+    height: 150px;
+    margin: 20px auto;
+    background-color: #111010;
+    color: #fff;
+    padding: 30px;
+    border-radius: 0;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(17, 16, 16, 0.2);
+    margin-top: 160px;
+    height:auto;
+  }
+
+  
+  .title {
+    text-align: center;
+    font-size: 4rem;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    font-weight: bold;
+  
+  }
+  @media(max-width:480px){
+    .title{
+        font-size: 2.5rem;
+    }
+  }
+  /* Footer */
+  footer {
+    background-color: #222;
+    color: #fff;
+    padding: 20px 0;
+    font-size: 1.5rem;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+  
+  .footer-column {
+    width: 30%;
+    text-align: center;
+  }
+  
+  /* Logo */
+  .footer-logo {
+    max-width: 150px !important;
+    /* Logo boyutunu belirgin şekilde büyüt */
+    height: auto !important;
+    /* Oranını koruyarak yükseklik ayarla */
+    display: block;
+    margin: 0 auto 10px;
+    /* Ortala ve altına boşluk ekle */
+  }
+  
+  /* Footer Bağlantıları */
+  .footer-link {
+    font-size: 1.2rem;
+    color: rgb(172, 85, 169);
+    text-decoration: none;
+  }
+  
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-column ul li {
+    margin: 5px 0;
+  }
+  
+  .footer-column ul ul li {
+    margin-left: 15px;
+  }
+  
+  .footer-column a {
+    color: rgb(172, 85, 169);
+    text-decoration: none;
+  }
+  
+  .footer-column a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Sosyal Medya İkonları */
+  .footer-column img {
+    width: 24px;
+    /* İkon boyutunu küçült */
+    height: 24px;
+    margin: 0 5px;
+    /* Aralarına boşluk ekle */
+    filter: invert(1);
+    /* Beyaz renge dönüştür */
+  }
+  
+  .footer-column img:hover {
+    opacity: 0.8;
+    /* Hover durumunda biraz şeffaflık ekleyin */
+  }
+  
+  /* Footer Alt Kısım */
+  .footer-bottom {
+    text-align: center;
+    padding: 10px;
+    background-color: #cdbac8;
+    color: #000;
+  }
+  
+  /* Mesajlaşma Ikonu */
+  .message-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .message-icon img {
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    /* Hafif bir gölge efekti */
+    transition: 0.3s;
+  }
+  
+  .message-icon img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+  .footer-column {
+    width: 100%; /* Tüm sütunlar alt alta gelsin */
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    font-size: 1.2rem; /* Daha küçük ekranlar için yazı boyutunu küçült */
+  }
+
+  .footer-container {
+    padding: 10px; /* Daha küçük boşluklar */
+  }
+
+  .footer-column img {
+    width: 20px; /* Daha küçük ikon boyutları */
+    height: 20px;
+  }
+}

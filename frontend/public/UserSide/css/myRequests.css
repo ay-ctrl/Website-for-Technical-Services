@@ -1,0 +1,135 @@
+/* Genel Container Ayarları */
+#container {
+  max-width: 90%;
+  margin: 120px auto;
+  background-color: #111;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Yatay kaydırmayı etkinleştir */
+}
+
+/* Tablo Genel Ayarları */
+.table-container {
+  padding: 20px;
+  margin-bottom: 20px;
+  overflow-x: auto; /* Mobilde tablo taşmasını önlemek için yatay kaydırma */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Tablonun daha küçük cihazlarda kaydırılabilir olması için min-width */
+}
+
+table thead tr {
+  background-color: black;
+  color: white;
+}
+
+table th,
+table td {
+  color: black;
+  padding: 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 1.5rem;
+}
+
+thead th {
+  color: white;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+/* Başlık Ayarları */
+h1 {
+  text-align: center;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+/* Bağlantı Butonları (Düzenle ve Sil) */
+table tbody tr td a {
+  color: #00aaff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+table tbody tr td a:hover {
+  text-decoration: underline;
+}
+
+/* Sayfalama */
+#pagination {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+  margin-top: 100px;
+}
+
+#pagination a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+#pagination a:hover {
+  background-color: #f9e5f3;
+  color: black;
+  border-color: black;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+  #container {
+      margin: 60px auto; /* Mobilde üst boşluğu azalt */
+      padding: 10px;
+  }
+
+  table th,
+  table td {
+      padding: 10px; /* Hücre aralıklarını küçült */
+      font-size: 1.2rem; /* Yazı boyutunu küçült */
+  }
+
+  table thead tr {
+      font-size: 1.3rem; /* Başlık boyutunu küçült */
+  }
+
+  table tbody tr td a {
+      font-size: 1.1rem; /* Bağlantı yazı boyutunu küçült */
+  }
+}
+
+@media (max-width: 480px) {
+  table {
+      min-width: 400px; /* Mobil cihazlar için minimum genişlik */
+      font-size: 0.9rem; /* Daha küçük yazı boyutu */
+  }
+
+  table th,
+  table td {
+      font-size: 1rem; /* Hücre yazı boyutlarını küçült */
+      padding: 8px; /* Hücre içi boşlukları daha da azalt */
+  }
+
+  #container {
+      overflow-x: auto; /* Tablonun taşmasını önlemek için yatay kaydırma ekle */
+  }
+
+  h1 {
+      font-size: 1.5rem; /* Başlığı küçült */
+      margin: 20px 0;
+  }
+}

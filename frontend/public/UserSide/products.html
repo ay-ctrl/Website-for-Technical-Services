@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefon Tamiri</title>
+    <meta name="description"
+        content="Yerinde ve garantili cep telefonu tamiri hizmeti! Uygun fiyatlarla ekran, batarya değişimi ve teknik servis çözümleri. Hızlı ve güvenilir tamir için hemen ulaşın.">
+    <link rel="canonical" href="https://telefon-tamiri-seng209-211.com.tr/">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta property="og:title" content="Uygun Fiyatlarla Akıllı Cihaz Tamir Hizmeti Sizlerle">
+    <meta property="og:description" content=" Hızlı ve güvenilir tamir için hemen ulaşın.">
+    <meta property="og:url" content="https://telefon-tamiri-seng209-211.com.tr/">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/products.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/product.js"></script>
+</head>
+
+<body class="main page-loading animation">
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <a href="dashboard.html">
+                <img src="../images/ayda-logo.png" alt="Telefon Tamiri" width="150">
+            </a>
+        </div>
+
+        <!-- Hamburger Menu -->
+        <div class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="myRequests.html">Taleplerim</a></li>
+                <li><a href="products.html">Aksesuar ve Ek Ürünler</a></li>
+                <li><a href="hakkımızda.html">Hakkımızda</a></li>
+                <li><a href="SSS.html">SSS</a></li>
+                <li class="dropdown">
+                    <button class="dropdown-button" onclick="toggleDropdown()">Admin Kullanıcısı</button>
+                    <div class="dropdown-content" id="admin-dropdown">
+                        <!--  !!!Buradan herhangi bir sayfa yüklenmediği için test kapsamında kaldırıldı *Nisanur
+                        <a href="#">Ödemeler</a>
+                        <a href="#">Çalışanlar</a>-->
+                        <a href="changePassword.html">Şifre değiştir</a>
+                        <a href="#" id="logoutLink" onclick="logOut(event)">Çıkış Yap</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+
+       <!-- Mobile Navigation -->
+    <nav class="nav-mobile" id="nav-mobile">
+        <a href="myRequests.html">Taleplerim</a>
+        <a href="products.html">Aksesuar ve Ek Ürünler</a>
+        <a href="hakkımızda.html">Hakkımızda</a>
+        <a href="SSS.html">SSS</a>
+        <span class="dropdown-button-mobile">Admin Kullanıcısı</span>
+        <div class="dropdown-mobile" id="mobile-dropdown">
+            <a href="#">Ödemeler</a>
+            <a href="#">Çalışanlar</a>
+            <a href="changePassword.html">Şifre değiştir</a>
+            <a href="#" id="mlogoutLink">Çıkış Yap</a>
+        </div>
+    </nav>
+        
+    </header>
+
+    <div class="hakkimizda-container">
+        <h2 class="title">AKSESUAR VE EK ÜRÜNLER</h2>
+    </div>
+
+    <!--  TEST İÇİN DEVR DIŞI BIRAKILDI
+    <div class="filters">
+        <div class="categories">
+            <label for="category-select">Kategoriler:</label>
+            <select id="category-select">
+                <option value="all">Tüm Ürünler</option>
+                <option value="cases">Telefon Kılıfları</option>
+                <option value="chargers">Şarj Cihazları</option>
+                <option value="headphones">Kulaklıklar</option>
+                <option value="car-accessories">Araç Aksesuarları</option>
+                <option value="others">Diğer Ürünler</option>
+            </select>
+        </div>
+        <div class="sorting">
+            <label for="sort-select">Sırala:</label>
+            <select id="sort-select">
+                <option value="desc">En Pahalıdan En Ucuza</option>
+                <option value="asc">En Ucuzdan En Pahalıya</option>
+            </select>
+        </div>
+    </div>
+-->
+
+
+    <div class="products" id="product-list">
+        <div class="product-card">
+            <img src="../images/product1.jpg"
+                alt="Ürün 1">
+            <div class="product-info">
+                <h3>Ürün Adı: XXXX</h3>
+                <p class="price">Fiyat: XXXX TL</p>
+                <p>Ürün Açıklaması</p>
+                <button class="ekle-btn">ÜRÜNÜ SİL</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="../images/product2.jpg"
+                alt="Ürün 2">
+            <div class="product-info">
+                <h3>Ürün Adı: XXXX</h3>
+                <p class="price">Fiyat: XXXX TL</p>
+                <p>Ürün Açıklaması</p>
+                <button class="ekle-btn">ÜRÜNÜ SİL</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="../images/product1.jpg"
+                alt="Ürün 3">
+            <div class="product-info">
+                <h3>Ürün Adı: XXXX</h3>
+                <p class="price">Fiyat: XXXX TL</p>
+                <p>Ürün Açıklaması</p>
+                <button class="ekle-btn">ÜRÜNÜ SİL</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="../images/product2.jpg"
+                alt="Ürün 4">
+            <div class="product-info">
+                <h3>Ürün Adı: XXXX</h3>
+                <p class="price">Fiyat: XXXX TL</p>
+                <p>Ürün Açıklaması</p>
+                <button class="ekle-btn">ÜRÜNÜ SİL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination kısmı -->
+    <div class="pagination" id="pagination">
+        <a href="#" id="prev">« Önceki</a>
+        <a href="#" id="next">Sonraki »</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Sol Sütun -->
+            <div class="footer-column">
+                <h3>Telefon Tamiri</h3>
+                <ul>
+                    <li><a href="myRequests.html">Taleplerim</a></li>
+                    <li><a href="products.html">Aksesuar ve Ek Ürünler</a></li>
+                    <li><a href="hakkımızda.html">Hakkımızda</a></li>
+                    <li><a href="SSS.html">SSS</a></li>
+                </ul>
+            </div>
+            <!-- Orta Sütun -->
+            <div class="footer-column">
+                <h3>İletişim</h3>
+                <p>Adres:Çankaya/Ankara</p>
+                <p>Email: <a href="mailto:destek@gmail.com">destek@gmail.com</a></p>
+                <p>Telefon: <a href="tel:+905XXXXXXXXX">0 (XXX) XXX XX XX</a></p>
+                <p>Çalışma Saatleri: 09:00 - 19:30</p>
+            </div>
+            <!-- Sağ Sütun -->
+            <div class="footer-column">
+                <h3>Sosyal Medya</h3>
+                <a href="https://www.instagram.com/"><img src="https://cdn-icons-png.flaticon.com/256/717/717392.png"
+                        alt="Instagram"></a>
+                <a href="https://x.com/home"><img
+                        src="https://logoeps.com/wp-content/uploads/2014/01/23931-twitter-logo-icon-vector-icon-vector-eps.png"
+                        alt="Twitter"></a>
+                <a href="https://www.whatsapp.com/"><img
+                        src="https://logoeps.com/wp-content/uploads/2014/03/33447-whatsapp-logo-icon-vector-icon-vector-eps.png"
+                        alt="WhatsApp"></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 - Tüm Hakları Saklıdır - AYDA</p>
+        </div>
+    </footer>
+
+    <!-- Mesajlaşma Ikonu -->
+    <div class="message-icon">
+        <a href="https://dashboard.tawk.to/#/chat" target="_blank">
+            <img src="../images/message.png" alt="Mesajlaşma İkonu">
+        </a>
+    </div>
+
+    <!-- Ekleme Ikonu -->
+    <div class="add-icon">
+        <a href="addProduct.html">    <!--Ürün ekleme kısmına yönlendirilecek-->
+            <img src="https://st2.depositphotos.com/1006689/10140/v/950/depositphotos_101406658-stock-illustration-plus-cross-sign-vector-icon.jpg" alt="Ekleme Ikonu">
+        </a>
+    </div>
+
+</body>
+
+</html>

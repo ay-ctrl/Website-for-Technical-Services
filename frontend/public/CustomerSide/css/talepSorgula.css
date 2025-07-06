@@ -1,0 +1,65 @@
+
+.menu {
+  background-color: black;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.container {
+  max-width: 90%;
+  margin: 120px auto 70px;
+  background: #111;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  margin-bottom: 10px;
+  margin-top:30px;
+}
+
+.table-container {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+table td {
+  padding: 15px;
+  border: 1px solid #ddd;
+  color: black;
+  /* Tablo içindeki yazılar siyah yapıldı */
+  font-size:1.5rem;
+}
+
+table td:first-child {
+  width: 40%;
+  /* İlk sütunun genişliği ayarlandı */
+}
+
+.hidden {
+  display: none;
+}
+

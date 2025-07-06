@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefon Tamiri</title>
+    <meta name="description"
+    content="Yerinde ve garantili cep telefonu tamiri hizmeti! Uygun fiyatlarla ekran, batarya değişimi ve teknik servis çözümleri. Hızlı ve güvenilir tamir için hemen ulaşın.">
+    <link rel="canonical" href="https://telefon-tamiri-seng209-211.com.tr/">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta property="og:title" content="Uygun Fiyatlarla Akıllı Cihaz Tamir Hizmeti Sizlerle">
+    <meta property="og:description" content=" Hızlı ve güvenilir tamir için hemen ulaşın.">
+    <meta property="og:url" content="https://telefon-tamiri-seng209-211.com.tr/">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/talepDüzenle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/talepDüzenle.js"></script>
+</head>
+
+<body class="main page-loading animation">
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <a href="dashboard.html">
+                <img src="../images/ayda-logo.png" alt="Telefon Tamiri" width="150">
+            </a>
+        </div>
+
+        <!-- Hamburger Menu -->
+        <div class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="myRequests.html">Taleplerim</a></li>
+                <li><a href="products.html">Aksesuar ve Ek Ürünler</a></li>
+                <li><a href="hakkımızda.html">Hakkımızda</a></li>
+                <li><a href="SSS.html">SSS</a></li>
+                <li class="dropdown">
+                    <button class="dropdown-button" >Admin Kullanıcısı</button>
+                    <div class="dropdown-content" id="admin-dropdown">
+                        <a href="#">Ödemeler</a>
+                        <a href="#">Çalışanlar</a>
+                        <a href="changePassword.html">Şifre değiştir</a>
+                        <a href="#" id="logoutLink">Çıkış Yap</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+
+       <!-- Mobile Navigation -->
+    <nav class="nav-mobile" id="nav-mobile">
+        <a href="myRequests.html">Taleplerim</a>
+        <a href="products.html">Aksesuar ve Ek Ürünler</a>
+        <a href="hakkımızda.html">Hakkımızda</a>
+        <a href="SSS.html">SSS</a>
+        <span class="dropdown-button-mobile">Admin Kullanıcısı</span>
+        <div class="dropdown-mobile" id="mobile-dropdown">
+            <!--  !!!Buradan herhangi bir sayfa yüklenmediği için test kapsamında kaldırıldı *Nisanur
+                        <a href="#">Ödemeler</a>
+                        <a href="#">Çalışanlar</a>-->
+            <a href="changePassword.html">Şifre değiştir</a>
+            <a href="#" id="mlogoutLink" >Çıkış Yap</a>
+        </div>
+    </nav>
+        
+    </header>
+
+    <div class="hakkimizda-container">
+        <h2 class="title">TALEP DÜZENLE</h2>
+    </div>
+
+    <div class="form-container">
+        <form>
+            <!-- Talep numarası -->
+            <div class="form-row">
+                <label for="queryNum">Talep numarası:</label>
+                <input type="text" id="queryNum" value="3457867" readonly>
+            </div>
+            <!-- Müşteri Adı -->
+            <div class="form-row">
+                <label for="musteriAdi">Müşteri Adı:</label>
+                <input type="text" id="name" value="Ayse Atik" readonly>
+            </div>
+            <!-- Telefon Modeli -->
+            <div class="form-row">
+                <label for="model">Telefon Modeli:</label>
+                <input type="text" id="model" value="Huawei A7" readonly>
+            </div>
+            <!-- Telefon No -->
+            <div class="form-row">
+                <label for="telefonNo">Telefon No:</label>
+                <input type="text" id="phone" readonly>
+            </div>
+            <!-- Adresi -->
+            <div class="form-row">
+                <label for="adres">Adresi:</label>
+                <input type="text" id="adress" readonly>
+            </div>
+            <!-- IMEI Numarası -->
+            <div class="form-row">
+                <label for="imei">Cihazın IMEI Numarası:</label>
+                <input type="text" id="imei" readonly>
+            </div>
+            <!-- Cihazın Tuş Kilidi -->
+            <div class="form-row">
+                <label for="kilit">Cihazın Tuş Kilidi:</label>
+                <input type="text" id="kilit" readonly>
+            </div>
+            <!-- Cihazın Geliş Tarihi -->
+            <div class="form-row">
+                <label for="gelisTarihi">Cihazın Geliş Tarihi:</label>
+                <input type="date" id="phoneTakenDate">
+            </div>
+            <!-- Problem -->
+            <div class="form-row">
+                <label for="problem">Problem:</label>
+                <input type="text" id="sorunlar" readonly>
+            </div>
+            <!-- Durumu -->
+            <div class="form-row">
+                <label for="durum">Durumu:</label>
+                <select id="state">
+                    <option disabled selected>Durumu Güncelleyin</option>
+                    <option>Talep Alındı</option>
+                    <option>Yapiliyor</option>
+                    <option>Yapildi</option>
+                    <option>Parça bekleniyor</option>
+                </select>
+            </div>
+
+            <!-- Yapılan İşlem -->
+            <div class="form-row">
+                <label for="yapilan">Yapılan İşlem:</label>
+                <input type="text" id="processMade">
+            </div>
+            <!-- Ücret -->
+            <div class="form-row">
+                <label for="ucret">Ücret:</label>
+                <input type="text" id="price">
+            </div>
+            <!-- Servisin onarım açıklaması -->
+            <div class="form-row-large">
+                <label for="aciklama">Servisin onarım açıklaması:</label>
+                <textarea id="repairDescription" rows="3" placeholder="Açıklamayı giriniz"></textarea>
+            </div>
+
+            <!-- Hakediş durumu 
+            <div class="form-row-large">
+                <label for="hakedis">Hakediş durumu:</label>
+                <textarea id="hakedis" rows="3" placeholder="Açıklamayı giriniz"></textarea>
+            </div> -->
+            <!-- Butonlar -->
+            <div class="button-container">
+                <button type="button" class="save-btn">KAYDET</button>
+                <button type="button" class="print-btn">YAZDIR</button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Sol Sütun -->
+            <div class="footer-column">
+                <h3>Telefon Tamiri</h3>
+                <ul>
+                    <li><a href="myRequests.html">Taleplerim</a></li>
+                    <li><a href="products.html">Aksesuar ve Ek
+                            Ürünler</a></li>
+                    <li><a href="hakkımızda.html">Hakkımızda</a></li>
+                    <li><a href="SSS.html">SSS</a></li>
+                </ul>
+            </div>
+            <!-- Orta Sütun -->
+            <div class="footer-column">
+                <h3>İletişim</h3>
+                <p>Adres:Çankaya/Ankara</p>
+                <p>Email: <a href="mailto:destek@gmail.com">destek@gmail.com</a></p>
+                <p>Telefon: <a href="tel:+905XXXXXXXXX">0 (XXX) XXX XX XX</a></p>
+                <p>Çalışma Saatleri: 09:00 - 19:30</p>
+            </div>
+            <!-- Sağ Sütun -->
+            <div class="footer-column">
+                <h3>Sosyal Medya</h3>
+                <a href="https://www.instagram.com/"><img src="https://cdn-icons-png.flaticon.com/256/717/717392.png"
+                        alt="Instagram"></a>
+                <a href="https://x.com/home"><img
+                        src="https://logoeps.com/wp-content/uploads/2014/01/23931-twitter-logo-icon-vector-icon-vector-eps.png"
+                        alt="Twitter"></a>
+                <a href="https://www.whatsapp.com/"><img
+                        src="https://logoeps.com/wp-content/uploads/2014/03/33447-whatsapp-logo-icon-vector-icon-vector-eps.png"
+                        alt="WhatsApp"></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 - Tüm Hakları Saklıdır - AYDA</p>
+        </div>
+    </footer>
+
+    <!-- Mesajlaşma Ikonu -->
+    <div class="message-icon">
+        <a href="https://dashboard.tawk.to/#/chat" target="_blank">
+            <img src="../images/message.png" alt="Mesajlaşma İkonu">
+        </a>
+    </div>
+
+</body>
+
+</html>

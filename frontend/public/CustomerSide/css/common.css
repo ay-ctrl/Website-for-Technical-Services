@@ -1,0 +1,477 @@
+/* Genel Stiller */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #3f353c;
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Yatay kaydırmayı önler */
+}
+
+img, .container {
+  max-width: 100%;
+  height: auto;
+}
+
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    /* Header altına hafif bir gölge */
+  }
+  
+  /* Header Container */
+  .header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Logo */
+  header .logo img {
+    max-width: 120px;
+    /* Logo boyutunu biraz artırdım */
+  }
+  
+  /* Header ve Menü */
+  header nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 30px;
+    /* Menü arasındaki boşluğu artırdım */
+  }
+  
+  header nav ul li {
+    position: relative;
+    /* Dropdown'ın doğru konumlanabilmesi için */
+  }
+  
+  header nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 2rem;
+    /* Menü bağlantı yazı boyutunu büyüttüm */
+    font-weight: bold;
+    padding: 25px 30px;
+    /* İç boşluğu artırdım */
+  }
+  
+  header nav ul li:hover a {
+    background-color: transparent;
+    /* Hover rengi */
+    color: rgb(172, 98, 169);
+    text-decoration: none;
+  }
+  
+  
+  /* Giriş Butonu */
+  header .auth-buttons a {
+    font-size: 2rem;
+    /* Menü bağlantı yazı boyutunu büyüttüm */
+    /* Yazı boyutunu büyüttüm */
+    margin: 0 10px;
+    padding: 10px 25px;
+    /* Daha geniş buton */
+    text-decoration: none;
+    border-radius: 25px;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    transition: 0.3s;
+  }
+  
+  header .auth-buttons a:hover {
+    background-color: rgb(172, 85, 169);
+    color: black;
+    border-color: black;
+    box-shadow: 0 5px 10px rgba(181, 126, 179, 0.5), 0 -5px 10px rgba(181, 126, 179, 0.5), 5px 0 10px rgba(181, 126, 179, 0.5), -5px 0 10px rgba(181, 126, 179, 0.5);
+  }
+  
+  /*Header responsive ve hamburger menu*/
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    /* Header yüksekliğine göre ayarlayın */
+    right: 20px;
+    z-index: 1000;
+}
+
+.hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 3px 0;
+}
+
+/* Mobil Menü */
+.nav-mobile {
+    display: none;
+    flex-direction: column;
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100%;
+    width: 30%;
+    transition: right 0.3s ease-in-out;
+    z-index: 999;
+    padding-top: 100px;
+    /* Yazılar için üst boşluk */
+}
+
+.nav-mobile a {
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    border-bottom: 1px solid rgb(172, 98, 169);
+}
+
+.nav-mobile a:hover {
+    background-color: rgb(172, 98, 169) !important;
+}
+
+
+/* Menü Açıldığında */
+.nav-mobile.open {
+    right: 0;
+    /* Sağdan açılmasını sağlar */
+}
+
+
+/* Hamburger Menü Görünümü */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+}
+
+/* Menü Açma/Kapama */
+.nav-mobile.open {
+    display: flex;
+}
+
+/* 1189px ile 1408px arasındaki düzenlemeler */
+@media (max-width: 1408px) and (min-width: 1190px) {
+    header nav ul {
+        gap: 20px;
+        /* Menü öğeleri arasındaki boşluğu daralt */
+    }
+
+    header nav ul li a {
+        font-size: 2rem;
+        /* Menü yazı boyutunu küçült */
+        padding: 8px 10px;
+        /* Menü bağlantılarını daralt */
+    }
+
+    header .auth-buttons a {
+        font-size: 2rem;
+        /* Giriş yap butonunun yazı boyutunu küçült */
+        padding: 8px 12px;
+        /* Giriş yap butonunun iç boşluklarını daralt */
+    }
+}
+
+/* 1024px ile 1189px arasındaki düzenlemeler */
+@media (max-width: 1189px) and (min-width: 1024px) {
+    header nav ul {
+        gap: 15px;
+        /* Menü öğeleri arasındaki boşluğu biraz daha daralt */
+    }
+
+    header nav ul li a {
+        font-size: 1.8rem;
+        /* Menü yazı boyutunu biraz daha küçült */
+        padding: 6px 8px;
+        /* Menü bağlantılarını biraz daha daralt */
+    }
+
+    header .auth-buttons a {
+        font-size: 1.8rem;
+        /* Giriş yap butonunun yazı boyutunu küçült */
+        padding: 6px 10px;
+        /* Butonun iç boşluklarını daralt */
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 950px) {
+    header nav ul {
+      gap: 15px;
+      /* Menü öğeleri arasındaki boşluğu biraz daha daralt */
+  }
+
+  header nav ul li a {
+      font-size: 1.5rem;
+      /* Menü yazı boyutunu biraz daha küçült */
+      padding: 6px 8px;
+      /* Menü bağlantılarını biraz daha daralt */
+  }
+
+  header .auth-buttons a {
+      font-size: 1.5rem;
+      /* Giriş yap butonunun yazı boyutunu küçült */
+      padding: 6px 10px;
+      /* Butonun iç boşluklarını daralt */
+  }
+}
+
+/* 768px ile 1024px arası */
+@media (max-width: 950px) {
+    header nav ul {
+        display: none;
+        /* Geniş ekran menüsünü gizle */
+    }
+
+    .hamburger {
+        display: flex;
+        /* Hamburger menüyü görünür yap */
+    }
+
+    .nav-mobile {
+        display: flex;
+        /* Mobil menüyü göster */
+    }
+
+    header .auth-buttons {
+        display: none;
+        /* Giriş yap butonunu mobil menüye taşımak için gizle */
+    }
+}
+
+/* 768px altı */
+@media (max-width: 768px) {
+    header {
+        flex-wrap: wrap;
+        /* Header içeriğini aşağıya kaydır */
+    }
+
+    .logo img {
+        max-width: 100px;
+        /* Logo boyutunu küçült */
+    }
+
+    .nav-mobile a {
+        font-size: 1.2rem;
+        /* Mobil menü yazı boyutunu küçült */
+        padding: 10px 15px;
+        /* Mobil menü boşluklarını düzenle */
+    }
+}
+  
+  
+  /* Ana İçerik Alanı */
+  .hakkimizda-container {
+    width: 100%;
+    margin: 20px auto;
+    background-color: #111010;
+    color: #fff;
+    padding: 30px;
+    border-radius: 0;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 160px;
+    height:auto;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 4rem;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    font-weight: bold;
+  
+  }
+  @media(max-width:480px){
+    .title{
+        font-size: 2.5rem;
+    }
+  }
+
+#kampanyalar {
+    background-color: #3f353c;
+    padding: 50px 50px;
+    margin-top: 10px;
+    /* Üst kısmında boşluk */
+    margin-bottom: 50px;
+    /* Alt kısmında boşluk */
+    height: auto;
+  }
+  
+  
+  #kampanyalar h3 {
+    text-align: center;
+    /* Başlığı ortalar */
+    font-size: 2rem;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    color: white;
+    /* Başlık rengini belirler */
+  
+  }
+
+  .main-title{
+    text-align: center;
+    font-size: 7rem;
+  }
+  
+  .carousel-inner {
+    background-color: white !important;
+    /* Slider içindeki arka planı siyah yap */
+  }
+  
+  
+  .carousel-indicators li {
+    background-color: white;
+    /* Göstergelerin rengini beyaz yap */
+  }
+  
+  .carousel-control {
+    color: white;
+    /* Sağ ve sol okların rengini beyaz yap */
+  }
+  
+  .carousel-control.left,
+  .carousel-control.right {
+    background-color: rgba(0, 0, 0, 0.1);
+    /* Okların arkasındaki siyah zemin */
+  }
+
+
+  @media(max-width: 620px){
+    /* Kampanyalar başlığı stil */
+    .main-title {
+      font-size: 3rem; 
+      text-align: center;
+
+    }
+}
+
+
+ /* Footer */
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+  font-size: 1.5rem;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.footer-column {
+  width: 30%;
+  text-align: center;
+  margin-bottom: 20px; /* Alt boşluk ekleyerek kutuların ayrılmasını sağlar */
+}
+
+/* Logo */
+.footer-logo {
+  max-width: 150px !important; /* Logo boyutunu belirgin şekilde büyüt */
+  height: auto !important; /* Oranını koruyarak yükseklik ayarla */
+  display: block;
+  margin: 0 auto 10px; /* Ortala ve altına boşluk ekle */
+}
+
+/* Footer Bağlantıları */
+.footer-link {
+  font-size: 1.2rem;
+  color: rgb(172, 85, 169);
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin: 5px 0;
+}
+
+.footer-column ul ul li {
+  margin-left: 15px;
+}
+
+.footer-column a {
+  color: rgb(172, 85, 169);
+  text-decoration: none;
+}
+
+.footer-column a:hover {
+  text-decoration: underline;
+}
+
+/* Sosyal Medya İkonları */
+.footer-column img {
+  width: 24px; /* İkon boyutunu küçült */
+  height: 24px;
+  margin: 0 5px; /* Aralarına boşluk ekle */
+  filter: invert(1); /* Beyaz renge dönüştür */
+}
+
+.footer-column img:hover {
+  opacity: 0.8; /* Hover durumunda biraz şeffaflık ekleyin */
+}
+
+/* Footer Alt Kısım */
+.footer-bottom {
+  text-align: center;
+  padding: 10px;
+  background-color: #cdbac8;
+  color: #000;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+  .footer-column {
+    width: 100%; /* Tüm sütunlar alt alta gelsin */
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    font-size: 1.2rem; /* Daha küçük ekranlar için yazı boyutunu küçült */
+  }
+
+  .footer-container {
+    padding: 10px; /* Daha küçük boşluklar */
+  }
+
+  .footer-column img {
+    width: 20px; /* Daha küçük ikon boyutları */
+    height: 20px;
+  }
+}

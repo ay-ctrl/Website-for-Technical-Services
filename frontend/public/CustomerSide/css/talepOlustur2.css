@@ -1,0 +1,35 @@
+
+
+/* Talep Sonuç Stili */
+#talepSonuc {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+}
+
+#talepSonuc .content {
+    background: transparent;
+    padding: 20px;
+    border-radius: 15px;
+    height:200px;
+    width:700px;
+}
+
+#talepSonuc h1 {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    margin-top:20px;
+}
+
+#talepSonuc p {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+  /* Ana İçerik Alanı */
+  .hakkimizda-container {
+    margin-top: 145px;
+  }

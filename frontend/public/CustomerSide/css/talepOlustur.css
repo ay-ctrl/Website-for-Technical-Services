@@ -1,0 +1,121 @@
+
+/* Genel Form Elemanları */
+form select,
+form input[type="text"],
+form input[type="tel"],
+form textarea {
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #cdbac8;
+  /* Daha modern kenarlık */
+  border-radius: 8px;
+  /* Hafif yuvarlatılmış köşeler */
+  background-color: #1e1e1e;
+  /* Koyu ama dikkat dağıtmayan arka plan */
+  color: #fff;
+  font-size: 1.5rem;
+  transition: all 0.3s ease; /* Hover ve focus için geçiş efekti */
+}
+
+/* Hover ve Focus Efekti */
+form select:hover,
+form input[type="text"]:hover,
+form input[type="tel"]:hover,
+form textarea:hover,
+form select:focus,
+form input[type="text"]:focus,
+form input[type="tel"]:focus,
+form textarea:focus {
+  border-color: rgb(172, 98, 169);
+  background-color: #292929;
+  outline: none;
+  transform: scale(1.01);
+
+}
+
+form label {
+  font-size: 2rem;
+  color: #fff; /* Renk uyumu için */
+  
+}
+
+.radio-group p {
+  font-size: 1.7rem;
+  color: #fff; /* Renk uyumu için */
+  font-weight: bold; /* İsteğe bağlı, yazıyı daha belirgin yapmak için */
+}
+
+/* Gönder Butonu */
+form input[type="submit"] {
+  background-color: #cdbac8;
+  color: black;
+  border: 2px solid black;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 25px;
+  padding: 15px 0;
+  width: 100%;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+  background-color: rgb(172, 85, 169);
+  color: black;
+  border: 1px solid black;
+  box-shadow: 0 5px 10px rgba(181, 126, 179, 0.5), 0 -5px 10px rgba(181, 126, 179, 0.5), 5px 0 10px rgba(181, 126, 179, 0.5), -5px 0 10px rgba(181, 126, 179, 0.5);
+
+}
+
+
+/* Yedek Cihaz Radyo Düğmeleri */
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Daha belirgin boşluk */
+  padding: 8px 0;
+  font-size: 1.3rem;
+  color: #ddd;
+  transition: color 0.3s ease;
+}
+
+.radio-group label:hover {
+  color: rgb(172, 98, 169);
+  /* Hover sırasında sarı vurgu */
+}
+
+.radio-group input[type="radio"] {
+  accent-color: rgb(172, 98, 169) ;
+  transform: scale(1.2);
+}
+
+#talepOlustur {
+  margin-bottom: 70px;
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 10px;
+  background-color: #111;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Adres Alanını Büyütmek */
+form textarea {
+  resize: none;
+}
+
+#talepOlustur form {
+  width: calc(100% - 2cm); /* Form genişliğini yüzde 100'den 2 cm çıkararak yapıyoruz */
+  margin: 50px auto 50px; /* Üstten 20px, alttan 50px boşluk bırakıyoruz */
+}
+
+@media screen and (max-width: 768px) {
+  #talepOlustur form {
+      width: calc(100% - 2em); /* Mobilde de yanlardan boşluk bırakır */
+      margin-top: 20px; /* Üstten 20px boşluk bırakır */
+  }
+}

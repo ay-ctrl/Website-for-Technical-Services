@@ -1,0 +1,173 @@
+
+  
+  /* Form Alanı */
+  .form-container {
+    margin: 50px auto;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #111;
+    border-radius: 25px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+  }
+  
+  #medyaEkle {
+    margin-bottom: 70px;
+    max-width: 1200px;
+    margin: 50px auto;
+    margin-bottom: 50px;
+    background-color: #111;
+    border-radius: 10px;
+  }
+  
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+  }
+  
+  
+  /* Form Sıra */
+  .form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  
+  }
+  
+  .form-row label {
+    width: 200px;
+    text-align: left;
+    margin-right: 20px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .form-row input,
+  .form-row select {
+    flex: 1;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+  }
+  
+  /* Daha büyük kutular için */
+  .form-row-large {
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .form-row-large label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    background-color: #111;
+  
+  }
+  
+  .form-row-large textarea {
+    width: calc(100% - 20px);
+    height: 150px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: none;
+  }
+  
+  label {
+    color: white;
+    font-size: 1.7rem;
+  }
+  
+  input,
+  textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.5rem;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+    color: #f5f5f5;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  
+  textarea:focus,
+  textarea:hover,
+  input:focus,
+  input:hover {
+    border-color: #ac55a9;
+    box-shadow: 0 0 10px rgba(172, 85, 169, 0.5);
+    outline: none;
+  }
+  
+
+  /* Butonlar */
+  .button-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  
+  /* Save Button için Stil */
+  .save-btn {
+    background-color: #cdbac8;
+    color: black;
+    border: 2px solid black;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 25px;
+    padding: 15px 30px;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+    margin: 20px 0 40px 0;
+    display: inline-block;
+  
+  }
+  
+  .save-btn:hover {
+    background-color: rgb(172, 85, 169);
+    color: black;
+    border: 1px solid black;
+    box-shadow: 0 5px 10px rgba(181, 126, 179, 0.5), 0 -5px 10px rgba(181, 126, 179, 0.5), 5px 0 10px rgba(181, 126, 179, 0.5), -5px 0 10px rgba(181, 126, 179, 0.5);
+  }
+  
+  .save-btn:active{
+    transform: scale(0.98);
+  }
+  
+  .print-btn {
+    background-color: #cdbac8;
+    color: black;
+    border: 2px solid black;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 25px;
+    padding: 15px 30px;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+    margin: 20px 0 40px 0;
+    display: inline-block;
+  
+  }
+  
+  .print-btn:hover {
+    background-color: rgb(172, 85, 169);
+    color: black;
+    border: 1px solid black;
+    box-shadow: 0 5px 10px rgba(181, 126, 179, 0.5), 0 -5px 10px rgba(181, 126, 179, 0.5), 5px 0 10px rgba(181, 126, 179, 0.5), -5px 0 10px rgba(181, 126, 179, 0.5);
+  }
+  
+  .print-btn:active{
+    transform: scale(0.98);
+  }

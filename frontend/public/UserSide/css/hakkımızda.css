@@ -1,0 +1,287 @@
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: white;
+}
+
+.container h1 {
+    font-size: 60px;
+    font-weight: bold;
+    margin-bottom: 30px;
+
+}
+
+.container h2 {
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.container h3 {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 50px;
+
+}
+
+.container h4 {
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 70px;
+}
+
+.container p {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 27px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+
+@media(max-width:480px){
+  .container {
+    width: 95%;
+    margin: 0 auto;
+    height:auto;
+}
+.container h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.container h2 {
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.container h3 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.container h4 {
+  font-size: 17px;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+.container p {
+  font-size: 12px;
+  margin-top:2.5px ;
+}
+
+.section {
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+}
+
+.icon-text {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.icon-text img {
+    margin-right: 10px;
+}
+
+
+
+
+#kampanyalar {
+    background-color: #121111;
+    padding: 20px 0;
+}
+
+#kampanyalar .container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#kampanyalar h1 {
+    font-size: 36px;
+    color: white;
+    margin: 0;
+}
+
+.carousel-inner {
+    background-color: white !important;
+
+}
+
+
+.carousel-caption {
+    color: white;
+
+}
+
+.carousel-indicators li {
+    background-color: white;
+
+}
+
+.carousel-control {
+    color: white;
+
+}
+
+.carousel-control.left,
+.carousel-control.right {
+    background-color: rgba(0, 0, 0, 0.1);
+
+}
+
+#campaign-description {
+  color:white;
+}
+
+@media(max-width: 620px){
+  /* Kampanyalar başlığı stil */
+  .main-title {
+    font-size: 3rem !important; 
+    text-align: center;
+  }
+}
+
+@media(max-width: 480px){
+  /* Kampanyalar başlığı stil */
+  .main-title {
+    font-size: 2rem !important; 
+  }
+
+  svg{
+    width:50px;
+    height:50px;
+  }
+
+  #campaign-description{
+    font-size: 2rem;
+  }
+
+}
+
+
+.icon-container {
+    display: flex;
+    align-items: center; /* Yatayda hizalama */
+    justify-content: space-between; /* Yazı ve ikon arasında boşluk */
+    padding-right: 20px; /* Sağ tarafa ekstra boşluk */
+}
+
+.icon-container h3 {
+    margin: 0; 
+    font-size: 24px; /* Yazı boyutunu değiştirmez */
+    text-align: left; /* Sol hizalama */
+    flex-grow: 1; /* Yazıyı genişletir */
+
+}
+
+.add-icon {
+    display: inline-block;
+    font-size: 70px; /* İkon boyutunu değiştirmez */
+    cursor: pointer;
+    margin-right: 0; /* Varsayılan sağ boşluk */
+    margin-left: auto; /* İkonu tamamen sağa iter */
+    color: white; /* İkon rengi */
+    transform: translateX(30px); /* İkonu sağa kaydırır */
+
+}
+
+/* Müşteri Yorumları */
+.comments-section {
+    padding: 30px 0;
+    text-align: center;
+    font-size: 1.6rem;
+    margin-top: 50px;
+}
+
+
+/* Yorum Başlığı */
+.comments-section h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+/* Yorum Butonu */
+.comment-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 2rem;
+    margin-top: 20px;
+    border-radius: 25px;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    transition: 0.3s;
+}
+
+@media screen and (max-width: 480px) {
+  .comment-button {
+      padding: 3px 5px;
+      font-size: 1.2rem;
+      border-width: 1px;
+  }
+  .comments-section {
+    margin-top: 25px;
+}
+}
+
+
+.comment-button:hover {
+    background-color: rgb(172, 85, 169);
+    color: black;
+    border-color: black;
+    box-shadow: 0 5px 10px rgba(181, 126, 179, 0.5), 0 -5px 10px rgba(181, 126, 179, 0.5), 5px 0 10px rgba(181, 126, 179, 0.5), -5px 0 10px rgba(181, 126, 179, 0.5);
+}
+
+  
+  /* Mesajlaşma Ikonu */
+  .message-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .message-icon img {
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    /* Hafif bir gölge efekti */
+    transition: 0.3s;
+  }
+  
+  .message-icon img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+  }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://localhost:5000/CustomerSide/index.html</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5000/CustomerSide/giris.html</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5000/CustomerSide/hakkımızda.html</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5000/CustomerSide/talepOlustur.html</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5000/CustomerSide/talepOlustur2.html</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5000/CustomerSide/talepSorgula.html</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5000/CustomerSide/talepSorgula2.html</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5000/CustomerSide/products.html</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5000/CustomerSide/SSS.html</loc>
+  </url>
+</urlset>
