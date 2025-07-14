@@ -41,10 +41,6 @@
 ### 7. Login
 - User login portal with access to admin panel if authorized.
 
-### 8. Footer Menu
-- **Live Support (24/7)** via Tawk.
-- Contact info and social media icons for easy outreach.
-
 ---
 
 ## 🔐 Admin Interface
@@ -66,10 +62,6 @@
 - **Employees**: Manage employee records.
 - **Change Password**: Update login credentials.
 - **Logout**: Exit admin session securely.
-
-### 📱 Live Support
-- **Tawk Integration** available for both admins and users on mobile.
-- Respond to customer inquiries anytime via the Tawk mobile app.
 
 ---
 
@@ -107,7 +99,6 @@ Located in the footer of the site:
 For support, feature requests, or suggestions:
 
 - ✉️ **Email**: [ayseatik887@gmail.com](mailto:ayseatik887@gmail.com)  
-- 📞 **Phone**: +90 538 818 93 27
 
 We're here to help your business succeed.
 
