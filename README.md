@@ -160,6 +160,11 @@ Do not commit .env, credentials.json, or token.json to version control.
 
 These files are excluded via .gitignore for security.
 
+## ⚠️ Known Limitations
+
+This project is currently not under active development.
+It remains functional, and known issues have been documented for users and contributors.
+👉 See [KNOWN_ISSUES.md](./KNOWN_ISSUES.md) for full details.
 
 ## 🛠️ Support & Updates
 
