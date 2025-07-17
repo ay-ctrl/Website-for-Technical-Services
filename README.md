@@ -1,4 +1,4 @@
-# 📘 ayda.site - Dual-Interface Web Platform
+# 📘 Dual-Interface Web Platform For Technical Web Services
 
 **ayda.site** is a modern, customizable dual-interface web platform designed to connect businesses with their customers. With user-friendly navigation for customers and advanced control features for administrators, it aims to elevate your digital presence with ease.
 
@@ -58,8 +58,6 @@
 - Edit images and content of the About Us section.
 
 ### 5. Admin User Sub-Menu
-- **Payments**: Track customer payments.
-- **Employees**: Manage employee records.
 - **Change Password**: Update login credentials.
 - **Logout**: Exit admin session securely.
 
@@ -67,7 +65,7 @@
 
 ## 🎨 Customizing the Website
 
-ayda.site can be fully tailored to your brand:
+This site can be fully tailored to your brand:
 
 - **Logo & Colors**: Update site branding to reflect your identity.
 - **Text & Images**: Replace demo content with your business info.
@@ -80,7 +78,7 @@ ayda.site can be fully tailored to your brand:
 - **Quick Setup**: Ready-to-launch structure.
 - **Highly Flexible**: Fully customizable design and content.
 - **Mobile-Friendly**: Optimized for fast and smooth mobile usage.
-- **24/7 Live Support**: Ensure continuous customer interaction.
+- **24/7 Live Support**: Ensure continuous interaction with your customers.
 
 ---
 
@@ -99,13 +97,6 @@ Located in the footer of the site:
 For support, feature requests, or suggestions:
 
 - ✉️ **Email**: [ayseatik887@gmail.com](mailto:ayseatik887@gmail.com)  
-
-We're here to help your business succeed.
-
-Please contact us for:
-- New feature requests
-- Customer feedback
-- System issues or improvement ideas
 
 ---
 
