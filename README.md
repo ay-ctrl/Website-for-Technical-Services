@@ -1,6 +1,6 @@
-# 📘 Dual-Interface Web Platform For Technical Web Services
+# 📘 Dual-Interface Web Platform For Technical Service Stores
 
-**ayda.site** is a modern, customizable dual-interface web platform designed to connect businesses with their customers. With user-friendly navigation for customers and advanced control features for administrators, it aims to elevate your digital presence with ease.
+**ayda.site** is a modern, customizable dual-interface web platform designed to connect technical service stores with their customers. With user-friendly navigation for customers and control features for administrators, it aims to elevate your digital presence with ease.
 
 ---
 
@@ -139,7 +139,7 @@ Step 2: Copy the code from the URL
 After logging in, you will be redirected to a URL like this:
 
 http://localhost:3000/?code=XYZ123abc
-Copy the value after code=.
+Copy the value after code=
 
 Step 3: Paste the Code in Terminal
 When prompted in the terminal with: "Enter the code from that page here:"
