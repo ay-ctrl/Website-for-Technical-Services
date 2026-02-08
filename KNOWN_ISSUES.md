@@ -32,6 +32,9 @@ This project is functional and serves its core purposes, but several improvement
 - **Unclear Upload Field Requirements**  
   When a user attempts to upload a file without providing a caption or only submits partial data, the system may fail silently without warning or error messages.
 
+- **Google Drive Management is Manual**
+  The Google Drive token is obtained manually. After deployment to production, when the token expires, the application cannot refresh it programmatically, and file uploading stops working.
+
 ---
 
 These issues do not prevent the application from running in a development setting but should be addressed before production deployment.
