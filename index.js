@@ -703,7 +703,7 @@ app.post(
 );
 
 // To get products
-app.get("/products", async (req, res) => {
+app.get('/products', apiLimiter, async (req, res) => {
   const page = parseInt(req.query.page) || 1; // Varsayılan olarak 1. sayfa
   const limit = 30; // Sayfa başına gösterilecek ürün sayısı
   const skip = (page - 1) * limit;
@@ -964,7 +964,7 @@ fs.readFile(TOKEN_PATH, (err, token) => {
   oAuth2Client.setCredentials(JSON.parse(token));
 });
 
-app.get("/authorize", (req, res) => {
+app.get('/authorize', apiLimiter, (req, res) => {
   const error = req.query.error;
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: "offline",
@@ -985,7 +985,7 @@ app.get("/authorize", (req, res) => {
 });
 
 // 🔑 Callback: Google'dan gelen yetki kodunu token'a çevirme
-app.get("/oauth2callback", async (req, res) => {
+app.get('/oauth2callback', apiLimiter, async (req, res) => {
   const code = req.query.code;
   if (!code) return res.status(400).send("Authorization code not found.");
 
