@@ -3,22 +3,24 @@ const mongoose = require("mongoose");
 const app = express();
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-app.use(express.json());
+
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
-app.use(express.urlencoded({ extended: true }));
+
 const cookieParser = require("cookie-parser");
-app.use(cookieParser());
+
 const helmet = require("helmet");
 const lusca = require("lusca");
-app.use(helmet());
+
+
+
 const winston = require("winston"); // Hata logları için winston kullanıyoruz
 const DailyRotateFile = require("winston-daily-rotate-file");
 const verifyToken = require("./middleware/verifytoken"); // Token doğrulama middleware'ı
-app.disable("x-powered-by");
+
 const https = require("https");
 const rateLimit = require("express-rate-limit");
 const sanitize = require("mongo-sanitize");
@@ -76,7 +78,16 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"], // İzin verilen başlıklar
   credentials: true,
 };
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser()); // Lusca'dan ÖNCE gelmeli
+app.use(cors(corsOptions)); // corsOptions artık yukarıda tanımlı olduğu için hata vermez
+app.use(helmet()); 
 
+// GitHub'ın beklediği kritik satır
+app.use(lusca.csrf()); 
+
+app.disable("x-powered-by");
 app.use(
   helmet.hsts({
     maxAge: 31536000, // 1 yıl
