@@ -13,6 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 const helmet = require("helmet");
+const lusca = require("lusca");
+app.use(helmet());
 const winston = require("winston"); // Hata logları için winston kullanıyoruz
 const DailyRotateFile = require("winston-daily-rotate-file");
 const verifyToken = require("./middleware/verifytoken"); // Token doğrulama middleware'ı
@@ -211,10 +213,9 @@ app.post("/api/login", loginLimiter, async (req, res) => {
     });
     // HttpOnly Cookie ayarla
     res.cookie("token", token, {
-      httpOnly: true, // Token'a JavaScript ile erişilemiyor
-      secure: true, // Geliştirme ortamında HTTPS'ye gerek yok
-      sameSite: "None", // Çerez sadece aynı site içinden gönderilebilir
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 gün = 1 ay
+      httpOnly: true, // Tarayıcı JS'si bu cookie'ye erişemesin (XSS koruması)
+      secure: true, // Sadece HTTPS üzerinden gönderilsin (Zaten sertifikan var, harika)
+      sameSite: "Strict", // Sadece senin kendi sitenden gelen isteklere izin ver (CSRF koruması!)
     });
     res.status(200).json({ message: "Giriş başarılı!" });
   } catch (error) {
