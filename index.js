@@ -18,6 +18,7 @@ const DailyRotateFile = require("winston-daily-rotate-file");
 const verifyToken = require("./middleware/verifytoken"); // Token doğrulama middleware'ı
 app.disable("x-powered-by");
 const https = require("https");
+const rateLimit = require("express-rate-limit");
 
 // Sertifikaları yükle
 const privateKey = fs.readFileSync("localhost-key.pem", "utf8");
@@ -30,7 +31,15 @@ const User = require("./models/users");
 const Campaign = require("./models/campaigns");
 const Product = require("./models/products");
 const Media = require("./models/media");
-
+// Genel hız sınırlayıcı (15 dakikada her IP'den 100 istek)
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 100, 
+  message: "Çok fazla istek attınız, lütfen 15 dakika sonra tekrar deneyin.",
+  standardHeaders: true, 
+  legacyHeaders: false,
+});
+app.use(limiter);
 // Logger config
 const logger = winston.createLogger({
   level: "info",
@@ -158,7 +167,7 @@ app.get("/", (req, res) => {
   res.redirect("/CustomerSide/index.html"); // Anasayfaya yönlendir
 });
 
-const rateLimit = require("express-rate-limit");
+
 
 const loginLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 saat
