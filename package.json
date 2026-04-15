@@ -23,6 +23,7 @@
     "helmet": "^8.1.0",
     "https": "^1.0.0",
     "jsonwebtoken": "^9.0.3",
+    "lusca": "^1.7.0",
     "mongo-sanitize": "^1.1.0",
     "mongodb": "^6.21.0",
     "mongoose": "^9.4.1",
