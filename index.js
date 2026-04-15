@@ -367,12 +367,10 @@ app.post("/api/repairRequests", async (req, res) => {
     const phoneRegex = /^[0-9]{10}$/;
     if (!phone || !phoneRegex.test(phone.trim())) {
       console.log("Hata: Telefon Regex'e takıldı ->", phone);
-      return res
-        .status(400)
-        .send({
-          message:
-            "Geçerli bir telefon numarası girin (Başında 0 olmadan 10 hane).",
-        });
+      return res.status(400).send({
+        message:
+          "Geçerli bir telefon numarası girin (Başında 0 olmadan 10 hane).",
+      });
     }
 
     // 3. Adres Kontrolü

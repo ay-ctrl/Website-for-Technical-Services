@@ -1,0 +1,570 @@
+
+/* Telefonunuz Mu Bozuldu */
+#telefonunuz {
+  margin-top: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  background-color: #121111;
+  color: #fff;
+  padding: 0 50px;
+  box-sizing: border-box;
+  margin-bottom: 50px;
+}
+
+/* Kayan Yazı Konteyneri */
+.scroll-container {
+  overflow: hidden;
+  width: 100%;
+  padding-right: 20px;
+}
+
+.scroll-text {
+  display: inline-block;
+  opacity: 0;
+  /* Başlangıçta görünmez */
+  animation: scroll-right 2s ease-in-out forwards;
+}
+
+/* Animasyon Tanımı */
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-100%);
+    /* Soldan başlar */
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(20px);
+    /* Margin-left: 20px'e kadar gelir */
+    opacity: 1;
+  }
+}
+
+#telefonunuz h1 {
+  font-size: 6rem;
+  margin-bottom: 40px;
+  font-weight: bold;
+  color: #fff;
+
+}
+
+#telefonunuz h2 {
+  font-size: 4rem;
+  margin-bottom: 25px;
+  color: white;
+  line-height: 3rem;
+  margin-left: 10px;
+}
+
+#talepButtonLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+#talep-olustur {
+  font-size: 3rem;
+  padding: 20px 30px;
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 40px;
+  overflow: visible;
+  /* Taşmaları kontrol etmek için */
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+#talep-olustur:hover {
+  background-color: rgb(172, 85, 169);
+  color: black;
+  border-color: black;
+  box-shadow: 0 10px 15px rgba(181, 126, 179, 0.5), 0 -10px 15px rgba(181, 126, 179, 0.5), 10px 0 15px rgba(181, 126, 179, 0.5), -10px 0 15px rgba(181, 126, 179, 0.5);
+}
+
+
+/* Sağdaki telefon görseli */
+#telefonunuz .image-container {
+  max-width: 60%;
+  text-align: right;
+}
+
+#telefonunuz .image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 950px) {
+
+  #telefonunuz .image-container {
+    display: none;
+    /* Görseli tamamen gizle */
+  }
+  
+  #telefonunuz {
+    flex-direction: column; /* Elemanları dikey hizala */
+    justify-content: center; /* Yatayda ve dikeyde ortala */
+    height: 70vh; /* Tam ekran yüksekliği */
+    padding-bottom: 60px;
+  }
+  
+  #telefonunuz h1 {
+    font-size: 3rem;
+    line-height: 30px;
+    margin: 10px 0; /* Düzgün boşluk için margin ayarı */
+    text-align: center;
+  }
+  
+  #telefonunuz h2 {
+    font-size: 2.3rem;
+    line-height: 1.5;
+    margin: 10px 0; /* Yazılar arasındaki boşluğu düzenle */
+    text-align: center;
+  }
+  
+  #talep-olustur {
+    position: absolute; /* Butonu konumlandır */
+    top: 70%; /* Yatay merkez */
+    left: 50%; /* Dikey merkez */
+    transform: translate(-50%, -50%); /* Merkezden taşma düzelt */
+    padding: 10px 20px;
+    font-size: 2rem;
+
+  }
+}
+
+@media (max-width: 440px){
+
+  #talep-olustur {
+    position: absolute; /* Butonu konumlandır */
+    top: 75%; /* Yatay merkez */
+    left: 50%; /* Dikey merkez */
+    transform: translate(-50%, -50%); /* Merkezden taşma düzelt */
+    padding: 10px 20px;
+    font-size: 1.7rem;
+
+  }
+   
+  #telefonunuz h1 {
+    font-size: 3rem;
+    line-height: 45px;
+  }
+  
+}
+
+#kampanyalar {
+  padding: 0;
+}
+
+/* Neden Cep Kurye Kısmı */
+.neden-cepkurye {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* Tüm ekran yüksekliği */
+  background-color: #121111;
+  /* Arka plan rengi */
+  color: #fff;
+  padding: 0 50px;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.neden-cepkurye .content {
+  text-align: center; /* Yazı soldan merkeze alındı */
+
+}
+
+.neden-cepkurye h1 {
+  font-size: 6rem;
+  margin-bottom: 70px;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.neden-cepkurye h2 {
+  font-size: 3.5rem;
+  margin-bottom: 25px;
+  margin-top: 70px;
+  color: white;
+  line-height: 2.5rem;
+}
+
+.neden-cepkurye h3 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  color: white;
+
+}
+
+.neden-cepkurye ul {
+  list-style-type: none;
+  padding: 0;
+  color: white;
+}
+
+.neden-cepkurye ul li {
+  font-size: 3rem;
+  margin: 5px 0;
+}
+
+/* Responsive Düzenlemeler */
+@media (max-width: 1024px) {
+  .neden-cepkurye {
+    justify-content: flex-start; /* Üst kısma yakınlaştır */
+    align-items: center; /* Yatayda ortala */
+    padding-top: 80px; /* Üst boşluğu azalt */
+    padding-bottom: 10px; /* Alt boşluğu azalt */
+    height: auto; 
+  }
+
+  .neden-cepkurye .content {
+    max-width: 90%;
+    /* İçerik genişliğini daralt */
+  }
+
+  .neden-cepkurye h1 {
+    font-size: 5.5rem;
+    /* Başlığı küçült */
+  }
+
+  .neden-cepkurye h2 {
+    font-size: 3.2rem;
+    line-height:30px;
+    /* Alt başlığı küçült */
+  }
+
+  .neden-cepkurye h3 {
+    font-size: 2.7rem;
+    line-height: 25px;
+    /* Küçük yazıları küçült */
+  }
+
+  .neden-cepkurye ul li {
+    font-size: 2.5rem;
+    /* Liste yazı boyutunu küçült */
+  }
+}
+
+@media (max-width: 768px) {
+  .neden-cepkurye {
+    justify-content: flex-start; /* Üst kısma yakınlaştır */
+    align-items: center; /* Yatayda ortala */
+    padding-top: 20px; /* Üst boşluğu azalt */
+    padding-bottom: 10px; /* Alt boşluğu azalt */
+    height: auto; 
+
+  }
+
+  .neden-cepkurye h1 {
+    font-size: 4.4rem;
+    margin-bottom: 20px;
+  }
+
+  .neden-cepkurye h2 {
+    font-size: 2.5rem;
+    margin-top: 30px;
+  }
+
+  .neden-cepkurye h3 {
+    font-size: 2.1rem;
+  }
+
+  .neden-cepkurye ul li {
+    font-size: 2rem;
+    margin: 5px 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .neden-cepkurye {
+    justify-content: flex-start; /* Üst kısma yakınlaştır */
+    align-items: center; /* Yatayda ortala */
+    padding-top: 20px; /* Üst boşluğu azalt */
+    padding-bottom: 10px; /* Alt boşluğu azalt */
+    height: auto; /* 100vh yerine otomatik yükseklik */
+  }
+
+  .neden-cepkurye h1 {
+    font-size: 3.5rem; /* Başlık boyutunu daha uygun hale getir */
+    margin-top: 0; /* Ekstra üst boşluğu kaldır */
+  }
+
+  .neden-cepkurye h2 {
+    font-size: 2.5rem;
+    margin-top: 20px;
+  }
+
+  .neden-cepkurye h3 {
+    font-size: 1.8rem;
+    margin: 5px 0;
+  }
+
+  .neden-cepkurye ul li {
+    font-size: 1.6rem;
+    margin: 5px 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .neden-cepkurye h1 {
+    font-size: 3rem;
+  }
+
+  .neden-cepkurye h2 {
+    font-size: 2rem;
+  }
+
+  .neden-cepkurye h3 {
+    font-size: 1.5rem;
+  }
+
+  .neden-cepkurye ul li {
+    font-size: 1.5rem;
+  }
+}
+
+
+/* Kutular Kısmı */
+.boxes {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 50vh;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap; /* Küçük ekranlarda yeni satıra geç */
+  padding: 10px;
+  margin-bottom: 40px; /* Altındaki div ile aralık bırak */
+
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.box .icon {
+  width: 60px; /* İkon boyutunu büyüttük */
+  height: 60px;
+  margin-bottom: 15px;
+  display: flex;
+ 
+}
+
+.box .icon img {
+  width: 100%; /* İkon genişliğini kutu boyutuna uyarladık */
+  height: 100%; /* Yüksekliği genişlik ile eşledik */
+  object-fit: cover; /* Görsellerin tamamı aynı boyutta olacak şekilde kırpıldı */
+}
+
+.box h3 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.box p {
+  font-size: 1.8rem;
+  max-width: 80%;
+  line-height: 1.5;
+  transition: transform 0.3s ease;
+}
+
+/* Kutuların Renklendirilmesi */ /* box renkleri değiştirildi */
+.box:nth-child(1) {
+  background-color: #fda5c6; /* Eski renk: #ff5722 */
+}
+
+.box:nth-child(2) {
+  background-color: #d599c3; /* Eski renk: #7e57c2 */
+}
+
+.box:nth-child(3) {
+  background-color: #ac8cbf; /* Eski renk: #ec407a */
+}
+
+.box:nth-child(4) {
+  background-color: #8570b2; /* Eski renk: #03a9f4 */
+}
+
+/* Hover Efekti (Yazılar ve Görseller Yukarı Hareket Eder) */
+.box:hover .icon,
+.box:hover h3,
+.box:hover p {
+  transform: translateY(-30px);
+}
+
+/* 4'lü Görünüm (Geniş Masaüstü) */
+@media (min-width: 1025px) {
+  .box {
+    flex: 1 1 25%; /* Her kutu genişliği %25 */
+    max-width: 25%;
+    height: auto;
+  }
+}
+
+/* 2'li Görünüm (Tablet) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .box {
+    flex: 1 1 50%; /* Her kutu genişliği %50 */
+    max-width: 50%;
+    height: auto;
+  }
+  .boxes{
+    margin-bottom: 130px;
+  }
+}
+
+/* Tekli Görünüm (Mobil) */
+@media (max-width: 768px) {
+  .boxes {
+    justify-content: center;
+    height:auto;
+  }
+
+  .box {
+    flex: 1 1 100%; /* Her kutu genişliği %100 */
+    max-width: 100%;
+    height: auto;
+  }
+  
+}
+
+
+
+
+/* Tamir Hizmetleri Bölümü */
+.tamir-hizmetleri {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #3f353c;
+}
+
+.tamir-hizmetleri h2 {
+  font-size: 4rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.carousel {
+  overflow: hidden;
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.service-item {
+  flex: 0 0 20%;
+  /* Ekranın yüzde 20'sini kaplasın */
+  text-align: center;
+  margin: 10px;
+  padding: 20px;
+  background-color: #cdbac8;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: auto !important; 
+}
+
+.service-item:hover {
+  background-color: #d599c3 /* hover rengi değiştirildi */;
+  color: black;
+
+}
+
+
+/* Hizmet Verdiğimiz Markalar */
+.hizmet-marka {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #3f353c;
+  padding-top: 50px;
+  margin-bottom: 50px;
+}
+
+.hizmet-marka h2 {
+  font-size: 4rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.hizmet-marka p {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* Markalar Bölümü Düzenlemesi */ /* arka plan rengi düzenlendi */
+.markalar {
+  display: flex;
+  /* Flexbox kullanımı */
+  justify-content: center;
+  /* Ortala */
+  flex-wrap: wrap;
+  /* Taşan logoları bir alt satıra taşı */
+  gap: 30px;
+  /* Aralarına boşluk ekle */
+  background-color: #c3aebd;
+  width: 60%;
+  margin: 0 auto;
+  padding: 1%;
+  border-radius: 8px;
+}
+
+.marka {
+  display: flex;
+  /* Her logoyu kapsayıcı içine hizalamak için */
+  align-items: center;
+  /* Dikey merkezleme */
+  justify-content: center;
+  /* Yatay merkezleme */
+  width: 120px;
+  /* Sabit genişlik */
+  height: 120px;
+  /* Sabit yükseklik */
+  background-color: transparent;
+  /* Hafif gri zemin */
+  border-radius: 8px;
+
+}
+
+.marka img {
+  max-width: 80%;
+  /* Logoların genişliği */
+  max-height: 80%;
+  /* Logoların yüksekliği */
+  object-fit: contain;
+  /* Görsellerin orantısını koru */
+}
+
+
