@@ -59,20 +59,81 @@ const corsOptions = {
     "http://localhost:5000",
     "http://127.0.0.1:5501",
     "http://localhost:5501",
+    "https://ayda.space",
+    "https://www.ayda.space",
   ], // Frontend adresi
   methods: ["GET", "POST", "DELETE", "PUT"], // İzin verilen HTTP metodları
   allowedHeaders: ["Content-Type", "Authorization"], // İzin verilen başlıklar
   credentials: true,
 };
 
+app.use((req, res, next) => {
+  // "*" yerine net bir domain yazmak SOP (Same Origin Policy) kuralını güçlendirir.
+  res.header("Access-Control-Allow-Origin", "https://ayda.space");
+  res.header("X-Content-Type-Options", "nosniff");
+  next();
+});
+
 app.use(
-  helmet.hsts({
-    maxAge: 31536000, // 1 yıl
-    includeSubDomains: true,
-    preload: true,
+  helmet({
+    // 1. HSTS Ayarı
+    hsts: {
+      maxAge: 31536000,
+      includeSubDomains: true,
+      preload: true,
+    },
+    // 2. CORS ve Kaynak Politikaları
+    crossOriginResourcePolicy: { policy: "same-origin" },
+    crossOriginEmbedderPolicy: false,
+    contentSecurityPolicy: {
+      directives: {
+        "default-src": ["'self'"],
+        "script-src": [
+          "'self'",
+          "https://ajax.googleapis.com",
+          "https://cdn.jsdelivr.net",
+        ],
+        "style-src": [
+          "'self'",
+          "'unsafe-inline'",
+          "https://maxcdn.bootstrapcdn.com",
+          "https://cdn.jsdelivr.net",
+          "https://cdnjs.cloudflare.com",
+        ],
+        "connect-src": [
+          "'self'",
+          "https://maxcdn.bootstrapcdn.com",
+          "https://*.bootstrapcdn.com",
+          "https://cdn.jsdelivr.net",
+        ],
+        "img-src": [
+          "'self'",
+          "data:",
+          "https://cdn-icons-png.flaticon.com",
+          "https://logoeps.com",
+          "https://*.flaticon.com",
+        ],
+        "font-src": [
+          "'self'",
+          "https://cdnjs.cloudflare.com",
+          "https://maxcdn.bootstrapcdn.com",
+        ],
+      },
+    },
+    // 3. noSniff ve diğerleri varsayılan olarak açık gelir
+    noSniff: true,
   }),
-  helmet.noSniff(),
 );
+
+// Express kullanıyorsan bu middleware'i ekle
+app.use((req, res, next) => {
+  // HSTS başlığı: 1 yıl boyunca sadece HTTPS üzerinden erişime izin verir
+  res.setHeader(
+    "Strict-Transport-Security",
+    "max-age=31536000; includeSubDomains; preload",
+  );
+  next();
+});
 
 app.use(
   helmet.contentSecurityPolicy({
@@ -125,6 +186,23 @@ app.use(
 
 app.use("/uploads", express.static("uploads"));
 
+app.use((req, res, next) => {
+  const forbiddenPaths = [
+    "node_modules",
+    ".env",
+    "package.json",
+    "package-lock.json",
+  ];
+  if (forbiddenPaths.some((path) => req.url.includes(path))) {
+    return res
+      .status(403)
+      .send(
+        "Access Forbidden: You do not have permission to access this resource.",
+      );
+  }
+  next();
+});
+
 if (process.env.NODE_ENV !== "test") {
   mongoose
     .connect(process.env.MONGO_URI)
@@ -144,7 +222,7 @@ if (process.env.NODE_ENV !== "test") {
   });
 }
 
-app.get("/health", async (req, res) => {
+app.get("/health", verifyToken, async (req, res) => {
   try {
     await mongoose.connection.db.admin().ping();
     res.status(200).send("Veritabanı sağlıklı");
@@ -783,6 +861,20 @@ app.get("/api/medias", async (req, res) => {
       message: "İşlem sırasında bir hata oluştu. Lütfen tekrar deneyin.",
     });
   }
+});
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+  // Hatayı sunucu tarafında logla (Winston kullanıyorsun zaten)
+  logger.error(
+    `${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`,
+  );
+
+  // Kullanıcıya teknik detayı DEĞİL, genel bir mesaj gönder
+  res.status(err.status || 500).json({
+    message: "Bir şeyler ters gitti! Lütfen daha sonra tekrar deneyin.",
+    errorId: new Date().getTime(), // Kullanıcıya sadece bir referans ID ver (hata çözümü için gerekirse diye)
+  });
 });
 
 module.exports = app;
