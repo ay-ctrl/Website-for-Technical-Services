@@ -3,21 +3,25 @@ const mongoose = require("mongoose");
 const app = express();
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-app.use(express.json());
+
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
-app.use(express.urlencoded({ extended: true }));
+
 const cookieParser = require("cookie-parser");
-app.use(cookieParser());
+
 const helmet = require("helmet");
+const lusca = require("lusca");
+
 const winston = require("winston"); // Hata logları için winston kullanıyoruz
 const DailyRotateFile = require("winston-daily-rotate-file");
 const verifyToken = require("./middleware/verifytoken"); // Token doğrulama middleware'ı
-app.disable("x-powered-by");
+
 const https = require("https");
+const rateLimit = require("express-rate-limit");
+const sanitize = require("mongo-sanitize");
 
 // Sertifikaları yükle
 const privateKey = fs.readFileSync("localhost-key.pem", "utf8");
@@ -30,7 +34,15 @@ const User = require("./models/users");
 const Campaign = require("./models/campaigns");
 const Product = require("./models/products");
 const Media = require("./models/media");
-
+// Genel hız sınırlayıcı (15 dakikada her IP'den 100 istek)
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: "Çok fazla istek attınız, lütfen 15 dakika sonra tekrar deneyin.",
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use(limiter);
 // Logger config
 const logger = winston.createLogger({
   level: "info",
@@ -66,13 +78,23 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"], // İzin verilen başlıklar
   credentials: true,
 };
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser()); // Lusca'dan ÖNCE gelmeli
+app.use(cors(corsOptions)); // corsOptions artık yukarıda tanımlı olduğu için hata vermez
+app.use(helmet());
 
 app.use((req, res, next) => {
-  // "*" yerine net bir domain yazmak SOP (Same Origin Policy) kuralını güçlendirir.
+  // CORS
   res.header("Access-Control-Allow-Origin", "https://ayda.space");
   res.header("X-Content-Type-Options", "nosniff");
   next();
 });
+
+// CSRF protection
+app.use(lusca.csrf());
+
+app.disable("x-powered-by");
 
 app.use(
   helmet({
@@ -236,8 +258,6 @@ app.get("/", (req, res) => {
   res.redirect("/CustomerSide/index.html"); // Anasayfaya yönlendir
 });
 
-const rateLimit = require("express-rate-limit");
-
 const loginLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 saat
   max: 3, // 3 deneme hakkı
@@ -281,10 +301,9 @@ app.post("/api/login", loginLimiter, async (req, res) => {
     });
     // HttpOnly Cookie ayarla
     res.cookie("token", token, {
-      httpOnly: true, // Token'a JavaScript ile erişilemiyor
-      secure: true, // Geliştirme ortamında HTTPS'ye gerek yok
-      sameSite: "None", // Çerez sadece aynı site içinden gönderilebilir
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 gün = 1 ay
+      httpOnly: true, // Tarayıcı JS'si bu cookie'ye erişemesin (XSS koruması)
+      secure: true, // Sadece HTTPS üzerinden gönderilsin (Zaten sertifikan var, harika)
+      sameSite: "Strict", // Sadece senin kendi sitenden gelen isteklere izin ver (CSRF koruması!)
     });
     res.status(200).json({ message: "Giriş başarılı!" });
   } catch (error) {
@@ -343,7 +362,7 @@ app.post("/change-password", verifyToken, async (req, res) => {
     }
 
     // Kullanıcıyı veritabanında bul
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username: sanitize(username) });
 
     if (!user) {
       return res.status(404).json({ message: "Kullanıcı bulunamadı" });
@@ -388,7 +407,9 @@ app.post("/api/repairRequests/search", async (req, res) => {
 
   try {
     // Sadece gerekli alanları seç + index kullanımı
-    const repairRequest = await Request.findOne({ queryNum })
+    const repairRequest = await Request.findOne({
+      queryNum: sanitize(queryNum),
+    })
       .select("queryNum name phone adress sorunlar createdAt state price")
       .lean(); // Daha hızlı JSON dönüşümü
 
@@ -740,9 +761,14 @@ app.put("/api/update-request/:id", verifyToken, async (req, res) => {
   const updateData = req.body;
 
   try {
-    const updatedRequest = await Request.findByIdAndUpdate(id, updateData, {
-      new: true,
-    });
+    // Hem id'yi hem de gelen tüm body verisini sanitize ediyoruz
+    const updatedRequest = await Request.findByIdAndUpdate(
+      sanitize(id),
+      sanitize(updateData),
+      {
+        new: true,
+      },
+    );
     if (!updatedRequest) {
       logger.warn(
         `PUT /api/update-request/${id} - Talep bulunamadı (ID: ${id})`,
@@ -765,7 +791,7 @@ app.put("/api/update-request/:id", verifyToken, async (req, res) => {
 app.delete("/delete-request/:id", verifyToken, async (req, res) => {
   try {
     const requestId = req.params.id; // ID'yi burada alıyoruz
-    await Request.findByIdAndDelete(requestId);
+    await Request.findByIdAndDelete(sanitize(requestId));
     logger.info(
       `DELETE /delete-request/${requestId} - Talep başarıyla silindi (ID: ${requestId})`,
     );
