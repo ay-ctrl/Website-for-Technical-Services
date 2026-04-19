@@ -225,18 +225,22 @@ app.use((req, res, next) => {
   next();
 });
 
+// MongoDB bağlantısı
 if (process.env.NODE_ENV !== "test") {
   mongoose
     .connect(process.env.MONGO_URI)
     .then(() => {
       console.log("Connected to database :)");
-      https.createServer(httpsCredentials, app).listen(process.env.PORT, () => {
-        console.log("Sunucu HTTPS üzerinden 5000 portunda çalışıyor!");
+
+      const port = process.env.PORT || 5000;
+
+      app.listen(port, "0.0.0.0", () => {
+        console.log("Server running on port", port);
       });
     })
     .catch((error) => {
       console.log("Database Connection failed :(");
-      console.error("HATA DETAYI BURADA --->", error); // Bu satırı ekle
+      console.error(error);
     });
 } else {
   mongoose.connect(process.env.MONGO_TEST_URI).then(() => {
