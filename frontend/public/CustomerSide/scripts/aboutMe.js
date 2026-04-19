@@ -1,4 +1,4 @@
-window.API_URL = "http://localhost:5000";
+window.API_URL = "https://technical-service-website.onrender.com";
 document.addEventListener("DOMContentLoaded", function () {
   showMedias();
 });

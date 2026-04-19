@@ -159,6 +159,7 @@ app.use(
       ],
       styleSrc: [
         "'self'",
+        "'unsafe-inline'",
         "https://cdn.jsdelivr.net", // Bootstrap 5
         "https://maxcdn.bootstrapcdn.com", // Bootstrap 3
         "https://cdnjs.cloudflare.com", // Font Awesome
@@ -248,7 +249,7 @@ app.get("/health", verifyToken, async (req, res) => {
 
 // Anasayfaya gelen GET isteği için yönlendirme yap
 app.get("/", (req, res) => {
-  res.redirect("/CustomerSide/index.html"); // Anasayfaya yönlendir
+  res.sendFile(path.join(__dirname, "frontend/public/CustomerSide/index.html"));
 });
 
 const loginLimiter = rateLimit({
