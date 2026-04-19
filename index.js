@@ -18,15 +18,8 @@ const lusca = require("lusca");
 const winston = require("winston"); // Hata logları için winston kullanıyoruz
 const DailyRotateFile = require("winston-daily-rotate-file");
 const verifyToken = require("./middleware/verifytoken"); // Token doğrulama middleware'ı
-
-const https = require("https");
 const rateLimit = require("express-rate-limit");
 const sanitize = require("mongo-sanitize");
-
-// Sertifikaları yükle
-const privateKey = fs.readFileSync("localhost-key.pem", "utf8");
-const certificate = fs.readFileSync("localhost.pem", "utf8");
-const httpsCredentials = { key: privateKey, cert: certificate };
 
 // Schemas
 const Request = require("./models/repairRequests");
@@ -259,7 +252,7 @@ app.get("/health", verifyToken, async (req, res) => {
 
 // Anasayfaya gelen GET isteği için yönlendirme yap
 app.get("/", (req, res) => {
-  res.redirect("/CustomerSide/index.html"); // Anasayfaya yönlendir
+  res.redirect("frontend/public/CustomerSide/index.html"); // Anasayfaya yönlendir
 });
 
 const loginLimiter = rateLimit({
