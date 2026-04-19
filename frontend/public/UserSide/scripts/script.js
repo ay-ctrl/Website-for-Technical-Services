@@ -1,5 +1,5 @@
 //DASHBOARD
-window.API_URL = "https://localhost:5000";
+window.API_URL = "http://localhost:5000";
 
 // Her Sayfa yüklendiğinde token doğrulaması yap
 async function verifyTokenBeforeLoad() {

@@ -1,5 +1,5 @@
 //INDEX
-window.API_URL = "https://localhost:5000";
+window.API_URL = "http://localhost:5000";
 
 document.addEventListener("DOMContentLoaded", function () {
   // ... Diğer event handlerlar
