@@ -267,7 +267,7 @@ app.post("/api/login", loginLimiter, async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // Tarayıcı JS'si bu cookie'ye erişemesin (XSS koruması)
       secure: true, // Sadece HTTPS üzerinden gönderilsin (Zaten sertifikan var, harika)
-      sameSite: "Strict", // Sadece senin kendi sitenden gelen isteklere izin ver (CSRF koruması!)
+      sameSite: "None", // Sadece senin kendi sitenden gelen isteklere izin ver (CSRF koruması!)
     });
     res.status(200).json({ message: "Giriş başarılı!" });
   } catch (error) {
