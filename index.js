@@ -26,15 +26,41 @@ const User = require("./models/users");
 const Campaign = require("./models/campaigns");
 const Product = require("./models/products");
 const Media = require("./models/media");
-// Genel hız sınırlayıcı (15 dakikada her IP'den 100 istek)
-const limiter = rateLimit({
+
+const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
-  message: "Çok fazla istek attınız, lütfen 15 dakika sonra tekrar deneyin.",
+  message: "Çok fazla işlem yaptınız, lütfen biraz bekleyin.",
   standardHeaders: true,
   legacyHeaders: false,
 });
-app.use(limiter);
+
+// Protected routes
+const protectedRoutes = [
+  "/change-password",
+  "/api/repairRequests/search",
+  "/health",
+  "/api/upload-campaign",
+  "/upload-product",
+  "/products/",
+  "/get-requests",
+  "/api/update-request/",
+  "/delete-request/",
+  "/get-request/",
+  "/upload-media",
+  "/api/repairRequests",
+];
+
+// Bu fonksiyon gelen her isteği kontrol eder
+app.use((req, res, next) => {
+  // Eğer gelen istek bizim listemizdeki yollardan biriyse
+  if (protectedRoutes.some((route) => req.path.startsWith(route))) {
+    return apiLimiter(req, res, next); // Bodyguard devreye girer
+  }
+  // Eğer listede yoksa (mesela hakkimizda.html ise) elini kolunu sallayarak geçer
+  next();
+});
+
 // Logger config
 const logger = winston.createLogger({
   level: "info",
