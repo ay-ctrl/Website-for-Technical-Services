@@ -100,7 +100,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); // Lusca'dan ÖNCE gelmeli
 app.use(cors(corsOptions)); // corsOptions artık yukarıda tanımlı olduğu için hata vermez
-app.use(helmet());
 
 app.use((req, res, next) => {
   // CORS
@@ -110,57 +109,6 @@ app.use((req, res, next) => {
 });
 
 app.disable("x-powered-by");
-
-app.use(
-  helmet({
-    // 1. HSTS Ayarı
-    hsts: {
-      maxAge: 31536000,
-      includeSubDomains: true,
-      preload: true,
-    },
-    // 2. CORS ve Kaynak Politikaları
-    crossOriginResourcePolicy: { policy: "same-origin" },
-    crossOriginEmbedderPolicy: false,
-    contentSecurityPolicy: {
-      directives: {
-        "default-src": ["'self'"],
-        "script-src": [
-          "'self'",
-          "https://ajax.googleapis.com",
-          "https://cdn.jsdelivr.net",
-        ],
-        "style-src": [
-          "'self'",
-          "'unsafe-inline'",
-          "https://maxcdn.bootstrapcdn.com",
-          "https://cdn.jsdelivr.net",
-          "https://cdnjs.cloudflare.com",
-        ],
-        "connect-src": [
-          "'self'",
-          "https://maxcdn.bootstrapcdn.com",
-          "https://*.bootstrapcdn.com",
-          "https://cdn.jsdelivr.net",
-        ],
-        "img-src": [
-          "'self'",
-          "data:",
-          "https://cdn-icons-png.flaticon.com",
-          "https://logoeps.com",
-          "https://*.flaticon.com",
-        ],
-        "font-src": [
-          "'self'",
-          "https://cdnjs.cloudflare.com",
-          "https://maxcdn.bootstrapcdn.com",
-        ],
-      },
-    },
-    // 3. noSniff ve diğerleri varsayılan olarak açık gelir
-    noSniff: true,
-  }),
-);
 
 // Express kullanıyorsan bu middleware'i ekle
 app.use((req, res, next) => {
@@ -173,45 +121,40 @@ app.use((req, res, next) => {
 });
 
 app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: [
-        "'self'",
-        "https://cdn.jsdelivr.net", // Bootstrap 5
-        "https://ajax.googleapis.com", // jQuery
-        "https://maxcdn.bootstrapcdn.com", // Bootstrap 3
-        "cdnjs.cloudflare.com",
-      ],
-      styleSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "https://cdn.jsdelivr.net", // Bootstrap 5
-        "https://maxcdn.bootstrapcdn.com", // Bootstrap 3
-        "https://cdnjs.cloudflare.com", // Font Awesome
-      ],
-      fontSrc: [
-        "'self'",
-        "https://maxcdn.bootstrapcdn.com",
-        "https://fonts.gstatic.com",
-        "https://cdnjs.cloudflare.com",
-      ],
-      connectSrc: ["'self'"],
-      imgSrc: [
-        "'self'",
-        "https://cdn-icons-png.flaticon.com/256/0/747.png",
-        "data:",
-        "https://upload.wikimedia.org", // Wikimedia görselleri için izin
-        "https://logos-world.net", // Logos World görselleri için izin
-        "https://i.pinimg.com", // Pinterest görselleri için izin
-        "https://logoeps.com",
-        "https://cdn-icons-png.flaticon.com", // Flaticon görselleri için izin
-        "https://lh3.googleusercontent.com",
-        "https://coflex.com.tr",
-        "https://st2.depositphotos.com",
-      ],
-      objectSrc: ["'none'"],
-      upgradeInsecureRequests: [],
+  helmet({
+    hsts: {
+      maxAge: 31536000,
+      includeSubDomains: true,
+      preload: true,
+    },
+    crossOriginResourcePolicy: { policy: "same-origin" },
+    crossOriginEmbedderPolicy: false,
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          "https://cdn.jsdelivr.net",
+          "https://ajax.googleapis.com",
+        ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://cdn.jsdelivr.net",
+          "https://maxcdn.bootstrapcdn.com",
+          "https://cdnjs.cloudflare.com",
+        ],
+        connectSrc: [
+          "'self'",
+          "https://technical-service-website.onrender.com",
+        ],
+        imgSrc: ["'self'", "data:"],
+        fontSrc: [
+          "'self'",
+          "https://cdnjs.cloudflare.com",
+          "https://maxcdn.bootstrapcdn.com",
+        ],
+      },
     },
   }),
 );
