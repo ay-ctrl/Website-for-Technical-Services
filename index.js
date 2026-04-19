@@ -230,7 +230,7 @@ if (process.env.NODE_ENV !== "test") {
     .connect(process.env.MONGO_URI)
     .then(() => {
       console.log("Connected to database :)");
-      https.createServer(httpsCredentials, app).listen(5000, () => {
+      https.createServer(httpsCredentials, app).listen(process.env.PORT, () => {
         console.log("Sunucu HTTPS üzerinden 5000 portunda çalışıyor!");
       });
     })
