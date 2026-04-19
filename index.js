@@ -147,6 +147,7 @@ app.use(
         connectSrc: [
           "'self'",
           "https://technical-service-website.onrender.com",
+          "https://ayda.space",
         ],
         imgSrc: ["'self'", "data:"],
         fontSrc: [
