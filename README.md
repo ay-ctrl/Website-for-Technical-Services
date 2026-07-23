@@ -173,13 +173,13 @@ For support, feature requests, or suggestions:
 - ✉️ **Email**: [ayseatik887@gmail.com](mailto:ayseatik887@gmail.com)  
 
 ## ⚠️ Same frontend photos
-![System Architecture](images/dashboard.webg)
+![System Architecture](images/dashboard.webp)
 
-![System Architecture](images/request.webg)
+![System Architecture](images/request.webp)
 
-![System Architecture](images/product.webg)
+![System Architecture](images/product.webp)
 
-![System Architecture](images/login.webg)
+![System Architecture](images/login.webp)
 ---
 
 © 2025 ayda.site | Built to empower your business online.
